@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Absencja per Wydział – Pion Produkcji 2026</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F2F2F5;color:#1a1a1a;padding:20px}
+.wrap{max-width:1100px;margin:0 auto}
+.header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;flex-wrap:wrap;gap:8px}
+h1{font-size:17px;font-weight:600;margin-bottom:3px}
+.subtitle{font-size:11px;color:#777}
+.badge{background:#6B3FA0;color:#fff;font-size:10px;padding:3px 10px;border-radius:20px;font-weight:500}
+.badge-green{background:#3B6D11;color:#fff;font-size:10px;padding:3px 10px;border-radius:20px;font-weight:500}
+
+/* SELECTOR */
+.selector{background:#fff;border:0.5px solid #ddd;border-radius:10px;padding:12px 16px;margin-bottom:12px}
+.sel-lbl{font-size:10px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.btns{display:flex;flex-wrap:wrap;gap:7px}
+.dbtn{padding:6px 13px;border-radius:6px;border:1.5px solid #ddd;background:#fff;font-size:12px;font-weight:500;cursor:pointer;color:#444;transition:all .15s;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.dbtn:hover{border-color:#9B7FCC;color:#6B3FA0}
+.dbtn.active{border-color:#6B3FA0;background:#6B3FA0;color:#fff}
+.dbtn .p{font-size:10px;opacity:.7;font-weight:400}
+.dbtn.active .p{opacity:.9}
+.cbullet{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+/* KPI */
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:12px}
+.kpi{background:#fff;border-radius:8px;padding:11px 14px;border:0.5px solid #e0e0e0}
+.kpi-lbl{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
+.kpi-val{font-size:21px;font-weight:600;line-height:1.1}
+.kpi-sub{font-size:11px;color:#999;margin-top:3px}
+
+/* PANEL */
+.panel{background:#fff;border:0.5px solid #ddd;border-radius:10px;padding:14px 16px}
+.sec{font-size:10px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+@media(max-width:700px){.grid2{grid-template-columns:1fr}}
+
+/* TABELA */
+.wt{width:100%;border-collapse:collapse;font-size:12px}
+.wt th{font-size:10px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.04em;padding:0 8px 8px 0;border-bottom:0.5px solid #eee;text-align:right;white-space:nowrap}
+.wt th:first-child{text-align:left}
+.wt td{padding:7px 8px 7px 0;border-bottom:0.5px solid #f5f5f5;text-align:right;vertical-align:middle}
+.wt td:first-child{text-align:left}
+.wt tr:last-child td{border-bottom:none}
+.wt tr.total-row td{font-weight:700;border-top:1.5px solid #ddd;padding-top:9px}
+.wt tr.total-row td:first-child{color:#6B3FA0}
+.wname{display:flex;align-items:center;gap:7px}
+.mb{display:inline-block;width:48px;height:5px;background:#eee;border-radius:2px;vertical-align:middle;overflow:hidden;flex-shrink:0}
+.mb-f{height:100%;border-radius:2px}
+
+/* NOTA */
+.al-warn{background:#FFF8E1;border:0.5px solid #F0B429;border-radius:8px;padding:7px 12px;font-size:11px;color:#7A4E00;margin-bottom:12px;display:flex;gap:8px;align-items:flex-start}
+
+/* KARTY MIESIĘCZNE */
+.mgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.mcard{background:#F9F9FB;border-radius:7px;padding:9px 11px;border:0.5px solid #eee}
+.mcard-name{font-size:10px;color:#888;font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+.mcard-pct{font-size:19px;font-weight:600;line-height:1.1}
+.mcard-sub{font-size:10px;color:#999;margin-top:3px}
+
+/* CHART */
+.ch210{position:relative;height:210px}
+.ch170{position:relative;height:170px}
+.leg{display:flex;gap:10px;margin-top:8px;font-size:10px;color:#666;flex-wrap:wrap;align-items:center}
+.leg span{display:flex;align-items:center;gap:4px}
+.dot{display:inline-block;width:9px;height:9px;border-radius:2px}
+.footer{margin-top:14px;text-align:center;font-size:10px;color:#bbb}
+.src-note{font-size:10px;color:#3B6D11;font-weight:500}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="header">
+  <div>
+    <h1>Produkcja – Absencja per Wydział</h1>
+    <div class="subtitle">Sty–Kwi 2026 · UoP · bez agencji/zleceń · Wykluczone: REH, UM, USW · <span class="src-note">✓ Dane z listy pracowników 18.05.2026 — pełny podział na wydziały</span></div>
+  </div>
+  <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+    <span class="badge-green">✓ Wydziały dopasowane</span>
+    <span class="badge">Dane 29.05.2026</span>
+  </div>
+</div>
+
+<div class="al-warn">⚠️ <span>Wskaźniki bazują na pewnych danych <strong>sty–kwi 2026</strong>. Maj = dane wstępne, nie uwzględniony.</span></div>
+
+<div class="selector">
+  <div class="sel-lbl">Wybierz dział</div>
+  <div class="btns" id="btns"></div>
+</div>
+
+<div class="kpi-row" id="kpis"></div>
+
+<div class="grid2">
+  <div class="panel">
+    <div class="sec">Wydziały — absencja sty–kwi</div>
+    <table class="wt" id="wt"></table>
+  </div>
+  <div class="panel">
+    <div class="sec">Trend miesięczny absencji per wydział</div>
+    <div class="ch210"><canvas id="trendC"></canvas></div>
+    <div class="leg" id="tleg"></div>
+  </div>
+</div>
+
+<div class="grid2">
+  <div class="panel">
+    <div class="sec">Absencja miesięczna — dział łącznie</div>
+    <div class="mgrid" id="mcards"></div>
+  </div>
+  <div class="panel">
+    <div class="sec">Ranking wydziałów — % absencji sty–kwi</div>
+    <div class="ch170"><canvas id="barC"></canvas></div>
+  </div>
+</div>
+
+<div class="footer">Pion Produkcji · sty–kwi 2026 · UoP · Źródło wydziałów: lista pracowników 18.05.2026 + struktura org MPK · Wykluczone: REH, UM, USW</div>
+</div>
+
+<script>
+const M  = ["Sty","Lut","Mar","Kwi"];
+const MF = {Sty:"Styczeń",Lut:"Luty",Mar:"Marzec",Kwi:"Kwiecień"};
+const WC = ["#E24B4A","#4472C4","#70AD47","#EF9F27","#7B68EE","#C97B1A","#E8337C","#5B9BD5","#3B6D11","#9966CC","#CC3333","#336699"];
+
+// Wydziały oznaczone jako "ogólny" = pracownicy przypisani do MPK działu bez konkretnego wydziału
+// Nie są ukryte - pokazujemy transparentnie
+const DZIALY = {
+  "OWP": {
+    color:"#5B9BD5",
+    total:{Sty:[814,187],Lut:[740,95],Mar:[814,96],Kwi:[814,97]},
+    wydzialy:[
+      {n:"Prasy CNC",         d:{Sty:[352,92], Lut:[320,57], Mar:[352,76], Kwi:[352,41]}},
+      {n:"Piły",              d:{Sty:[88,13],  Lut:[80,2],   Mar:[88,7],   Kwi:[88,12]}},
+      {n:"Prasy Korbowe",     d:{Sty:[110,20], Lut:[100,0],  Mar:[110,0],  Kwi:[110,8]}},
+      {n:"Tokarki Manualne",  d:{Sty:[66,34],  Lut:[60,30],  Mar:[66,7],   Kwi:[66,20]}, uwaga:"Laser 2D"},
+      {n:"Laser 2D",          d:{Sty:[66,34],  Lut:[60,30],  Mar:[66,7],   Kwi:[66,20]}},
+      {n:"Laser 3D",          d:{Sty:[44,8],   Lut:[40,4],   Mar:[44,2],   Kwi:[44,0]}},
+      {n:"Wyważarki",         d:{Sty:[66,9],   Lut:[60,0],   Mar:[66,0],   Kwi:[66,1]}},
+      {n:"Przygot. Pow.",     d:{Sty:[22,5],   Lut:[20,0],   Mar:[22,1],   Kwi:[22,7]}},
+      {n:"Krajalnia",         d:{Sty:[22,2],   Lut:[20,0],   Mar:[22,1],   Kwi:[22,4]}},
+    // OWP – ogólny: 2 mistrzów (Birkos, Jarmoszko) – pomijamy
+    ]
+  },
+  "Obróbka skrawaniem": {
+    color:"#70AD47",
+    total:{Sty:[1308,308],Lut:[1200,112],Mar:[1320,131],Kwi:[1320,174]},
+    wydzialy:[
+      {n:"Tokarki CNC",      d:{Sty:[660,183],Lut:[600,84], Mar:[660,87], Kwi:[660,101]}},
+      {n:"Frezarki CNC",     d:{Sty:[296,54], Lut:[280,9],  Mar:[308,20], Kwi:[308,33]}},
+      {n:"Wiertarki",        d:{Sty:[132,28], Lut:[120,11], Mar:[132,7],  Kwi:[132,17]}},
+      {n:"Tokarki Manualne", d:{Sty:[198,40], Lut:[180,6],  Mar:[198,17], Kwi:[198,22]}},
+      // WOS ogólny: 1 mistrz (Borowski) – pomijamy
+    ]
+  },
+  "Spawalnia": {
+    color:"#E24B4A",
+    total:{Sty:[2106,584],Lut:[1940,323],Mar:[2123,371],Kwi:[2138,393]},
+    wydzialy:[
+      {n:"Spawalnia 1", d:{Sty:[1044,319],Lut:[960,164], Mar:[1045,184],Kwi:[1052,203]}},
+      {n:"Spawalnia 5", d:{Sty:[220,72],  Lut:[200,45],  Mar:[220,37],  Kwi:[220,45]}},
+      {n:"Spawalnia 2", d:{Sty:[314,76],  Lut:[300,49],  Mar:[330,79],  Kwi:[330,76]}},
+      {n:"Spawalnia 3", d:{Sty:[198,47],  Lut:[180,20],  Mar:[198,33],  Kwi:[206,33]}},
+      {n:"Spawalnia 4", d:{Sty:[286,60],  Lut:[260,42],  Mar:[286,37],  Kwi:[286,34]}},
+      // Spawalnia ogólny: Bujnarowski (kier.) + Panasewicz (mistrz) – pomijamy
+    ]
+  },
+  "Roboty spawalnicze": {
+    color:"#C97B1A",
+    total:{Sty:[440,108],Lut:[400,51],Mar:[440,60],Kwi:[436,59]},
+    wydzialy:[
+      {n:"Roboty Spawalnicze", d:{Sty:[418,105],Lut:[380,51],Mar:[418,60],Kwi:[414,57]}},
+      // Roboty ogólny: Kamiński (kier.) – pomijamy
+    ]
+  },
+  "Malarnia": {
+    color:"#7B68EE",
+    total:{Sty:[814,126],Lut:[740,68],Mar:[792,50],Kwi:[792,83]},
+    wydzialy:[
+      {n:"Śrutownia",            d:{Sty:[264,47],Lut:[240,28],Mar:[264,22],Kwi:[264,21]}},
+      {n:"Malarnia Automatyczna",d:{Sty:[440,62],Lut:[400,34],Mar:[418,20],Kwi:[418,39]}},
+      {n:"Malarnia Ręczna",      d:{Sty:[88,14], Lut:[80,5],  Mar:[88,6],  Kwi:[88,20]}},
+      // Malarnia ogólny: Mielech S. (mistrz) – pomijamy
+    ]
+  },
+  "Malarnia Mokra": {
+    color:"#9966CC",
+    
+    
+    total:{Sty:[88,15],Lut:[80,16],Mar:[88,8],Kwi:[88,7]},
+    wydzialy:[
+      {n:"Malarnia Mokra", d:{Sty:[88,15],Lut:[80,16],Mar:[88,8],Kwi:[88,7]}},
+    ]
+  },
+  "Montaż": {
+    color:"#4472C4",
+    total:{Sty:[1742,324],Lut:[1548,135],Mar:[1788,186],Kwi:[1772,240]},
+    wydzialy:[
+      {n:"Linia L3",  d:{Sty:[413,106],Lut:[340,42],Mar:[373,55],Kwi:[330,39]}},
+      {n:"Linia L10", d:{Sty:[302,75], Lut:[260,32],Mar:[308,36],Kwi:[308,71]}},
+      {n:"Linia L1",  d:{Sty:[279,36], Lut:[260,21],Mar:[286,37],Kwi:[286,43]}},
+      {n:"Linia L9",  d:{Sty:[308,44], Lut:[280,23],Mar:[320,25],Kwi:[330,22]}},
+      {n:"Linia L6",  d:{Sty:[154,26], Lut:[140,3], Mar:[154,17],Kwi:[154,33]}},
+      {n:"Linia L7",  d:{Sty:[242,27], Lut:[220,14],Mar:[281,14],Kwi:[282,14]}},
+      {n:"Linia L5",  d:{Sty:[0,0],    Lut:[8,0],   Mar:[22,0],  Kwi:[38,0]}},
+      // Montaż ogólny: Danilczyk + Mielech M. (mistrzowie) – pomijamy
+    ]
+  },
+  "Logistyka": {
+    color:"#EF9F27",
+    total:{Sty:[1694,430],Lut:[1519,237],Mar:[1650,177],Kwi:[1650,312]},
+    wydzialy:[
+      {n:"Logistyka Wewnętrzna",   d:{Sty:[1650,407],Lut:[1498,231],Mar:[1628,176],Kwi:[1628,311]}},
+      {n:"Wysyłka do Kooperantów", d:{Sty:[22,20],   Lut:[1,1],    Mar:[0,0],     Kwi:[0,0]}},
+      // Logistyka ogólny: Matulewicz (kier.) – pomijamy
+    ]
+  },
+};
+
+let cur="Spawalnia", tChart=null, bChart=null;
+
+function pc(p){return p>=20?"#A32D2D":p>=15?"#854F0B":p>=10?"#7A6000":"#3B6D11";}
+function wPct(w){ let o=0,a=0; M.forEach(m=>{if(w.d[m]){o+=w.d[m][0];a+=w.d[m][1];}}); return o>0?a/o*100:0; }
+function dzialSum(d){ let o=0,a=0; M.forEach(m=>{o+=d.total[m][0];a+=d.total[m][1];}); return {os:o,ab:a,pct:a/o*100}; }
+
+function buildBtns(){
+  const c=document.getElementById("btns");
+  // Sortuj wg absencji
+  const sorted = Object.entries(DZIALY).map(([n,d])=>{
+    const {pct}=dzialSum(d); return {n,d,pct};
+  }).sort((a,b)=>b.pct-a.pct);
+
+  sorted.forEach(({n,d,pct})=>{
+    const b=document.createElement("button");
+    b.className="dbtn"+(n===cur?" active":"");
+    b.dataset.name=n;
+    b.innerHTML=`<span class="cbullet" style="background:${d.color}"></span>${n}<span class="p">${pct.toFixed(1)}%</span>`;
+    b.onclick=()=>{cur=n;render();};
+    c.appendChild(b);
+  });
+}
+function updBtns(){document.querySelectorAll(".dbtn").forEach(b=>{b.className="dbtn"+(b.dataset.name===cur?" active":"");});}
+
+function render(){
+  updBtns();
+  const d=DZIALY[cur];
+  const {os,ab,pct}=dzialSum(d);
+
+  // KPI
+  const n_wyd = d.wydzialy.length;
+  document.getElementById("kpis").innerHTML=`
+    <div class="kpi"><div class="kpi-lbl">Absencja działu</div><div class="kpi-val" style="color:${pc(pct)}">${pct.toFixed(1)}%</div><div class="kpi-sub">sty–kwi 2026</div></div>
+    <div class="kpi"><div class="kpi-lbl">Dni absencyjne</div><div class="kpi-val" style="color:#854F0B">${ab.toLocaleString("pl-PL")}</div><div class="kpi-sub">łącznie sty–kwi</div></div>
+    <div class="kpi"><div class="kpi-lbl">Osobodni</div><div class="kpi-val" style="color:#185FA5">${os.toLocaleString("pl-PL")}</div><div class="kpi-sub">sty–kwi</div></div>
+    <div class="kpi"><div class="kpi-lbl">Wydziały</div><div class="kpi-val" style="color:#6B3FA0">${n_wyd}</div><div class="kpi-sub">z listy pracowników</div></div>
+  `;
+
+  // TABELA — sortuj wg % absencji malejąco, ogólny na dół
+  const wSorted = [...d.wydzialy]
+    .filter(w=>{ let o=0;M.forEach(m=>{o+=w.d[m]?w.d[m][0]:0;});return o>0;})
+    .sort((a,b)=>wPct(b)-wPct(a));
+
+  const maxP=wSorted.length?Math.max(...wSorted.map(w=>wPct(w))):1;
+  let rows="";
+  wSorted.forEach((w,i)=>{
+    let wo=0,wa=0; M.forEach(m=>{if(w.d[m]){wo+=w.d[m][0];wa+=w.d[m][1];}});
+    const wp=wo>0?(wa/wo*100):0;
+    const bw=Math.min((wp/Math.max(maxP,1)*100),100).toFixed(0);
+    const ogStyle="";
+    rows+=`<tr style="${ogStyle}">
+      <td><div class="wname">
+        <span class="mb"><span class="mb-f" style="width:${bw}%;background:${pc(wp)}"></span></span>
+        ${w.n}
+      </div></td>
+      <td>${wo.toLocaleString("pl-PL")}</td>
+      <td>${wa.toLocaleString("pl-PL")}</td>
+      <td style="font-weight:700;color:${pc(wp)}">${wp.toFixed(1)}%</td>
+    </tr>`;
+  });
+  rows+=`<tr class="total-row"><td>∑ Dział łącznie</td><td>${os.toLocaleString("pl-PL")}</td><td>${ab.toLocaleString("pl-PL")}</td><td style="color:${pc(pct)}">${pct.toFixed(1)}%</td></tr>`;
+  document.getElementById("wt").innerHTML=`
+    <thead><tr><th style="text-align:left">Wydział</th><th>Os-dni</th><th>Abs.</th><th>%</th></tr></thead>
+    <tbody>${rows}</tbody>`;
+
+  // KARTY MIESIĘCZNE
+  document.getElementById("mcards").innerHTML=M.map(m=>{
+    const[o,a]=d.total[m]; const p=(a/o*100).toFixed(1);
+    return `<div class="mcard"><div class="mcard-name">${MF[m]}</div><div class="mcard-pct" style="color:${pc(parseFloat(p))}">${p}%</div><div class="mcard-sub">${a} / ${o} dni</div></div>`;
+  }).join("");
+
+  // TREND
+  if(tChart){tChart.destroy();tChart=null;}
+  const gc="rgba(0,0,0,0.05)",tc="#999";
+  const dzialLine=M.map(m=>+(d.total[m][1]/d.total[m][0]*100).toFixed(1));
+  const datasets=[{label:`${cur} (dział)`,data:dzialLine,borderColor:d.color,backgroundColor:d.color+"18",borderWidth:3,fill:true,tension:0.35,pointRadius:5,pointBackgroundColor:d.color}];
+  let tlegHtml=`<span><span class="dot" style="background:${d.color}"></span>${cur} łącznie</span>`;
+
+  const wForChart=d.wydzialy.filter(w=>{let o=0;M.forEach(m=>{o+=w.d[m]?w.d[m][0]:0;});return o>0;});
+  if(wForChart.length>1){
+    wForChart.forEach((w,i)=>{
+      const col=WC[i%WC.length];
+      const line=M.map(m=>{const v=w.d[m]||[0,0];return v[0]>0?+(v[1]/v[0]*100).toFixed(1):null;});
+      datasets.push({label:w.n,data:line,borderColor:col,borderWidth:1.5,borderDash:[4,3],fill:false,tension:0.3,pointRadius:3,pointBackgroundColor:col});
+      tlegHtml+=`<span><span class="dot" style="background:${col};opacity:.8"></span>${w.n}</span>`;
+    });
+  }
+  document.getElementById("tleg").innerHTML=tlegHtml;
+
+  tChart=new Chart(document.getElementById("trendC"),{type:"line",
+    data:{labels:M.map(m=>MF[m]),datasets},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y!=null?` ${c.dataset.label}: ${c.parsed.y.toFixed(1)}%`:""}}},
+      scales:{x:{ticks:{font:{size:11},color:tc},grid:{color:gc}},y:{min:0,suggestedMax:35,ticks:{callback:v=>v+"%",font:{size:11},color:tc},grid:{color:gc}}}}
+  });
+
+  // BAR
+  if(bChart){bChart.destroy();bChart=null;}
+  const bW=wSorted;
+  const bL=bW.map(w=>w.n);
+  const bD=bW.map(w=>{let o=0,a=0;M.forEach(m=>{if(w.d[m]){o+=w.d[m][0];a+=w.d[m][1];}});return o>0?+(a/o*100).toFixed(1):0;});
+  const bC=bD.map(v=>pc(v));
+
+  bChart=new Chart(document.getElementById("barC"),{type:"bar",
+    data:{labels:bL,datasets:[{label:"Absencja %",data:bD,backgroundColor:bC.map(c=>c+"CC"),borderColor:bC,borderWidth:1.5,borderRadius:4,borderSkipped:false}]},
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:"y",
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${c.parsed.x.toFixed(1)}%`}}},
+      scales:{x:{min:0,suggestedMax:35,ticks:{callback:v=>v+"%",font:{size:10},color:tc},grid:{color:gc}},y:{ticks:{font:{size:11},color:"#333"},grid:{display:false}}}}
+  });
+}
+
+buildBtns();
+render();
+</script>
+</body>
+</html>
