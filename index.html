@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Absencja – Pion Produkcji 2026</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F5F5F5;color:#1a1a1a;padding:20px;min-height:100vh}
+  .container{max-width:1100px;margin:0 auto}
+  h1{font-size:18px;font-weight:600;margin-bottom:4px}
+  .subtitle{font-size:12px;color:#666;margin-bottom:12px}
+  .header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;flex-wrap:wrap;gap:8px}
+  .badge{background:#6B3FA0;color:#fff;font-size:10px;padding:3px 10px;border-radius:20px;font-weight:500;align-self:flex-start}
+  .note{background:#FFF8E1;border:0.5px solid #F0B429;border-radius:8px;padding:8px 14px;font-size:11px;color:#7A4E00;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;margin-bottom:14px}
+  .kpi{background:#fff;border-radius:8px;padding:12px 14px;border:0.5px solid #e0e0e0}
+  .kpi-label{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+  .kpi-val{font-size:22px;font-weight:600;line-height:1.1}
+  .kpi-sub{font-size:11px;color:#888;margin-top:4px}
+  .kpi.danger .kpi-val{color:#A32D2D}
+  .kpi.warn .kpi-val{color:#854F0B}
+  .kpi.info .kpi-val{color:#185FA5}
+  .kpi.money .kpi-val{color:#6B3FA0}
+  .rocznie{background:linear-gradient(135deg,#2E1760,#6B3FA0);border-radius:10px;padding:18px 22px;display:flex;align-items:center;gap:24px;margin-bottom:14px;flex-wrap:wrap}
+  .rocznie-main{flex:1;min-width:200px}
+  .rocznie-label{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.6);margin-bottom:6px}
+  .rocznie-val{font-size:34px;font-weight:700;color:#fff;line-height:1.1}
+  .rocznie-sub{font-size:11px;color:rgba(255,255,255,.55);margin-top:6px}
+  .rocznie-split{display:flex;gap:0;flex-wrap:wrap}
+  .rocznie-item{padding:0 20px;text-align:center}
+  .rocznie-item:not(:last-child){border-right:1px solid rgba(255,255,255,.2)}
+  .rocznie-item-val{font-size:18px;font-weight:600;color:#fff}
+  .rocznie-item-label{font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:rgba(255,255,255,.55);margin-top:3px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+  @media(max-width:680px){.grid2{grid-template-columns:1fr}}
+  .panel{background:#fff;border:0.5px solid #e0e0e0;border-radius:10px;padding:14px 16px}
+  .sec{font-size:10px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+  .bar-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+  .bar-name{font-size:12px;width:170px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#333}
+  .bar-track{flex:1;background:#f0f0f0;border-radius:3px;height:9px;overflow:hidden;display:flex}
+  .bar-seg{height:100%}
+  .bar-val{font-size:12px;color:#666;min-width:44px;text-align:right}
+  .legend{display:flex;gap:10px;margin-top:8px;font-size:10px;color:#666;flex-wrap:wrap}
+  .legend span{display:flex;align-items:center;gap:4px}
+  .dot{display:inline-block;width:9px;height:9px;border-radius:2px}
+  .barometr-note{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:4px;margin-bottom:8px}
+  .maj-tag{font-size:10px;color:#7A4E00;background:#FFF8E1;padding:2px 8px;border-radius:3px}
+  .footer{margin-top:14px;text-align:center;font-size:10px;color:#aaa}
+  .donut-row{display:grid;grid-template-columns:130px 1fr;gap:0 16px;align-items:center}
+  .donut-legend{font-size:12px;display:flex;flex-direction:column;gap:7px}
+  .donut-item{display:flex;justify-content:space-between;align-items:center}
+  .koszt-total{margin-top:10px;padding-top:8px;border-top:0.5px solid #eee}
+  .koszt-total-row{display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- NAGŁÓWEK -->
+  <div class="header">
+    <div>
+      <h1>Absencja – Pion Produkcji</h1>
+      <div class="subtitle">Wskaźniki: <strong>Sty–Kwi 2026</strong> (zatwierdzone) · Barometr: T01–T22 (maj wstępny) · Pracownicy UoP · bez agencji/zleceń</div>
+    </div>
+    <span class="badge">Dane 29.05.2026</span>
+  </div>
+
+  <!-- NOTA -->
+  <div class="note">
+    ⚠️ <span>Maj 2026 = dane wstępne — wskaźniki i koszty bazują na pewnych danych <strong>sty–kwi</strong>. Barometr tygodniowy pokazuje maj informacyjnie — wartości będą rosły wraz z uzupełnianiem danych.</span>
+  </div>
+
+  <!-- KPI -->
+  <div class="kpis">
+    <div class="kpi danger"><div class="kpi-label">Absencja łącznie</div><div class="kpi-val">16.0%</div><div class="kpi-sub">5 511 / 34 496 os. · sty–kwi</div></div>
+    <div class="kpi warn"><div class="kpi-label">Choroba łącznie</div><div class="kpi-val">6.4%</div><div class="kpi-sub">2 213 dni · sty–kwi</div></div>
+    <div class="kpi warn"><div class="kpi-label">CHZ – koszt pracodawcy</div><div class="kpi-val">1 414 dni</div><div class="kpi-sub">509 040 zł · sty–kwi</div></div>
+    <div class="kpi info"><div class="kpi-label">KW – stacja krwi</div><div class="kpi-val">371 dni</div><div class="kpi-sub">133 560 zł · sty–kwi</div></div>
+    <div class="kpi money"><div class="kpi-label">Koszt CHZ+KW łącznie</div><div class="kpi-val">642 600 zł</div><div class="kpi-sub">sty–kwi 2026</div></div>
+  </div>
+
+  <!-- ROCZNIE -->
+  <div class="rocznie">
+    <div class="rocznie-main">
+      <div class="rocznie-label">Szacowany koszt roczny CHZ + KW — baza: sty–kwi 2026 × 3</div>
+      <div class="rocznie-val">1 928 000 zł</div>
+      <div class="rocznie-sub">Bez maja (dane wstępne) · 45 zł/h brutto × 8h · Pracownicy UoP Pion Produkcji</div>
+    </div>
+    <div class="rocznie-split">
+      <div class="rocznie-item"><div class="rocznie-item-val">1 527 000 zł</div><div class="rocznie-item-label">CHZ rocznie</div></div>
+      <div class="rocznie-item"><div class="rocznie-item-val">401 000 zł</div><div class="rocznie-item-label">KW rocznie</div></div>
+      <div class="rocznie-item"><div class="rocznie-item-val">~161 tys.</div><div class="rocznie-item-label">Koszt / miesiąc</div></div>
+    </div>
+  </div>
+
+  <!-- RZĄD 1 -->
+  <div class="grid2">
+    <div class="panel">
+      <div class="sec">Absencja wg działu (sty–kwi)</div>
+      <div id="bary-dzial"></div>
+      <div class="legend">
+        <span><span class="dot" style="background:#E24B4A"></span>≥20%</span>
+        <span><span class="dot" style="background:#EF9F27"></span>15–19%</span>
+        <span><span class="dot" style="background:#FFD966"></span>10–14%</span>
+        <span><span class="dot" style="background:#70AD47"></span>&lt;10%</span>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="sec">Trend miesięczny (sty–kwi pewne · maj wstępny)</div>
+      <div style="position:relative;height:190px"><canvas id="trendChart"></canvas></div>
+      <div class="legend">
+        <span><span style="display:inline-block;width:14px;height:2px;background:#E24B4A;vertical-align:middle"></span>Absencja %</span>
+        <span><span style="display:inline-block;width:14px;height:2px;background:#EF9F27;vertical-align:middle"></span>Choroba %</span>
+        <span><span class="dot" style="background:#D4B8F0"></span>Maj – wstępny</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RZĄD 2 -->
+  <div class="grid2">
+    <div class="panel">
+      <div class="sec">Struktura absencji (sty–kwi)</div>
+      <div class="donut-row">
+        <div style="position:relative;width:130px;height:130px"><canvas id="donut"></canvas></div>
+        <div class="donut-legend">
+          <div class="donut-item"><span style="display:flex;align-items:center;gap:5px"><span class="dot" style="background:#378ADD"></span>Urlopy wyp.</span><strong>47.1%</strong></div>
+          <div class="donut-item"><span style="display:flex;align-items:center;gap:5px"><span class="dot" style="background:#E24B4A"></span>Inne urlopy</span><strong>3.0%</strong></div>
+          <div class="donut-item"><span style="display:flex;align-items:center;gap:5px"><span class="dot" style="background:#C00000"></span>Choroba</span><strong>39.0%</strong></div>
+          <div class="donut-item"><span style="display:flex;align-items:center;gap:5px"><span class="dot" style="background:#EF9F27"></span>KW – krew</span><strong>6.2%</strong></div>
+          <div class="donut-item"><span style="display:flex;align-items:center;gap:5px"><span class="dot" style="background:#888780"></span>Pozostałe</span><strong>4.7%</strong></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="sec">Koszt CHZ + KW wg działu — sty–kwi (zł)</div>
+      <div id="bary-koszt"></div>
+      <div class="koszt-total">
+        <div class="koszt-total-row"><span style="color:#888">RAZEM Pion Produkcji · sty–kwi</span><strong style="color:#6B3FA0">642 600 zł</strong></div>
+        <div class="legend">
+          <span><span class="dot" style="background:#6B3FA0"></span>CHZ – 509 040 zł</span>
+          <span><span class="dot" style="background:#E8337C"></span>KW – 133 560 zł</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BAROMETR -->
+  <div class="panel" style="margin-top:12px">
+    <div class="barometr-note">
+      <div class="sec" style="margin:0">Barometr tygodniowy – absencja % · T01–T22</div>
+      <span class="maj-tag">T01 = skrócony (2 dni) · T18–T22 = maj wstępny ⚠️</span>
+    </div>
+    <div style="position:relative;height:145px"><canvas id="weekChart"></canvas></div>
+    <div class="legend" style="margin-top:6px">
+      <span><span class="dot" style="background:#E24B4A"></span>≥25%</span>
+      <span><span class="dot" style="background:#EF9F27"></span>15–24%</span>
+      <span><span class="dot" style="background:#FFD966"></span>10–14%</span>
+      <span><span class="dot" style="background:#70AD47"></span>&lt;10%</span>
+      <span><span class="dot" style="background:#D4B8F0"></span>Maj – wstępny</span>
+      <span><span class="dot" style="background:#CCCCCC"></span>T01 skrócony</span>
+    </div>
+  </div>
+
+  <div class="footer">
+    Absencja Pion Produkcji · KPIs i koszty: sty–kwi 2026 (zatwierdzone) · Barometr: T01–T22 (maj wstępny) · Pracownicy UoP · bez agencji/zleceń · Wykluczone: REH, UM, USW · 45 zł/h × 8h
+  </div>
+
+</div><!-- /container -->
+
+<script>
+const gc="rgba(0,0,0,0.06)", tc="#999";
+function barCol(p){return p>=20?"#E24B4A":p>=15?"#EF9F27":p>=10?"#FFD966":"#70AD47";}
+
+// Absencja wg działu
+[{name:"Spawalnia",pct:20.3},{name:"Roboty spawalnicze",pct:17.8},{name:"Logistyka",pct:17.7},
+ {name:"OWP",pct:15.4},{name:"Obróbka skrawaniem",pct:14.2},{name:"Montaż",pct:12.8},{name:"Malarnia",pct:10.7}
+].forEach(d=>{
+  const w=(d.pct/22*100).toFixed(1);
+  document.getElementById("bary-dzial").innerHTML+=`<div class="bar-row">
+    <span class="bar-name">${d.name}</span>
+    <div class="bar-track"><div class="bar-seg" style="width:${w}%;background:${barCol(d.pct)}"></div></div>
+    <span class="bar-val">${d.pct.toFixed(1)}%</span></div>`;
+});
+
+// Koszt stacked
+[{name:"Spawalnia",chz:151200,kw:33120},{name:"Logistyka",chz:118440,kw:32040},
+ {name:"Montaż",chz:86760,kw:17280},{name:"Obróbka skrawaniem",chz:61920,kw:25200},
+ {name:"OWP",chz:40320,kw:7920},{name:"Roboty spawalnicze",chz:29880,kw:5760},{name:"Malarnia",chz:20520,kw:12240}
+].forEach(d=>{
+  const maxK=184320,wC=(d.chz/maxK*100).toFixed(1),wK=(d.kw/maxK*100).toFixed(1);
+  document.getElementById("bary-koszt").innerHTML+=`<div class="bar-row">
+    <span class="bar-name">${d.name}</span>
+    <div class="bar-track">
+      <div class="bar-seg" style="width:${wC}%;background:#6B3FA0"></div>
+      <div class="bar-seg" style="width:${wK}%;background:#E8337C"></div>
+    </div>
+    <span class="bar-val" style="min-width:78px;font-weight:600;color:#6B3FA0">${(d.chz+d.kw).toLocaleString("pl-PL")} zł</span></div>`;
+});
+
+// Trend
+new Chart(document.getElementById("trendChart"),{type:"line",
+  data:{labels:["Styczeń","Luty","Marzec","Kwiecień","Maj*"],
+    datasets:[
+      {label:"Absencja %",data:[23.4,12.9,12.2,15.1,null],borderColor:"#E24B4A",backgroundColor:"rgba(226,75,74,0.08)",borderWidth:2,fill:true,tension:0.35,pointRadius:5,pointBackgroundColor:"#E24B4A"},
+      {label:"Absencja % maj",data:[null,null,null,15.1,11.1],borderColor:"#D4B8F0",borderDash:[5,4],borderWidth:2,fill:false,tension:0,pointRadius:[0,0,0,0,6],pointBackgroundColor:"#9B7FCC",pointStyle:"triangle"},
+      {label:"Choroba %",data:[7.0,6.0,5.6,7.0,null],borderColor:"#EF9F27",borderDash:[5,3],borderWidth:1.5,fill:false,tension:0.35,pointRadius:4,pointBackgroundColor:"#EF9F27"},
+      {label:"Choroba % maj",data:[null,null,null,7.0,7.6],borderColor:"#D4B8F0",borderDash:[3,3],borderWidth:1,fill:false,tension:0,pointRadius:[0,0,0,0,4],pointBackgroundColor:"#9B7FCC"},
+    ]},
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y!=null?` ${c.parsed.y.toFixed(1)}%`:""}}},
+    scales:{x:{ticks:{font:{size:11},color:tc},grid:{color:gc}},
+      y:{min:0,max:28,ticks:{callback:v=>v+"%",font:{size:11},color:tc},grid:{color:gc}}}}
+});
+
+// Donut
+new Chart(document.getElementById("donut"),{type:"doughnut",
+  data:{labels:["Urlop wyp.","Inne urlopy","Choroba","KW","Pozostałe"],
+    datasets:[{data:[2595,165,2149,341,261],
+      backgroundColor:["#378ADD","#E24B4A","#C00000","#EF9F27","#888780"],
+      borderWidth:2,borderColor:"#ffffff"}]},
+  options:{responsive:true,maintainAspectRatio:false,cutout:"62%",
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${c.label}: ${c.parsed} dni`}}}}
+});
+
+// Barometr
+const wLabels=["T01","T02","T03","T04","T05","T06","T07","T08","T09","T10","T11","T12","T13","T14","T15","T16","T17","T18","T19","T20","T21","T22"];
+const wVals=  [49.2, 36.9, 11.4, 18.1, 17.1, 14.7, 11.8, 12.3, 12.6, 13.0, 11.7, 12.3, 12.1, 14.8, 13.5, 16.8, 13.4, 12.7, 13.7, 11.9,  9.4,  8.5];
+const wDaty=["1–2 sty (skrócony)","5–9 sty","12–16 sty","19–23 sty","26–30 sty","2–6 lut","9–13 lut","16–20 lut","23–27 lut","2–6 mar","9–13 mar","16–20 mar","23–27 mar","30 mar–3 kwi","6–10 kwi","13–17 kwi","20–24 kwi","27 kwi–1 maj","4–8 maj","11–15 maj","18–22 maj","25–29 maj"];
+new Chart(document.getElementById("weekChart"),{type:"bar",
+  data:{labels:wLabels,datasets:[{label:"Absencja %",data:wVals,
+    backgroundColor:wVals.map((v,i)=>i===0?"#CCCCCC":i>=17?"#D4B8F0":barCol(v)),
+    borderRadius:3,borderSkipped:false}]},
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{
+      title:c=>`${wLabels[c[0].dataIndex]} (${wDaty[c[0].dataIndex]})`,
+      label:c=>` Absencja: ${c.parsed.y.toFixed(1)}%${c.dataIndex===0?" — skrócony tydzień":c.dataIndex>=17?" ⚠️ dane wstępne":""}`
+    }}},
+    scales:{x:{ticks:{font:{size:8.5},color:tc,maxRotation:0},grid:{display:false}},
+      y:{min:0,max:55,ticks:{callback:v=>v+"%",font:{size:10},color:tc},grid:{color:gc}}}}
+});
+</script>
+</body>
+</html>
