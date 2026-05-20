@@ -131,91 +131,97 @@ const WC = ["#E24B4A","#4472C4","#70AD47","#EF9F27","#7B68EE","#C97B1A","#E8337C
 const DZIALY = {
   "OWP": {
     color:"#5B9BD5",
-    total:{Sty:[814,187],Lut:[740,95],Mar:[814,96],Kwi:[814,97]},
+    rcp_level:"wydział",
+    info:"Dane per wydział wyliczone po numerach ewidencyjnych pracowników.",
+    total:{Sty:[740,183],Lut:[740,93],Mar:[814,94],Kwi:[777,93]},
     wydzialy:[
-      {n:"Prasy CNC",         d:{Sty:[352,92], Lut:[320,57], Mar:[352,76], Kwi:[352,41]}},
-      {n:"Piły",              d:{Sty:[88,13],  Lut:[80,2],   Mar:[88,7],   Kwi:[88,12]}},
-      {n:"Prasy Korbowe",     d:{Sty:[110,20], Lut:[100,0],  Mar:[110,0],  Kwi:[110,8]}},
-      {n:"Tokarki Manualne",  d:{Sty:[66,34],  Lut:[60,30],  Mar:[66,7],   Kwi:[66,20]}, uwaga:"Laser 2D"},
-      {n:"Laser 2D",          d:{Sty:[66,34],  Lut:[60,30],  Mar:[66,7],   Kwi:[66,20]}},
-      {n:"Laser 3D",          d:{Sty:[44,8],   Lut:[40,4],   Mar:[44,2],   Kwi:[44,0]}},
-      {n:"Wyważarki",         d:{Sty:[66,9],   Lut:[60,0],   Mar:[66,0],   Kwi:[66,1]}},
-      {n:"Przygot. Pow.",     d:{Sty:[22,5],   Lut:[20,0],   Mar:[22,1],   Kwi:[22,7]}},
-      {n:"Krajalnia",         d:{Sty:[22,2],   Lut:[20,0],   Mar:[22,1],   Kwi:[22,4]}},
-    // OWP – ogólny: 2 mistrzów (Birkos, Jarmoszko) – pomijamy
+      {n:"Laser 3D", n_prac:2, d:{Sty:[40,8],Lut:[40,4],Mar:[44,2],Kwi:[42,0]}, k:{Sty:{UW:5,CHZ:3,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:1,CHZ:3,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}},
+      {n:"Laser 2D", n_prac:3, d:{Sty:[60,34],Lut:[60,30],Mar:[66,7],Kwi:[63,20]}, k:{Sty:{UW:12,CHZ:0,ZUS:20,KW:2,Op:0,Ur:0,In:0},Lut:{UW:10,CHZ:0,ZUS:20,KW:0,Op:0,Ur:0,In:0},Mar:{UW:5,CHZ:0,ZUS:2,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:13,CHZ:5,ZUS:0,KW:2,Op:0,Ur:0,In:0}}},
+      {n:"Prasy Korbowe", n_prac:5, d:{Sty:[100,20],Lut:[100,0],Mar:[110,0],Kwi:[105,8]}, k:{Sty:{UW:12,CHZ:4,ZUS:0,KW:2,Op:0,Ur:2,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:2,CHZ:6,ZUS:0,KW:0,Op:0,Ur:0,In:0}}},
+      {n:"Piły", n_prac:4, d:{Sty:[80,13],Lut:[80,2],Mar:[88,7],Kwi:[84,12]}, k:{Sty:{UW:13,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:2,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:2,CHZ:5,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:2,CHZ:7,ZUS:3,KW:0,Op:0,Ur:0,In:0}}},
+      {n:"Prasy CNC", n_prac:17, d:{Sty:[320,92],Lut:[320,57],Mar:[352,76],Kwi:[336,41]}, k:{Sty:{UW:50,CHZ:27,ZUS:3,KW:2,Op:3,Ur:7,In:0},Lut:{UW:17,CHZ:23,ZUS:7,KW:6,Op:4,Ur:0,In:0},Mar:{UW:14,CHZ:13,ZUS:25,KW:6,Op:8,Ur:10,In:0},Kwi:{UW:18,CHZ:6,ZUS:1,KW:0,Op:16,Ur:0,In:0}}},
+      {n:"Krajalnia", n_prac:1, d:{Sty:[20,2],Lut:[20,0],Mar:[22,1],Kwi:[21,4]}, k:{Sty:{UW:2,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:1,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:0,CHZ:4,ZUS:0,KW:0,Op:0,Ur:0,In:0}}},
+      {n:"Wyważarki", n_prac:3, d:{Sty:[60,9],Lut:[60,0],Mar:[66,0],Kwi:[63,1]}, k:{Sty:{UW:9,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:1,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}},
+      {n:"Przygot. Pow. Płaskich", n_prac:1, d:{Sty:[20,5],Lut:[20,0],Mar:[22,1],Kwi:[21,7]}, k:{Sty:{UW:5,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:1,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:4,CHZ:3,ZUS:0,KW:0,Op:0,Ur:0,In:0}}},
     ]
   },
   "Obróbka skrawaniem": {
     color:"#70AD47",
-    total:{Sty:[1308,308],Lut:[1200,112],Mar:[1320,131],Kwi:[1320,174]},
+    rcp_level:"pełny",
+    info:"Pełne dane RCP per wydział.",
+    total:{Sty:[1050,240],Lut:[1060,90],Mar:[1166,118],Kwi:[1113,148]},
     wydzialy:[
-      {n:"Tokarki CNC",      d:{Sty:[660,183],Lut:[600,84], Mar:[660,87], Kwi:[660,101]}},
-      {n:"Frezarki CNC",     d:{Sty:[296,54], Lut:[280,9],  Mar:[308,20], Kwi:[308,33]}},
-      {n:"Wiertarki",        d:{Sty:[132,28], Lut:[120,11], Mar:[132,7],  Kwi:[132,17]}},
-      {n:"Tokarki Manualne", d:{Sty:[198,40], Lut:[180,6],  Mar:[198,17], Kwi:[198,22]}},
-      // WOS ogólny: 1 mistrz (Borowski) – pomijamy
+      {n:"Tokarki Manualne", n_prac:9, d:{Sty:[180,40],Lut:[180,6],Mar:[198,17],Kwi:[189,22]}, k:{Sty:{UW:26,CHZ:9,ZUS:5,KW:0,Op:0,Ur:0,In:0},Lut:{UW:5,CHZ:1,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:6,CHZ:10,ZUS:1,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:10,CHZ:0,ZUS:12,KW:0,Op:0,Ur:0,In:0}}},
+      {n:"Tokarki CNC", n_prac:25, d:{Sty:[480,131],Lut:[480,69],Mar:[528,78],Kwi:[504,85]}, k:{Sty:{UW:80,CHZ:36,ZUS:5,KW:8,Op:0,Ur:2,In:0},Lut:{UW:25,CHZ:23,ZUS:0,KW:2,Op:15,Ur:4,In:0},Mar:{UW:10,CHZ:32,ZUS:7,KW:8,Op:20,Ur:0,In:1},Kwi:{UW:27,CHZ:17,ZUS:24,KW:12,Op:2,Ur:3,In:0}}},
+      {n:"Wiertarki", n_prac:5, d:{Sty:[100,15],Lut:[100,6],Mar:[110,3],Kwi:[105,8]}, k:{Sty:{UW:14,CHZ:1,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:6,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:3,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:8,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}},
+      {n:"Frezarki CNC", n_prac:14, d:{Sty:[270,54],Lut:[280,9],Mar:[308,20],Kwi:[294,33]}, k:{Sty:{UW:36,CHZ:6,ZUS:6,KW:6,Op:0,Ur:0,In:0},Lut:{UW:5,CHZ:0,ZUS:0,KW:4,Op:0,Ur:0,In:0},Mar:{UW:7,CHZ:3,ZUS:0,KW:10,Op:0,Ur:0,In:0},Kwi:{UW:15,CHZ:8,ZUS:0,KW:10,Op:0,Ur:0,In:0}}},
     ]
   },
   "Spawalnia": {
     color:"#E24B4A",
-    total:{Sty:[2106,584],Lut:[1940,323],Mar:[2123,371],Kwi:[2138,393]},
+    rcp_level:"dział-tylko",
+    info:"Dane RCP agregowane pod MPK 20300 — podział po nr ewid. pracowników.",
+    total:{Sty:[1918,574],Lut:[1929,320],Mar:[2121,370],Kwi:[2042,391]},
     wydzialy:[
-      {n:"Spawalnia 1", d:{Sty:[1044,319],Lut:[960,164], Mar:[1045,184],Kwi:[1052,203]}},
-      {n:"Spawalnia 5", d:{Sty:[220,72],  Lut:[200,45],  Mar:[220,37],  Kwi:[220,45]}},
-      {n:"Spawalnia 2", d:{Sty:[314,76],  Lut:[300,49],  Mar:[330,79],  Kwi:[330,76]}},
-      {n:"Spawalnia 3", d:{Sty:[198,47],  Lut:[180,20],  Mar:[198,33],  Kwi:[206,33]}},
-      {n:"Spawalnia 4", d:{Sty:[286,60],  Lut:[260,42],  Mar:[286,37],  Kwi:[286,34]}},
-      // Spawalnia ogólny: Bujnarowski (kier.) + Panasewicz (mistrz) – pomijamy
+      {n:"Spawalnia 1", n_prac:51, d:{Sty:[950,319],Lut:[949,164],Mar:[1043,184],Kwi:[1005,203]}, k:{Sty:{UW:163,CHZ:41,ZUS:80,KW:4,Op:20,Ur:11,In:0},Lut:{UW:63,CHZ:64,ZUS:22,KW:10,Op:0,Ur:4,In:1},Mar:{UW:83,CHZ:70,ZUS:27,KW:2,Op:0,Ur:0,In:2},Kwi:{UW:60,CHZ:66,ZUS:56,KW:12,Op:3,Ur:4,In:2}}},
+      {n:"Spawalnia 2", n_prac:15, d:{Sty:[288,76],Lut:[300,49],Mar:[330,79],Kwi:[315,76]}, k:{Sty:{UW:48,CHZ:12,ZUS:7,KW:0,Op:7,Ur:2,In:0},Lut:{UW:9,CHZ:10,ZUS:20,KW:8,Op:2,Ur:0,In:0},Mar:{UW:21,CHZ:28,ZUS:22,KW:8,Op:0,Ur:0,In:0},Kwi:{UW:20,CHZ:33,ZUS:13,KW:6,Op:4,Ur:0,In:0}}},
+      {n:"Spawalnia 3", n_prac:10, d:{Sty:[180,47],Lut:[180,20],Mar:[198,33],Kwi:[197,33]}, k:{Sty:{UW:38,CHZ:0,ZUS:6,KW:2,Op:1,Ur:0,In:0},Lut:{UW:9,CHZ:9,ZUS:0,KW:2,Op:0,Ur:0,In:0},Mar:{UW:8,CHZ:10,ZUS:1,KW:2,Op:12,Ur:0,In:0},Kwi:{UW:17,CHZ:2,ZUS:11,KW:0,Op:1,Ur:2,In:0}}},
+      {n:"Spawalnia 4", n_prac:13, d:{Sty:[260,60],Lut:[260,42],Mar:[286,37],Kwi:[273,34]}, k:{Sty:{UW:46,CHZ:8,ZUS:2,KW:4,Op:0,Ur:0,In:0},Lut:{UW:7,CHZ:28,ZUS:0,KW:4,Op:3,Ur:0,In:0},Mar:{UW:13,CHZ:3,ZUS:0,KW:3,Op:10,Ur:8,In:0},Kwi:{UW:19,CHZ:2,ZUS:0,KW:5,Op:0,Ur:8,In:0}}},
+      {n:"Spawalnia 5", n_prac:10, d:{Sty:[200,72],Lut:[200,45],Mar:[220,37],Kwi:[210,45]}, k:{Sty:{UW:38,CHZ:14,ZUS:12,KW:0,Op:8,Ur:0,In:0},Lut:{UW:17,CHZ:2,ZUS:20,KW:6,Op:0,Ur:0,In:0},Mar:{UW:8,CHZ:5,ZUS:22,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:13,CHZ:6,ZUS:21,KW:4,Op:0,Ur:1,In:0}}},
     ]
   },
   "Roboty spawalnicze": {
     color:"#C97B1A",
-    total:{Sty:[440,108],Lut:[400,51],Mar:[440,60],Kwi:[436,59]},
+    rcp_level:"dział-tylko",
+    info:"Dane RCP agregowane pod MPK 20400.",
+    total:{Sty:[400,105],Lut:[400,51],Mar:[440,60],Kwi:[416,57]},
     wydzialy:[
-      {n:"Roboty Spawalnicze", d:{Sty:[418,105],Lut:[380,51],Mar:[418,60],Kwi:[414,57]}},
-      // Roboty ogólny: Kamiński (kier.) – pomijamy
+      {n:"Roboty Spawalnicze", n_prac:22, d:{Sty:[380,105],Lut:[380,51],Mar:[418,60],Kwi:[395,57]}, k:{Sty:{UW:61,CHZ:44,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:19,CHZ:15,ZUS:15,KW:2,Op:0,Ur:0,In:0},Mar:{UW:28,CHZ:0,ZUS:22,KW:8,Op:0,Ur:2,In:0},Kwi:{UW:18,CHZ:10,ZUS:21,KW:2,Op:6,Ur:0,In:0}}},
     ]
   },
   "Malarnia": {
     color:"#7B68EE",
-    total:{Sty:[814,126],Lut:[740,68],Mar:[792,50],Kwi:[792,83]},
+    rcp_level:"częściowy",
+    info:"Dane częściowo per wydział (Ślusarnia brak w RCP).",
+    total:{Sty:[740,123],Lut:[740,67],Mar:[792,48],Kwi:[743,80]},
     wydzialy:[
-      {n:"Śrutownia",            d:{Sty:[264,47],Lut:[240,28],Mar:[264,22],Kwi:[264,21]}},
-      {n:"Malarnia Automatyczna",d:{Sty:[440,62],Lut:[400,34],Mar:[418,20],Kwi:[418,39]}},
-      {n:"Malarnia Ręczna",      d:{Sty:[88,14], Lut:[80,5],  Mar:[88,6],  Kwi:[88,20]}},
-      // Malarnia ogólny: Mielech S. (mistrz) – pomijamy
+      {n:"Ślusarnia", d:null},
+      {n:"Śrutownia", n_prac:12, d:{Sty:[240,47],Lut:[240,28],Mar:[264,22],Kwi:[252,21]}, k:{Sty:{UW:37,CHZ:6,ZUS:0,KW:4,Op:0,Ur:0,In:0},Lut:{UW:13,CHZ:11,ZUS:0,KW:4,Op:0,Ur:0,In:0},Mar:{UW:15,CHZ:5,ZUS:0,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:16,CHZ:1,ZUS:0,KW:4,Op:0,Ur:0,In:0}}},
+      {n:"Malarnia Automatyczna", n_prac:20, d:{Sty:[400,62],Lut:[400,34],Mar:[418,20],Kwi:[386,39]}, k:{Sty:{UW:52,CHZ:0,ZUS:5,KW:0,Op:5,Ur:0,In:0},Lut:{UW:25,CHZ:0,ZUS:0,KW:4,Op:5,Ur:0,In:0},Mar:{UW:12,CHZ:6,ZUS:0,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:33,CHZ:0,ZUS:0,KW:6,Op:0,Ur:0,In:0}}},
+      {n:"Malarnia Ręczna", n_prac:5, d:{Sty:[80,14],Lut:[80,5],Mar:[88,6],Kwi:[84,20]}, k:{Sty:{UW:12,CHZ:2,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:5,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:2,CHZ:2,ZUS:0,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:6,CHZ:14,ZUS:0,KW:0,Op:0,Ur:0,In:0}}},
     ]
   },
   "Malarnia Mokra": {
     color:"#9966CC",
-    
-    
-    total:{Sty:[88,15],Lut:[80,16],Mar:[88,8],Kwi:[88,7]},
+    rcp_level:"pełny",
+    info:"Dane per wydział wyliczone po nr ewid. pracowników (MPK 20800).",
+    total:{Sty:[100,15],Lut:[100,16],Mar:[110,8],Kwi:[105,7]},
     wydzialy:[
-      {n:"Malarnia Mokra", d:{Sty:[88,15],Lut:[80,16],Mar:[88,8],Kwi:[88,7]}},
+      {n:"Malarnia Mokra", n_prac:6, d:{Sty:[100,23],Lut:[100,16],Mar:[110,11],Kwi:[105,9]}, k:{Sty:{UW:20,CHZ:0,ZUS:1,KW:2,Op:0,Ur:0,In:0},Lut:{UW:5,CHZ:5,ZUS:1,KW:0,Op:5,Ur:0,In:0},Mar:{UW:7,CHZ:0,ZUS:0,KW:0,Op:4,Ur:0,In:0},Kwi:{UW:9,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}},
     ]
   },
   "Montaż": {
     color:"#4472C4",
-    total:{Sty:[1742,324],Lut:[1548,135],Mar:[1788,186],Kwi:[1772,240]},
+    rcp_level:"dział-tylko",
+    info:"Dane RCP agregowane pod MPK 20600 — podział po nr ewid. pracowników.",
+    total:{Sty:[1544,310],Lut:[1508,131],Mar:[1744,173],Kwi:[1651,218]},
     wydzialy:[
-      {n:"Linia L3",  d:{Sty:[413,106],Lut:[340,42],Mar:[373,55],Kwi:[330,39]}},
-      {n:"Linia L10", d:{Sty:[302,75], Lut:[260,32],Mar:[308,36],Kwi:[308,71]}},
-      {n:"Linia L1",  d:{Sty:[279,36], Lut:[260,21],Mar:[286,37],Kwi:[286,43]}},
-      {n:"Linia L9",  d:{Sty:[308,44], Lut:[280,23],Mar:[320,25],Kwi:[330,22]}},
-      {n:"Linia L6",  d:{Sty:[154,26], Lut:[140,3], Mar:[154,17],Kwi:[154,33]}},
-      {n:"Linia L7",  d:{Sty:[242,27], Lut:[220,14],Mar:[281,14],Kwi:[282,14]}},
-      {n:"Linia L5",  d:{Sty:[0,0],    Lut:[8,0],   Mar:[22,0],  Kwi:[38,0]}},
-      // Montaż ogólny: Danilczyk + Mielech M. (mistrzowie) – pomijamy
+      {n:"Linia L1", n_prac:11, d:{Sty:[215,32],Lut:[220,17],Mar:[242,26],Kwi:[231,39]}, k:{Sty:{UW:28,CHZ:2,ZUS:0,KW:2,Op:0,Ur:0,In:0},Lut:{UW:13,CHZ:0,ZUS:0,KW:4,Op:0,Ur:0,In:0},Mar:{UW:13,CHZ:13,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:11,CHZ:20,ZUS:4,KW:4,Op:0,Ur:0,In:0}}},
+      {n:"Linia L3", n_prac:19, d:{Sty:[375,106],Lut:[340,42],Mar:[373,55],Kwi:[315,39]}, k:{Sty:{UW:65,CHZ:17,ZUS:20,KW:4,Op:0,Ur:0,In:0},Lut:{UW:6,CHZ:20,ZUS:9,KW:6,Op:0,Ur:1,In:0},Mar:{UW:15,CHZ:12,ZUS:20,KW:2,Op:6,Ur:0,In:0},Kwi:{UW:15,CHZ:4,ZUS:0,KW:6,Op:12,Ur:2,In:0}}},
+      {n:"Linia L6", n_prac:7, d:{Sty:[140,26],Lut:[140,3],Mar:[154,17],Kwi:[147,33]}, k:{Sty:{UW:20,CHZ:5,ZUS:0,KW:0,Op:1,Ur:0,In:0},Lut:{UW:2,CHZ:0,ZUS:0,KW:0,Op:1,Ur:0,In:0},Mar:{UW:5,CHZ:10,ZUS:0,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:16,CHZ:9,ZUS:7,KW:0,Op:1,Ur:0,In:0}}},
+      {n:"Linia L7", n_prac:14, d:{Sty:[220,27],Lut:[220,14],Mar:[281,14],Kwi:[270,14]}, k:{Sty:{UW:23,CHZ:4,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:5,CHZ:5,ZUS:0,KW:2,Op:2,Ur:0,In:0},Mar:{UW:14,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:9,CHZ:1,ZUS:0,KW:4,Op:0,Ur:0,In:0}}},
+      {n:"Linia L9", n_prac:15, d:{Sty:[280,44],Lut:[280,23],Mar:[320,25],Kwi:[315,22]}, k:{Sty:{UW:40,CHZ:1,ZUS:0,KW:0,Op:0,Ur:3,In:0},Lut:{UW:4,CHZ:19,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:8,CHZ:15,ZUS:0,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:10,CHZ:12,ZUS:0,KW:0,Op:0,Ur:0,In:0}}},
+      {n:"Linia L10", n_prac:15, d:{Sty:[274,75],Lut:[260,32],Mar:[308,36],Kwi:[294,71]}, k:{Sty:{UW:64,CHZ:7,ZUS:0,KW:4,Op:0,Ur:0,In:0},Lut:{UW:13,CHZ:17,ZUS:0,KW:2,Op:0,Ur:0,In:0},Mar:{UW:8,CHZ:15,ZUS:0,KW:0,Op:10,Ur:3,In:0},Kwi:{UW:24,CHZ:21,ZUS:12,KW:4,Op:0,Ur:10,In:0}}},
     ]
   },
   "Logistyka": {
     color:"#EF9F27",
-    total:{Sty:[1694,430],Lut:[1519,237],Mar:[1650,177],Kwi:[1650,312]},
+    rcp_level:"dział-tylko",
+    info:"Dane RCP agregowane pod MPK 20700 — podział po nr ewid. pracowników.",
+    total:{Sty:[1540,430],Lut:[1518,236],Mar:[1650,177],Kwi:[1575,312]},
     wydzialy:[
-      {n:"Logistyka Wewnętrzna",   d:{Sty:[1650,407],Lut:[1498,231],Mar:[1628,176],Kwi:[1628,311]}},
-      {n:"Wysyłka do Kooperantów", d:{Sty:[22,20],   Lut:[1,1],    Mar:[0,0],     Kwi:[0,0]}},
-      // Logistyka ogólny: Matulewicz (kier.) – pomijamy
+      {n:"Logistyka Wewnętrzna", n_prac:76, d:{Sty:[1500,407],Lut:[1498,231],Mar:[1628,176],Kwi:[1554,311]}, k:{Sty:{UW:238,CHZ:88,ZUS:27,KW:14,Op:10,Ur:30,In:0},Lut:{UW:76,CHZ:73,ZUS:21,KW:27,Op:23,Ur:11,In:0},Mar:{UW:57,CHZ:51,ZUS:26,KW:24,Op:9,Ur:8,In:1},Kwi:{UW:109,CHZ:106,ZUS:46,KW:22,Op:8,Ur:13,In:7}}},
+      {n:"Wysyłka do Kooperantów", n_prac:1, d:{Sty:[20,20],Lut:[0,0],Mar:[0,0],Kwi:[0,0]}, k:{Sty:{UW:0,CHZ:0,ZUS:20,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}},
     ]
   },
 };
@@ -269,8 +275,11 @@ function render(){
     let wo=0,wa=0; M.forEach(m=>{if(w.d[m]){wo+=w.d[m][0];wa+=w.d[m][1];}});
     const wp=wo>0?(wa/wo*100):0;
     const bw=Math.min((wp/Math.max(maxP,1)*100),100).toFixed(0);
-    const ogStyle="";
-    rows+=`<tr style="${ogStyle}">
+    // Sumy kategorii
+    function ks(k){let s=0;M.forEach(m=>{if(w.k&&w.k[m])s+=w.k[m][k]||0;});return s;}
+    const k_uw=w.k?ks("UW"):"-"; const k_chz=w.k?ks("CHZ"):"-";
+    const k_zus=w.k?ks("ZUS"):"-"; const k_kw=w.k?ks("KW"):"-";
+    rows+=`<tr>
       <td><div class="wname">
         <span class="mb"><span class="mb-f" style="width:${bw}%;background:${pc(wp)}"></span></span>
         ${w.n}
@@ -278,11 +287,15 @@ function render(){
       <td>${wo.toLocaleString("pl-PL")}</td>
       <td>${wa.toLocaleString("pl-PL")}</td>
       <td style="font-weight:700;color:${pc(wp)}">${wp.toFixed(1)}%</td>
+      <td style="color:#3A7BD5;font-size:11px">${k_uw}</td>
+      <td style="color:#6B3FA0;font-size:11px">${k_chz}</td>
+      <td style="color:#C0392B;font-size:11px">${k_zus}</td>
+      <td style="color:#E67E22;font-size:11px">${k_kw}</td>
     </tr>`;
   });
-  rows+=`<tr class="total-row"><td>∑ Dział łącznie</td><td>${os.toLocaleString("pl-PL")}</td><td>${ab.toLocaleString("pl-PL")}</td><td style="color:${pc(pct)}">${pct.toFixed(1)}%</td></tr>`;
+  rows+=`<tr class="total-row"><td>∑ Dział łącznie</td><td>${os.toLocaleString("pl-PL")}</td><td>${ab.toLocaleString("pl-PL")}</td><td style="color:${pc(pct)}">${pct.toFixed(1)}%</td><td></td><td></td><td></td><td></td></tr>`;
   document.getElementById("wt").innerHTML=`
-    <thead><tr><th style="text-align:left">Wydział</th><th>Os-dni</th><th>Abs.</th><th>%</th></tr></thead>
+    <thead><tr><th style="text-align:left">Wydział</th><th>Os-dni</th><th>Abs.</th><th>%</th><th style="color:#3A7BD5">UW</th><th style="color:#6B3FA0">CHZ</th><th style="color:#C0392B">ZUS</th><th style="color:#E67E22">KW</th></tr></thead>
     <tbody>${rows}</tbody>`;
 
   // KARTY MIESIĘCZNE
@@ -316,18 +329,57 @@ function render(){
       scales:{x:{ticks:{font:{size:11},color:tc},grid:{color:gc}},y:{min:0,suggestedMax:35,ticks:{callback:v=>v+"%",font:{size:11},color:tc},grid:{color:gc}}}}
   });
 
-  // BAR
+  // BAR — stacked per kategoria absencji
   if(bChart){bChart.destroy();bChart=null;}
-  const bW=wSorted;
+  const bW=wSorted.filter(w=>w.k);  // tylko wydziały z danymi kategorii
   const bL=bW.map(w=>w.n);
-  const bD=bW.map(w=>{let o=0,a=0;M.forEach(m=>{if(w.d[m]){o+=w.d[m][0];a+=w.d[m][1];}});return o>0?+(a/o*100).toFixed(1):0;});
-  const bC=bD.map(v=>pc(v));
+  // Kategorie: UW, CHZ, ZUS, KW, Opieka, Urlop inne, Inne
+  function katSum(w,k){
+    let s=0;
+    M.forEach(m=>{
+      if(w.k&&w.k[m]){
+        if(k==="Poz") s+=(w.k[m]["Op"]||0)+(w.k[m]["Ur"]||0)+(w.k[m]["In"]||0);
+        else s+=w.k[m][k]||0;
+      }
+    });
+    return s;
+  }
+  function osSum(w){let s=0;M.forEach(m=>{if(w.d&&w.d[m])s+=w.d[m][0];});return s;}
+  const KAT_DEF=[
+    {k:"UW",   lbl:"Urlop wypoczynkowy", col:"3A7BD5"},
+    {k:"CHZ",  lbl:"Choroba CHZ",        col:"6B3FA0"},
+    {k:"ZUS",  lbl:"Choroba ZUS",        col:"C0392B"},
+    {k:"KW",   lbl:"Krew (KW)",          col:"E67E22"},
+    {k:"Poz",  lbl:"Pozostałe",          col:"95A5A6"},
+  ];
+  const katDatasets = KAT_DEF.map(kd=>({
+    label: kd.lbl,
+    data: bW.map(w=>{ const os=osSum(w); return os>0?+(katSum(w,kd.k)/os*100).toFixed(2):0; }),
+    backgroundColor: "#"+kd.col+"CC",
+    borderColor: "#"+kd.col,
+    borderWidth: 0.5,
+    borderRadius: 2,
+    borderSkipped: false,
+  }));
 
   bChart=new Chart(document.getElementById("barC"),{type:"bar",
-    data:{labels:bL,datasets:[{label:"Absencja %",data:bD,backgroundColor:bC.map(c=>c+"CC"),borderColor:bC,borderWidth:1.5,borderRadius:4,borderSkipped:false}]},
+    data:{labels:bL, datasets:katDatasets},
     options:{responsive:true,maintainAspectRatio:false,indexAxis:"y",
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${c.parsed.x.toFixed(1)}%`}}},
-      scales:{x:{min:0,suggestedMax:35,ticks:{callback:v=>v+"%",font:{size:10},color:tc},grid:{color:gc}},y:{ticks:{font:{size:11},color:"#333"},grid:{display:false}}}}
+      plugins:{
+        legend:{display:true,position:"bottom",labels:{font:{size:8},boxWidth:10,padding:6}},
+        tooltip:{callbacks:{
+          label:c=>{
+            const w=bW[c.dataIndex];const os=osSum(w);
+            const dni=os>0?Math.round(c.parsed.x/100*os):0;
+            return ` ${c.dataset.label}: ${c.parsed.x.toFixed(1)}% (${dni} dni)`;
+          }
+        }}
+      },
+      scales:{
+        x:{stacked:true,min:0,suggestedMax:35,ticks:{callback:v=>v+"%",font:{size:9},color:tc},grid:{color:gc}},
+        y:{stacked:true,ticks:{font:{size:10},color:"#333"},grid:{display:false}}
+      }
+    }
   });
 }
 
