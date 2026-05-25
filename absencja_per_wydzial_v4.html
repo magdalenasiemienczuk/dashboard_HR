@@ -82,11 +82,11 @@ h1{font-size:17px;font-weight:600;margin-bottom:3px}
   </div>
   <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
     <span class="badge-green">✓ Wydziały dopasowane</span>
-    <span class="badge">Dane 29.05.2026</span>
+    <span class="badge">Dane 25.05.2026</span>
   </div>
 </div>
 
-<div class="al-warn">⚠️ <span>Wskaźniki bazują na pewnych danych <strong>sty–kwi 2026</strong>. Maj = dane wstępne, nie uwzględniony.</span></div>
+<div class="al-warn">⚠️ <span>Tabela pokazuje dane <strong>narastająco sty–22 maja 2026</strong>. Maj = rzeczywiste dane T18–T21 (do 22.05). T22 (25–29 maj) = tydzień w toku, nieuwzględniony.</span></div>
 
 <div class="selector">
   <div class="sel-lbl">Wybierz dział</div>
@@ -97,11 +97,11 @@ h1{font-size:17px;font-weight:600;margin-bottom:3px}
 
 <div class="grid2">
   <div class="panel">
-    <div class="sec">Wydziały — absencja sty–kwi</div>
+    <div class="sec">Wydziały — absencja narastająco sty–22 maja 2026</div>
     <table class="wt" id="wt"></table>
   </div>
   <div class="panel">
-    <div class="sec">Trend miesięczny absencji per wydział</div>
+    <div class="sec">Trend miesięczny absencji · sty–kwi pewne · maj 🔮 prognoza</div>
     <div class="ch210"><canvas id="trendC"></canvas></div>
     <div class="leg" id="tleg"></div>
   </div>
@@ -113,7 +113,7 @@ h1{font-size:17px;font-weight:600;margin-bottom:3px}
     <div class="mgrid" id="mcards"></div>
   </div>
   <div class="panel">
-    <div class="sec">Ranking wydziałów — % absencji sty–kwi</div>
+    <div class="sec">Ranking wydziałów — % absencji sty–22 maja 2026</div>
     <div class="ch170"><canvas id="barC"></canvas></div>
   </div>
 </div>
@@ -122,7 +122,8 @@ h1{font-size:17px;font-weight:600;margin-bottom:3px}
 </div>
 
 <script>
-const M  = ["Sty","Lut","Mar","Kwi"];
+const M  = ["Sty","Lut","Mar","Kwi"];  // sty-kwi pewne
+const M_ALL = ["Sty","Lut","Mar","Kwi","Maj"];
 const MF = {Sty:"Styczeń",Lut:"Luty",Mar:"Marzec",Kwi:"Kwiecień"};
 const WC = ["#E24B4A","#4472C4","#70AD47","#EF9F27","#7B68EE","#C97B1A","#E8337C","#5B9BD5","#3B6D11","#9966CC","#CC3333","#336699"];
 
@@ -133,95 +134,103 @@ const DZIALY = {
     color:"#5B9BD5",
     rcp_level:"wydział",
     info:"Dane per wydział wyliczone po numerach ewidencyjnych pracowników.",
-    total:{Sty:[740,183],Lut:[740,93],Mar:[814,94],Kwi:[777,93]},
+    total:{Sty:[700,183],Lut:[700,93],Mar:[770,94],Kwi:[735,93],Maj:[530,64]},
+    maj_pewne:12.1, maj_pred:15.3,
     wydzialy:[
-      {n:"Laser 3D", n_prac:2, d:{Sty:[40,8],Lut:[40,4],Mar:[44,2],Kwi:[42,0]}, k:{Sty:{UW:5,CHZ:3,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:1,CHZ:3,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}},
-      {n:"Laser 2D", n_prac:3, d:{Sty:[60,34],Lut:[60,30],Mar:[66,7],Kwi:[63,20]}, k:{Sty:{UW:12,CHZ:0,ZUS:20,KW:2,Op:0,Ur:0,In:0},Lut:{UW:10,CHZ:0,ZUS:20,KW:0,Op:0,Ur:0,In:0},Mar:{UW:5,CHZ:0,ZUS:2,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:13,CHZ:5,ZUS:0,KW:2,Op:0,Ur:0,In:0}}},
-      {n:"Prasy Korbowe", n_prac:5, d:{Sty:[100,20],Lut:[100,0],Mar:[110,0],Kwi:[105,8]}, k:{Sty:{UW:12,CHZ:4,ZUS:0,KW:2,Op:0,Ur:2,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:2,CHZ:6,ZUS:0,KW:0,Op:0,Ur:0,In:0}}},
-      {n:"Piły", n_prac:4, d:{Sty:[80,13],Lut:[80,2],Mar:[88,7],Kwi:[84,12]}, k:{Sty:{UW:13,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:2,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:2,CHZ:5,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:2,CHZ:7,ZUS:3,KW:0,Op:0,Ur:0,In:0}}},
-      {n:"Prasy CNC", n_prac:17, d:{Sty:[320,92],Lut:[320,57],Mar:[352,76],Kwi:[336,41]}, k:{Sty:{UW:50,CHZ:27,ZUS:3,KW:2,Op:3,Ur:7,In:0},Lut:{UW:17,CHZ:23,ZUS:7,KW:6,Op:4,Ur:0,In:0},Mar:{UW:14,CHZ:13,ZUS:25,KW:6,Op:8,Ur:10,In:0},Kwi:{UW:18,CHZ:6,ZUS:1,KW:0,Op:16,Ur:0,In:0}}},
-      {n:"Krajalnia", n_prac:1, d:{Sty:[20,2],Lut:[20,0],Mar:[22,1],Kwi:[21,4]}, k:{Sty:{UW:2,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:1,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:0,CHZ:4,ZUS:0,KW:0,Op:0,Ur:0,In:0}}},
-      {n:"Wyważarki", n_prac:3, d:{Sty:[60,9],Lut:[60,0],Mar:[66,0],Kwi:[63,1]}, k:{Sty:{UW:9,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:1,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}},
-      {n:"Przygot. Pow. Płaskich", n_prac:1, d:{Sty:[20,5],Lut:[20,0],Mar:[22,1],Kwi:[21,7]}, k:{Sty:{UW:5,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:1,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:4,CHZ:3,ZUS:0,KW:0,Op:0,Ur:0,In:0}}},
+      {n:"Laser 3D", n_prac:2, d:{Sty:[40,8],Lut:[40,4],Mar:[44,2],Kwi:[42,0],Maj:[30,2]}, k:{Sty:{UW:5,CHZ:3,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:1,CHZ:3,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:0,CHZ:0,ZUS:0,KW:2,Op:0,Ur:0,In:0}}, maj_pewne:6.7, maj_pred:6.7},
+      {n:"Laser 2D", n_prac:3, d:{Sty:[60,34],Lut:[60,30],Mar:[66,7],Kwi:[63,20],Maj:[45,15]}, k:{Sty:{UW:12,CHZ:0,ZUS:20,KW:2,Op:0,Ur:0,In:0},Lut:{UW:10,CHZ:0,ZUS:20,KW:0,Op:0,Ur:0,In:0},Mar:{UW:5,CHZ:0,ZUS:2,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:13,CHZ:5,ZUS:0,KW:2,Op:0,Ur:0,In:0},Maj:{UW:3,CHZ:10,ZUS:2,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:33.3, maj_pred:33.3},
+      {n:"Prasy Korbowe", n_prac:5, d:{Sty:[100,20],Lut:[100,0],Mar:[110,0],Kwi:[105,8],Maj:[75,2]}, k:{Sty:{UW:12,CHZ:4,ZUS:0,KW:2,Op:0,Ur:2,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:2,CHZ:6,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:2,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:2.7, maj_pred:2.7},
+      {n:"Piły", n_prac:4, d:{Sty:[80,13],Lut:[80,2],Mar:[88,7],Kwi:[84,12],Maj:[60,8]}, k:{Sty:{UW:13,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:2,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:2,CHZ:5,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:2,CHZ:7,ZUS:3,KW:0,Op:0,Ur:0,In:0},Maj:{UW:1,CHZ:6,ZUS:1,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:13.3, maj_pred:13.3},
+      {n:"Prasy CNC", n_prac:16, d:{Sty:[320,92],Lut:[320,57],Mar:[352,76],Kwi:[336,41],Maj:[245,36]}, k:{Sty:{UW:50,CHZ:27,ZUS:3,KW:2,Op:3,Ur:7,In:0},Lut:{UW:17,CHZ:23,ZUS:7,KW:6,Op:4,Ur:0,In:0},Mar:{UW:14,CHZ:13,ZUS:25,KW:6,Op:8,Ur:10,In:0},Kwi:{UW:18,CHZ:6,ZUS:1,KW:0,Op:16,Ur:0,In:0},Maj:{UW:5,CHZ:3,ZUS:5,KW:6,Op:17,Ur:0,In:0}}, maj_pewne:14.7, maj_pred:14.7},
+      {n:"Krajalnia", n_prac:1, d:{Sty:[20,2],Lut:[20,0],Mar:[22,1],Kwi:[21,4],Maj:[15,0]}, k:{Sty:{UW:2,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:1,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:0,CHZ:4,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:0.0, maj_pred:0.0},
+      {n:"Wyważarki", n_prac:3, d:{Sty:[60,9],Lut:[60,0],Mar:[66,0],Kwi:[63,1],Maj:[45,1]}, k:{Sty:{UW:9,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:1,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:1,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:2.2, maj_pred:2.2},
+      {n:"Przygot. Pow. Płaskich", n_prac:1, d:{Sty:[20,5],Lut:[20,0],Mar:[22,1],Kwi:[21,7],Maj:[15,0]}, k:{Sty:{UW:5,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:1,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:4,CHZ:3,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:0.0, maj_pred:0.0},
     ]
   },
   "Obróbka skrawaniem": {
     color:"#70AD47",
     rcp_level:"pełny",
     info:"Pełne dane RCP per wydział.",
-    total:{Sty:[1050,240],Lut:[1060,90],Mar:[1166,118],Kwi:[1113,148]},
+    total:{Sty:[1030,240],Lut:[1040,90],Mar:[1144,118],Kwi:[1092,148],Maj:[780,125]},
+    maj_pewne:16.0, maj_pred:14.2,
     wydzialy:[
-      {n:"Tokarki Manualne", n_prac:9, d:{Sty:[180,40],Lut:[180,6],Mar:[198,17],Kwi:[189,22]}, k:{Sty:{UW:26,CHZ:9,ZUS:5,KW:0,Op:0,Ur:0,In:0},Lut:{UW:5,CHZ:1,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:6,CHZ:10,ZUS:1,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:10,CHZ:0,ZUS:12,KW:0,Op:0,Ur:0,In:0}}},
-      {n:"Tokarki CNC", n_prac:25, d:{Sty:[480,131],Lut:[480,69],Mar:[528,78],Kwi:[504,85]}, k:{Sty:{UW:80,CHZ:36,ZUS:5,KW:8,Op:0,Ur:2,In:0},Lut:{UW:25,CHZ:23,ZUS:0,KW:2,Op:15,Ur:4,In:0},Mar:{UW:10,CHZ:32,ZUS:7,KW:8,Op:20,Ur:0,In:1},Kwi:{UW:27,CHZ:17,ZUS:24,KW:12,Op:2,Ur:3,In:0}}},
-      {n:"Wiertarki", n_prac:5, d:{Sty:[100,15],Lut:[100,6],Mar:[110,3],Kwi:[105,8]}, k:{Sty:{UW:14,CHZ:1,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:6,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:3,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:8,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}},
-      {n:"Frezarki CNC", n_prac:14, d:{Sty:[270,54],Lut:[280,9],Mar:[308,20],Kwi:[294,33]}, k:{Sty:{UW:36,CHZ:6,ZUS:6,KW:6,Op:0,Ur:0,In:0},Lut:{UW:5,CHZ:0,ZUS:0,KW:4,Op:0,Ur:0,In:0},Mar:{UW:7,CHZ:3,ZUS:0,KW:10,Op:0,Ur:0,In:0},Kwi:{UW:15,CHZ:8,ZUS:0,KW:10,Op:0,Ur:0,In:0}}},
+      {n:"Tokarki Manualne", n_prac:9, d:{Sty:[180,40],Lut:[180,6],Mar:[198,17],Kwi:[189,22],Maj:[135,31]}, k:{Sty:{UW:26,CHZ:9,ZUS:5,KW:0,Op:0,Ur:0,In:0},Lut:{UW:5,CHZ:1,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:6,CHZ:10,ZUS:1,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:10,CHZ:0,ZUS:12,KW:0,Op:0,Ur:0,In:0},Maj:{UW:0,CHZ:4,ZUS:27,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:23.0, maj_pred:23.0},
+      {n:"Tokarki CNC", n_prac:24, d:{Sty:[480,131],Lut:[480,69],Mar:[528,78],Kwi:[504,85],Maj:[360,67]}, k:{Sty:{UW:80,CHZ:36,ZUS:5,KW:8,Op:0,Ur:2,In:0},Lut:{UW:25,CHZ:23,ZUS:0,KW:2,Op:15,Ur:4,In:0},Mar:{UW:10,CHZ:32,ZUS:7,KW:8,Op:20,Ur:0,In:1},Kwi:{UW:27,CHZ:17,ZUS:24,KW:12,Op:2,Ur:3,In:0},Maj:{UW:18,CHZ:15,ZUS:15,KW:0,Op:9,Ur:10,In:0}}, maj_pewne:18.6, maj_pred:18.6},
+      {n:"Wiertarki", n_prac:5, d:{Sty:[100,15],Lut:[100,6],Mar:[110,3],Kwi:[105,8],Maj:[75,5]}, k:{Sty:{UW:14,CHZ:1,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:6,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:3,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:8,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:4,CHZ:0,ZUS:0,KW:0,Op:0,Ur:1,In:0}}, maj_pewne:6.7, maj_pred:6.7},
+      {n:"Frezarki CNC", n_prac:14, d:{Sty:[270,54],Lut:[280,9],Mar:[308,20],Kwi:[294,33],Maj:[210,22]}, k:{Sty:{UW:36,CHZ:6,ZUS:6,KW:6,Op:0,Ur:0,In:0},Lut:{UW:5,CHZ:0,ZUS:0,KW:4,Op:0,Ur:0,In:0},Mar:{UW:7,CHZ:3,ZUS:0,KW:10,Op:0,Ur:0,In:0},Kwi:{UW:15,CHZ:8,ZUS:0,KW:10,Op:0,Ur:0,In:0},Maj:{UW:8,CHZ:14,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:10.5, maj_pred:10.5},
     ]
   },
   "Spawalnia": {
     color:"#E24B4A",
     rcp_level:"dział-tylko",
-    info:"Dane RCP agregowane pod MPK 20300 — podział po nr ewid. pracowników.",
-    total:{Sty:[1918,574],Lut:[1929,320],Mar:[2121,370],Kwi:[2042,391]},
+    info:"Dane RCP — podział po nr ewid. pracowników.",
+    total:{Sty:[1878,574],Lut:[1889,320],Mar:[2077,370],Kwi:[2000,391],Maj:[1450,219]},
+    maj_pewne:15.1, maj_pred:20.2,
     wydzialy:[
-      {n:"Spawalnia 1", n_prac:51, d:{Sty:[950,319],Lut:[949,164],Mar:[1043,184],Kwi:[1005,203]}, k:{Sty:{UW:163,CHZ:41,ZUS:80,KW:4,Op:20,Ur:11,In:0},Lut:{UW:63,CHZ:64,ZUS:22,KW:10,Op:0,Ur:4,In:1},Mar:{UW:83,CHZ:70,ZUS:27,KW:2,Op:0,Ur:0,In:2},Kwi:{UW:60,CHZ:66,ZUS:56,KW:12,Op:3,Ur:4,In:2}}},
-      {n:"Spawalnia 2", n_prac:15, d:{Sty:[288,76],Lut:[300,49],Mar:[330,79],Kwi:[315,76]}, k:{Sty:{UW:48,CHZ:12,ZUS:7,KW:0,Op:7,Ur:2,In:0},Lut:{UW:9,CHZ:10,ZUS:20,KW:8,Op:2,Ur:0,In:0},Mar:{UW:21,CHZ:28,ZUS:22,KW:8,Op:0,Ur:0,In:0},Kwi:{UW:20,CHZ:33,ZUS:13,KW:6,Op:4,Ur:0,In:0}}},
-      {n:"Spawalnia 3", n_prac:10, d:{Sty:[180,47],Lut:[180,20],Mar:[198,33],Kwi:[197,33]}, k:{Sty:{UW:38,CHZ:0,ZUS:6,KW:2,Op:1,Ur:0,In:0},Lut:{UW:9,CHZ:9,ZUS:0,KW:2,Op:0,Ur:0,In:0},Mar:{UW:8,CHZ:10,ZUS:1,KW:2,Op:12,Ur:0,In:0},Kwi:{UW:17,CHZ:2,ZUS:11,KW:0,Op:1,Ur:2,In:0}}},
-      {n:"Spawalnia 4", n_prac:13, d:{Sty:[260,60],Lut:[260,42],Mar:[286,37],Kwi:[273,34]}, k:{Sty:{UW:46,CHZ:8,ZUS:2,KW:4,Op:0,Ur:0,In:0},Lut:{UW:7,CHZ:28,ZUS:0,KW:4,Op:3,Ur:0,In:0},Mar:{UW:13,CHZ:3,ZUS:0,KW:3,Op:10,Ur:8,In:0},Kwi:{UW:19,CHZ:2,ZUS:0,KW:5,Op:0,Ur:8,In:0}}},
-      {n:"Spawalnia 5", n_prac:10, d:{Sty:[200,72],Lut:[200,45],Mar:[220,37],Kwi:[210,45]}, k:{Sty:{UW:38,CHZ:14,ZUS:12,KW:0,Op:8,Ur:0,In:0},Lut:{UW:17,CHZ:2,ZUS:20,KW:6,Op:0,Ur:0,In:0},Mar:{UW:8,CHZ:5,ZUS:22,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:13,CHZ:6,ZUS:21,KW:4,Op:0,Ur:1,In:0}}},
+      {n:"Spawalnia 1", n_prac:48, d:{Sty:[950,319],Lut:[949,164],Mar:[1043,184],Kwi:[1005,203],Maj:[730,107]}, k:{Sty:{UW:163,CHZ:41,ZUS:80,KW:4,Op:20,Ur:11,In:0},Lut:{UW:63,CHZ:64,ZUS:22,KW:10,Op:0,Ur:4,In:1},Mar:{UW:83,CHZ:70,ZUS:27,KW:2,Op:0,Ur:0,In:2},Kwi:{UW:60,CHZ:66,ZUS:56,KW:12,Op:3,Ur:4,In:2},Maj:{UW:36,CHZ:27,ZUS:40,KW:0,Op:0,Ur:4,In:0}}, maj_pewne:14.7, maj_pred:14.7},
+      {n:"Spawalnia 2", n_prac:15, d:{Sty:[288,76],Lut:[300,49],Mar:[330,79],Kwi:[315,76],Maj:[225,34]}, k:{Sty:{UW:48,CHZ:12,ZUS:7,KW:0,Op:7,Ur:2,In:0},Lut:{UW:9,CHZ:10,ZUS:20,KW:8,Op:2,Ur:0,In:0},Mar:{UW:21,CHZ:28,ZUS:22,KW:8,Op:0,Ur:0,In:0},Kwi:{UW:20,CHZ:33,ZUS:13,KW:6,Op:4,Ur:0,In:0},Maj:{UW:3,CHZ:1,ZUS:25,KW:4,Op:1,Ur:0,In:0}}, maj_pewne:15.1, maj_pred:15.1},
+      {n:"Spawalnia 3", n_prac:10, d:{Sty:[180,47],Lut:[180,20],Mar:[198,33],Kwi:[197,33],Maj:[150,16]}, k:{Sty:{UW:38,CHZ:0,ZUS:6,KW:2,Op:1,Ur:0,In:0},Lut:{UW:9,CHZ:9,ZUS:0,KW:2,Op:0,Ur:0,In:0},Mar:{UW:8,CHZ:10,ZUS:1,KW:2,Op:12,Ur:0,In:0},Kwi:{UW:17,CHZ:2,ZUS:11,KW:0,Op:1,Ur:2,In:0},Maj:{UW:7,CHZ:1,ZUS:6,KW:2,Op:0,Ur:0,In:0}}, maj_pewne:10.7, maj_pred:10.7},
+      {n:"Spawalnia 4", n_prac:13, d:{Sty:[260,60],Lut:[260,42],Mar:[286,37],Kwi:[273,34],Maj:[195,28]}, k:{Sty:{UW:46,CHZ:8,ZUS:2,KW:4,Op:0,Ur:0,In:0},Lut:{UW:7,CHZ:28,ZUS:0,KW:4,Op:3,Ur:0,In:0},Mar:{UW:13,CHZ:3,ZUS:0,KW:3,Op:10,Ur:8,In:0},Kwi:{UW:19,CHZ:2,ZUS:0,KW:5,Op:0,Ur:8,In:0},Maj:{UW:7,CHZ:19,ZUS:0,KW:2,Op:0,Ur:0,In:0}}, maj_pewne:14.4, maj_pred:14.4},
+      {n:"Spawalnia 5", n_prac:10, d:{Sty:[200,72],Lut:[200,45],Mar:[220,37],Kwi:[210,45],Maj:[150,34]}, k:{Sty:{UW:38,CHZ:14,ZUS:12,KW:0,Op:8,Ur:0,In:0},Lut:{UW:17,CHZ:2,ZUS:20,KW:6,Op:0,Ur:0,In:0},Mar:{UW:8,CHZ:5,ZUS:22,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:13,CHZ:6,ZUS:21,KW:4,Op:0,Ur:1,In:0},Maj:{UW:5,CHZ:9,ZUS:15,KW:2,Op:2,Ur:1,In:0}}, maj_pewne:22.7, maj_pred:22.7},
     ]
   },
   "Roboty spawalnicze": {
     color:"#C97B1A",
     rcp_level:"dział-tylko",
-    info:"Dane RCP agregowane pod MPK 20400.",
-    total:{Sty:[400,105],Lut:[400,51],Mar:[440,60],Kwi:[416,57]},
+    info:"Dane RCP — podział po nr ewid. pracowników.",
+    total:{Sty:[380,105],Lut:[380,51],Mar:[418,60],Kwi:[395,57],Maj:[305,61]},
+    maj_pewne:20.0, maj_pred:17.8,
     wydzialy:[
-      {n:"Roboty Spawalnicze", n_prac:22, d:{Sty:[380,105],Lut:[380,51],Mar:[418,60],Kwi:[395,57]}, k:{Sty:{UW:61,CHZ:44,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:19,CHZ:15,ZUS:15,KW:2,Op:0,Ur:0,In:0},Mar:{UW:28,CHZ:0,ZUS:22,KW:8,Op:0,Ur:2,In:0},Kwi:{UW:18,CHZ:10,ZUS:21,KW:2,Op:6,Ur:0,In:0}}},
+      {n:"Roboty Spawalnicze", n_prac:19, d:{Sty:[380,105],Lut:[380,51],Mar:[418,60],Kwi:[395,57],Maj:[305,61]}, k:{Sty:{UW:61,CHZ:44,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:19,CHZ:15,ZUS:15,KW:2,Op:0,Ur:0,In:0},Mar:{UW:28,CHZ:0,ZUS:22,KW:8,Op:0,Ur:2,In:0},Kwi:{UW:18,CHZ:10,ZUS:21,KW:2,Op:6,Ur:0,In:0},Maj:{UW:7,CHZ:32,ZUS:20,KW:2,Op:0,Ur:0,In:0}}, maj_pewne:20.0, maj_pred:20.0},
     ]
   },
   "Malarnia": {
     color:"#7B68EE",
     rcp_level:"częściowy",
-    info:"Dane częściowo per wydział (Ślusarnia brak w RCP).",
-    total:{Sty:[740,123],Lut:[740,67],Mar:[792,48],Kwi:[743,80]},
+    info:"Dane częściowo per wydział.",
+    total:{Sty:[720,123],Lut:[720,67],Mar:[770,48],Kwi:[722,80],Maj:[510,38]},
+    maj_pewne:7.5, maj_pred:10.3,
     wydzialy:[
       {n:"Ślusarnia", d:null},
-      {n:"Śrutownia", n_prac:12, d:{Sty:[240,47],Lut:[240,28],Mar:[264,22],Kwi:[252,21]}, k:{Sty:{UW:37,CHZ:6,ZUS:0,KW:4,Op:0,Ur:0,In:0},Lut:{UW:13,CHZ:11,ZUS:0,KW:4,Op:0,Ur:0,In:0},Mar:{UW:15,CHZ:5,ZUS:0,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:16,CHZ:1,ZUS:0,KW:4,Op:0,Ur:0,In:0}}},
-      {n:"Malarnia Automatyczna", n_prac:20, d:{Sty:[400,62],Lut:[400,34],Mar:[418,20],Kwi:[386,39]}, k:{Sty:{UW:52,CHZ:0,ZUS:5,KW:0,Op:5,Ur:0,In:0},Lut:{UW:25,CHZ:0,ZUS:0,KW:4,Op:5,Ur:0,In:0},Mar:{UW:12,CHZ:6,ZUS:0,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:33,CHZ:0,ZUS:0,KW:6,Op:0,Ur:0,In:0}}},
-      {n:"Malarnia Ręczna", n_prac:5, d:{Sty:[80,14],Lut:[80,5],Mar:[88,6],Kwi:[84,20]}, k:{Sty:{UW:12,CHZ:2,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:5,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:2,CHZ:2,ZUS:0,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:6,CHZ:14,ZUS:0,KW:0,Op:0,Ur:0,In:0}}},
+      {n:"Śrutownia", n_prac:12, d:{Sty:[240,47],Lut:[240,28],Mar:[264,22],Kwi:[252,21],Maj:[180,29]}, k:{Sty:{UW:37,CHZ:6,ZUS:0,KW:4,Op:0,Ur:0,In:0},Lut:{UW:13,CHZ:11,ZUS:0,KW:4,Op:0,Ur:0,In:0},Mar:{UW:15,CHZ:5,ZUS:0,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:16,CHZ:1,ZUS:0,KW:4,Op:0,Ur:0,In:0},Maj:{UW:1,CHZ:21,ZUS:7,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:16.1, maj_pred:16.1},
+      {n:"Malarnia Automatyczna", n_prac:20, d:{Sty:[400,62],Lut:[400,34],Mar:[418,20],Kwi:[386,39],Maj:[270,9]}, k:{Sty:{UW:52,CHZ:0,ZUS:5,KW:0,Op:5,Ur:0,In:0},Lut:{UW:25,CHZ:0,ZUS:0,KW:4,Op:5,Ur:0,In:0},Mar:{UW:12,CHZ:6,ZUS:0,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:33,CHZ:0,ZUS:0,KW:6,Op:0,Ur:0,In:0},Maj:{UW:2,CHZ:7,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:3.3, maj_pred:3.3},
+      {n:"Malarnia Ręczna", n_prac:4, d:{Sty:[80,14],Lut:[80,5],Mar:[88,6],Kwi:[84,20],Maj:[60,0]}, k:{Sty:{UW:12,CHZ:2,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:5,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:2,CHZ:2,ZUS:0,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:6,CHZ:14,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:0.0, maj_pred:0.0},
     ]
   },
   "Malarnia Mokra": {
     color:"#9966CC",
     rcp_level:"pełny",
-    info:"Dane per wydział wyliczone po nr ewid. pracowników (MPK 20800).",
-    total:{Sty:[100,15],Lut:[100,16],Mar:[110,8],Kwi:[105,7]},
+    info:"Dane per wydział wyliczone po nr ewid. pracowników.",
+    total:{Sty:[100,23],Lut:[100,16],Mar:[110,11],Kwi:[105,9],Maj:[85,7]},
+    maj_pewne:8.2, maj_pred:13.2,
     wydzialy:[
-      {n:"Malarnia Mokra", n_prac:6, d:{Sty:[100,23],Lut:[100,16],Mar:[110,11],Kwi:[105,9]}, k:{Sty:{UW:20,CHZ:0,ZUS:1,KW:2,Op:0,Ur:0,In:0},Lut:{UW:5,CHZ:5,ZUS:1,KW:0,Op:5,Ur:0,In:0},Mar:{UW:7,CHZ:0,ZUS:0,KW:0,Op:4,Ur:0,In:0},Kwi:{UW:9,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}},
+      {n:"Malarnia Mokra", n_prac:5, d:{Sty:[100,23],Lut:[100,16],Mar:[110,11],Kwi:[105,9],Maj:[85,7]}, k:{Sty:{UW:20,CHZ:0,ZUS:1,KW:2,Op:0,Ur:0,In:0},Lut:{UW:5,CHZ:5,ZUS:1,KW:0,Op:5,Ur:0,In:0},Mar:{UW:7,CHZ:0,ZUS:0,KW:0,Op:4,Ur:0,In:0},Kwi:{UW:9,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:1,CHZ:4,ZUS:0,KW:2,Op:0,Ur:0,In:0}}, maj_pewne:8.2, maj_pred:8.2},
     ]
   },
   "Montaż": {
     color:"#4472C4",
     rcp_level:"dział-tylko",
-    info:"Dane RCP agregowane pod MPK 20600 — podział po nr ewid. pracowników.",
-    total:{Sty:[1544,310],Lut:[1508,131],Mar:[1744,173],Kwi:[1651,218]},
+    info:"Dane RCP — podział po nr ewid. pracowników.",
+    total:{Sty:[1504,310],Lut:[1460,131],Mar:[1678,173],Kwi:[1572,218],Maj:[1125,84]},
+    maj_pewne:7.5, maj_pred:12.5,
     wydzialy:[
-      {n:"Linia L1", n_prac:11, d:{Sty:[215,32],Lut:[220,17],Mar:[242,26],Kwi:[231,39]}, k:{Sty:{UW:28,CHZ:2,ZUS:0,KW:2,Op:0,Ur:0,In:0},Lut:{UW:13,CHZ:0,ZUS:0,KW:4,Op:0,Ur:0,In:0},Mar:{UW:13,CHZ:13,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:11,CHZ:20,ZUS:4,KW:4,Op:0,Ur:0,In:0}}},
-      {n:"Linia L3", n_prac:19, d:{Sty:[375,106],Lut:[340,42],Mar:[373,55],Kwi:[315,39]}, k:{Sty:{UW:65,CHZ:17,ZUS:20,KW:4,Op:0,Ur:0,In:0},Lut:{UW:6,CHZ:20,ZUS:9,KW:6,Op:0,Ur:1,In:0},Mar:{UW:15,CHZ:12,ZUS:20,KW:2,Op:6,Ur:0,In:0},Kwi:{UW:15,CHZ:4,ZUS:0,KW:6,Op:12,Ur:2,In:0}}},
-      {n:"Linia L6", n_prac:7, d:{Sty:[140,26],Lut:[140,3],Mar:[154,17],Kwi:[147,33]}, k:{Sty:{UW:20,CHZ:5,ZUS:0,KW:0,Op:1,Ur:0,In:0},Lut:{UW:2,CHZ:0,ZUS:0,KW:0,Op:1,Ur:0,In:0},Mar:{UW:5,CHZ:10,ZUS:0,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:16,CHZ:9,ZUS:7,KW:0,Op:1,Ur:0,In:0}}},
-      {n:"Linia L7", n_prac:14, d:{Sty:[220,27],Lut:[220,14],Mar:[281,14],Kwi:[270,14]}, k:{Sty:{UW:23,CHZ:4,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:5,CHZ:5,ZUS:0,KW:2,Op:2,Ur:0,In:0},Mar:{UW:14,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:9,CHZ:1,ZUS:0,KW:4,Op:0,Ur:0,In:0}}},
-      {n:"Linia L9", n_prac:15, d:{Sty:[280,44],Lut:[280,23],Mar:[320,25],Kwi:[315,22]}, k:{Sty:{UW:40,CHZ:1,ZUS:0,KW:0,Op:0,Ur:3,In:0},Lut:{UW:4,CHZ:19,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:8,CHZ:15,ZUS:0,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:10,CHZ:12,ZUS:0,KW:0,Op:0,Ur:0,In:0}}},
-      {n:"Linia L10", n_prac:15, d:{Sty:[274,75],Lut:[260,32],Mar:[308,36],Kwi:[294,71]}, k:{Sty:{UW:64,CHZ:7,ZUS:0,KW:4,Op:0,Ur:0,In:0},Lut:{UW:13,CHZ:17,ZUS:0,KW:2,Op:0,Ur:0,In:0},Mar:{UW:8,CHZ:15,ZUS:0,KW:0,Op:10,Ur:3,In:0},Kwi:{UW:24,CHZ:21,ZUS:12,KW:4,Op:0,Ur:10,In:0}}},
+      {n:"Linia L1", n_prac:11, d:{Sty:[215,32],Lut:[220,17],Mar:[242,26],Kwi:[231,39],Maj:[165,24]}, k:{Sty:{UW:28,CHZ:2,ZUS:0,KW:2,Op:0,Ur:0,In:0},Lut:{UW:13,CHZ:0,ZUS:0,KW:4,Op:0,Ur:0,In:0},Mar:{UW:13,CHZ:13,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:11,CHZ:20,ZUS:4,KW:4,Op:0,Ur:0,In:0},Maj:{UW:8,CHZ:10,ZUS:2,KW:2,Op:0,Ur:2,In:0}}, maj_pewne:14.5, maj_pred:14.5},
+      {n:"Linia L3", n_prac:19, d:{Sty:[375,106],Lut:[340,42],Mar:[373,55],Kwi:[315,39],Maj:[225,4]}, k:{Sty:{UW:65,CHZ:17,ZUS:20,KW:4,Op:0,Ur:0,In:0},Lut:{UW:6,CHZ:20,ZUS:9,KW:6,Op:0,Ur:1,In:0},Mar:{UW:15,CHZ:12,ZUS:20,KW:2,Op:6,Ur:0,In:0},Kwi:{UW:15,CHZ:4,ZUS:0,KW:6,Op:12,Ur:2,In:0},Maj:{UW:2,CHZ:0,ZUS:0,KW:1,Op:1,Ur:0,In:0}}, maj_pewne:1.8, maj_pred:1.8},
+      {n:"Linia L6", n_prac:7, d:{Sty:[140,26],Lut:[140,3],Mar:[154,17],Kwi:[147,33],Maj:[105,6]}, k:{Sty:{UW:20,CHZ:5,ZUS:0,KW:0,Op:1,Ur:0,In:0},Lut:{UW:2,CHZ:0,ZUS:0,KW:0,Op:1,Ur:0,In:0},Mar:{UW:5,CHZ:10,ZUS:0,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:16,CHZ:9,ZUS:7,KW:0,Op:1,Ur:0,In:0},Maj:{UW:5,CHZ:0,ZUS:0,KW:0,Op:1,Ur:0,In:0}}, maj_pewne:5.7, maj_pred:5.7},
+      {n:"Linia L7", n_prac:13, d:{Sty:[220,27],Lut:[220,14],Mar:[281,14],Kwi:[270,14],Maj:[195,3]}, k:{Sty:{UW:23,CHZ:4,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:5,CHZ:5,ZUS:0,KW:2,Op:2,Ur:0,In:0},Mar:{UW:14,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:9,CHZ:1,ZUS:0,KW:4,Op:0,Ur:0,In:0},Maj:{UW:2,CHZ:0,ZUS:0,KW:0,Op:0,Ur:1,In:0}}, maj_pewne:1.5, maj_pred:1.5},
+      {n:"Linia L9", n_prac:15, d:{Sty:[280,44],Lut:[280,23],Mar:[320,25],Kwi:[315,22],Maj:[225,12]}, k:{Sty:{UW:40,CHZ:1,ZUS:0,KW:0,Op:0,Ur:3,In:0},Lut:{UW:4,CHZ:19,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:8,CHZ:15,ZUS:0,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:10,CHZ:12,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:5,CHZ:5,ZUS:0,KW:2,Op:0,Ur:0,In:0}}, maj_pewne:5.3, maj_pred:5.3},
+      {n:"Linia L10", n_prac:14, d:{Sty:[274,75],Lut:[260,32],Mar:[308,36],Kwi:[294,71],Maj:[210,35]}, k:{Sty:{UW:64,CHZ:7,ZUS:0,KW:4,Op:0,Ur:0,In:0},Lut:{UW:13,CHZ:17,ZUS:0,KW:2,Op:0,Ur:0,In:0},Mar:{UW:8,CHZ:15,ZUS:0,KW:0,Op:10,Ur:3,In:0},Kwi:{UW:24,CHZ:21,ZUS:12,KW:4,Op:0,Ur:10,In:0},Maj:{UW:12,CHZ:8,ZUS:15,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:16.7, maj_pred:16.7},
     ]
   },
   "Logistyka": {
     color:"#EF9F27",
     rcp_level:"dział-tylko",
-    info:"Dane RCP agregowane pod MPK 20700 — podział po nr ewid. pracowników.",
-    total:{Sty:[1540,430],Lut:[1518,236],Mar:[1650,177],Kwi:[1575,312]},
+    info:"Dane RCP — podział po nr ewid. pracowników.",
+    total:{Sty:[1520,427],Lut:[1498,231],Mar:[1628,176],Kwi:[1554,311],Maj:[1087,138]},
+    maj_pewne:12.7, maj_pred:17.6,
     wydzialy:[
-      {n:"Logistyka Wewnętrzna", n_prac:76, d:{Sty:[1500,407],Lut:[1498,231],Mar:[1628,176],Kwi:[1554,311]}, k:{Sty:{UW:238,CHZ:88,ZUS:27,KW:14,Op:10,Ur:30,In:0},Lut:{UW:76,CHZ:73,ZUS:21,KW:27,Op:23,Ur:11,In:0},Mar:{UW:57,CHZ:51,ZUS:26,KW:24,Op:9,Ur:8,In:1},Kwi:{UW:109,CHZ:106,ZUS:46,KW:22,Op:8,Ur:13,In:7}}},
-      {n:"Wysyłka do Kooperantów", n_prac:1, d:{Sty:[20,20],Lut:[0,0],Mar:[0,0],Kwi:[0,0]}, k:{Sty:{UW:0,CHZ:0,ZUS:20,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}},
+      {n:"Logistyka Wewnętrzna", n_prac:75, d:{Sty:[1500,407],Lut:[1498,231],Mar:[1628,176],Kwi:[1554,311],Maj:[1087,138]}, k:{Sty:{UW:238,CHZ:88,ZUS:27,KW:14,Op:10,Ur:30,In:0},Lut:{UW:76,CHZ:73,ZUS:21,KW:27,Op:23,Ur:11,In:0},Mar:{UW:57,CHZ:51,ZUS:26,KW:24,Op:9,Ur:8,In:1},Kwi:{UW:109,CHZ:106,ZUS:46,KW:22,Op:8,Ur:13,In:7},Maj:{UW:50,CHZ:28,ZUS:40,KW:4,Op:0,Ur:9,In:7}}, maj_pewne:12.7, maj_pred:12.7},
+      {n:"Wysyłka do Kooperantów", n_prac:1, d:{Sty:[20,20],Lut:[0,0],Mar:[0,0],Kwi:[0,0],Maj:null}, k:{Sty:{UW:0,CHZ:0,ZUS:20,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:null}, maj_pewne:null, maj_pred:null},
     ]
   },
 };
@@ -269,7 +278,12 @@ function render(){
     .filter(w=>{ let o=0;M.forEach(m=>{o+=w.d[m]?w.d[m][0]:0;});return o>0;})
     .sort((a,b)=>wPct(b)-wPct(a));
 
-  const maxP=wSorted.length?Math.max(...wSorted.map(w=>wPct(w))):1;
+  const maxP=wSorted.length?Math.max(...wSorted.map(w=>{
+    let wo_=0,wa_=0;
+    M.forEach(m=>{if(w.d&&w.d[m]){wo_+=w.d[m][0];wa_+=w.d[m][1];}});
+    if(w.d&&w.d["Maj"]){wo_+=w.d["Maj"][0]||0;wa_+=w.d["Maj"][1]||0;}
+    return wo_>0?wa_/wo_*100:0;
+  })):1;
   let rows="";
   wSorted.forEach((w,i)=>{
     let wo=0,wa=0; M.forEach(m=>{if(w.d[m]){wo+=w.d[m][0];wa+=w.d[m][1];}});
@@ -279,30 +293,62 @@ function render(){
     function ks(k){let s=0;M.forEach(m=>{if(w.k&&w.k[m])s+=w.k[m][k]||0;});return s;}
     const k_uw=w.k?ks("UW"):"-"; const k_chz=w.k?ks("CHZ"):"-";
     const k_zus=w.k?ks("ZUS"):"-"; const k_kw=w.k?ks("KW"):"-";
+    // Os-dni i abs sty-maj (kwi pewne + maj prognoza)
+    const wo_maj = wo + osSum_maj(w);
+    const wa_maj = wa + (w.d&&w.d["Maj"]?w.d["Maj"][1]:0);
+    const wp_maj = wo_maj>0?wa_maj/wo_maj*100:0;
+    const bw_maj = Math.min((wp_maj/Math.max(maxP,1)*100),100).toFixed(0);
     rows+=`<tr>
       <td><div class="wname">
-        <span class="mb"><span class="mb-f" style="width:${bw}%;background:${pc(wp)}"></span></span>
+        <span class="mb"><span class="mb-f" style="width:${bw_maj}%;background:${pc(wp_maj)}"></span></span>
         ${w.n}
       </div></td>
-      <td>${wo.toLocaleString("pl-PL")}</td>
-      <td>${wa.toLocaleString("pl-PL")}</td>
-      <td style="font-weight:700;color:${pc(wp)}">${wp.toFixed(1)}%</td>
-      <td style="color:#3A7BD5;font-size:11px">${k_uw}</td>
-      <td style="color:#6B3FA0;font-size:11px">${k_chz}</td>
-      <td style="color:#C0392B;font-size:11px">${k_zus}</td>
-      <td style="color:#E67E22;font-size:11px">${k_kw}</td>
+      <td style="color:#185FA5">${wo_maj.toLocaleString("pl-PL")}</td>
+      <td style="color:#185FA5">${wa_maj.toLocaleString("pl-PL")}</td>
+      <td style="font-weight:700;color:#185FA5">${wp_maj>0?wp_maj.toFixed(1)+"%":"—"}</td>
+      <td style="color:#3A7BD5;font-size:11px">${w.k&&w.k["Maj"]?k_uw+(w.k["Maj"]["UW"]||0):"-"}</td>
+      <td style="color:#6B3FA0;font-size:11px">${w.k&&w.k["Maj"]?k_chz+(w.k["Maj"]["CHZ"]||0):"-"}</td>
+      <td style="color:#C0392B;font-size:11px">${w.k&&w.k["Maj"]?k_zus+(w.k["Maj"]["ZUS"]||0):"-"}</td>
+      <td style="color:#E67E22;font-size:11px">${w.k&&w.k["Maj"]?k_kw+(w.k["Maj"]["KW"]||0):"-"}</td>
     </tr>`;
   });
-  rows+=`<tr class="total-row"><td>∑ Dział łącznie</td><td>${os.toLocaleString("pl-PL")}</td><td>${ab.toLocaleString("pl-PL")}</td><td style="color:${pc(pct)}">${pct.toFixed(1)}%</td><td></td><td></td><td></td><td></td></tr>`;
+  // Total sty-22.05 z d.total (spójne z wydziałami)
+  const os_tot_maj = (d.total["Maj"]?d.total["Maj"][0]:0);
+  const ab_tot_maj = (d.total["Maj"]?d.total["Maj"][1]:0);
+  const os_stymaj = os + os_tot_maj;
+  const ab_stymaj = ab + ab_tot_maj;
+  const pct_stymaj = os_stymaj>0?ab_stymaj/os_stymaj*100:0;
+  rows+=`<tr class="total-row">
+    <td>∑ Dział łącznie</td>
+    <td style="color:#185FA5">${os_stymaj.toLocaleString("pl-PL")}</td>
+    <td style="color:#185FA5">${ab_stymaj.toLocaleString("pl-PL")}</td>
+    <td style="font-weight:700;color:#185FA5">${pct_stymaj.toFixed(1)}%</td>
+    <td colspan="4"></td>
+  </tr>`;
   document.getElementById("wt").innerHTML=`
-    <thead><tr><th style="text-align:left">Wydział</th><th>Os-dni</th><th>Abs.</th><th>%</th><th style="color:#3A7BD5">UW</th><th style="color:#6B3FA0">CHZ</th><th style="color:#C0392B">ZUS</th><th style="color:#E67E22">KW</th></tr></thead>
+    <thead><tr>
+      <th style="text-align:left">Wydział</th>
+      <th>Os-dni<br><span style="font-size:8px;color:#185FA5">sty–22.05</span></th>
+      <th>Abs.<br><span style="font-size:8px;color:#185FA5">sty–22.05</span></th>
+      <th style="color:#185FA5">%<br><span style="font-size:8px;opacity:.8">sty–22.05</span></th>
+      <th style="color:#3A7BD5">UW<br><span style="font-size:8px;opacity:.7">sty–22.05</span></th>
+      <th style="color:#6B3FA0">CHZ<br><span style="font-size:8px;opacity:.7">sty–22.05</span></th>
+      <th style="color:#C0392B">ZUS<br><span style="font-size:8px;opacity:.7">sty–22.05</span></th>
+      <th style="color:#E67E22">KW<br><span style="font-size:8px;opacity:.7">sty–22.05</span></th>
+    </tr></thead>
     <tbody>${rows}</tbody>`;
 
   // KARTY MIESIĘCZNE
-  document.getElementById("mcards").innerHTML=M.map(m=>{
+  // Karty miesięczne z majem jako predykcją
+const M_CARDS = ["Sty","Lut","Mar","Kwi"];
+document.getElementById("mcards").innerHTML=M_CARDS.map(m=>{
     const[o,a]=d.total[m]; const p=(a/o*100).toFixed(1);
     return `<div class="mcard"><div class="mcard-name">${MF[m]}</div><div class="mcard-pct" style="color:${pc(parseFloat(p))}">${p}%</div><div class="mcard-sub">${a} / ${o} dni</div></div>`;
-  }).join("");
+  }).join("") + (d.maj_pred!=null ? `<div class="mcard" style="border:1px dashed #9B7FCC;background:#F5F0FF">
+      <div class="mcard-name" style="color:#9B7FCC">Maj 🔮</div>
+      <div class="mcard-pct" style="color:#9B7FCC">${d.maj_pred.toFixed(1)}%</div>
+      <div class="mcard-sub">prognoza (T18–T21)</div>
+    </div>` : "");
 
   // TREND
   if(tChart){tChart.destroy();tChart=null;}
@@ -316,17 +362,60 @@ function render(){
     wForChart.forEach((w,i)=>{
       const col=WC[i%WC.length];
       const line=M.map(m=>{const v=w.d[m]||[0,0];return v[0]>0?+(v[1]/v[0]*100).toFixed(1):null;});
-      datasets.push({label:w.n,data:line,borderColor:col,borderWidth:1.5,borderDash:[4,3],fill:false,tension:0.3,pointRadius:3,pointBackgroundColor:col});
+      // Dodaj punkt maja (prognoza) dla wydziału
+      const wMajPred = w.maj_pred!=null ? w.maj_pred : null;
+      const lineKwi = line[3];
+      const lineExt = [...line, null]; // null na pozycji "Maj 🔮" - nie łączymy
+      datasets.push({label:w.n,data:lineExt,borderColor:col,borderWidth:1.5,borderDash:[4,3],fill:false,tension:0.3,pointRadius:3,pointBackgroundColor:col});
+      // Osobna linia prognoza maja dla wydziału (kropkowana fioletowa)
+      if(wMajPred!=null && lineKwi!=null){
+        datasets.push({
+          label:"",
+          data:[null,null,null,lineKwi,wMajPred],
+          borderColor:col,borderDash:[2,4],borderWidth:1,
+          fill:false,tension:0,
+          pointRadius:[0,0,0,0,4],pointBackgroundColor:col,
+          showInLegend:false
+        });
+      }
       tlegHtml+=`<span><span class="dot" style="background:${col};opacity:.8"></span>${w.n}</span>`;
     });
   }
   document.getElementById("tleg").innerHTML=tlegHtml;
 
+  // Dodaj maj jako prognozę na trend
+  const majPred = d.maj_pred;
+  const lastKwiVal = dzialLine[3]; // kwiecień = ostatni pewny
+  if(majPred!=null){
+    // Linia ciągła sty-kwi, przerywana fioletowa do maja
+    datasets[0].data = [...dzialLine, null];
+    datasets.push({
+      label:"Maj 🔮 prognoza",
+      data:[null,null,null,lastKwiVal,majPred],
+      borderColor:"#9B7FCC",
+      borderDash:[5,4],
+      borderWidth:2,
+      fill:false,
+      tension:0,
+      pointRadius:[0,0,0,4,7],
+      pointBackgroundColor:"#9B7FCC",
+      pointStyle:["circle","circle","circle","circle","triangle"],
+    });
+  }
+  const mLabelsExt = [...M.map(m=>MF[m]),"Maj 🔮"];
+
   tChart=new Chart(document.getElementById("trendC"),{type:"line",
-    data:{labels:M.map(m=>MF[m]),datasets},
+    data:{labels:mLabelsExt,datasets},
     options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y!=null?` ${c.dataset.label}: ${c.parsed.y.toFixed(1)}%`:""}}},
-      scales:{x:{ticks:{font:{size:11},color:tc},grid:{color:gc}},y:{min:0,suggestedMax:35,ticks:{callback:v=>v+"%",font:{size:11},color:tc},grid:{color:gc}}}}
+      plugins:{
+        legend:{display:false},
+        tooltip:{callbacks:{label:c=>c.parsed.y!=null?` ${c.dataset.label}: ${c.parsed.y.toFixed(1)}%`:""}}
+      },
+      scales:{
+        x:{ticks:{font:{size:11},color:tc},grid:{color:gc}},
+        y:{min:0,suggestedMax:35,ticks:{callback:v=>v+"%",font:{size:11},color:tc},grid:{color:gc}}
+      }
+    }
   });
 
   // BAR — stacked per kategoria absencji
@@ -334,17 +423,33 @@ function render(){
   const bW=wSorted.filter(w=>w.k);  // tylko wydziały z danymi kategorii
   const bL=bW.map(w=>w.n);
   // Kategorie: UW, CHZ, ZUS, KW, Opieka, Urlop inne, Inne
+  function osSum_maj(w){
+    if(!w.d||!w.d["Maj"]) return 0;
+    return w.d["Maj"][0]||0;
+  }
   function katSum(w,k){
     let s=0;
+    // sty-kwi
     M.forEach(m=>{
       if(w.k&&w.k[m]){
         if(k==="Poz") s+=(w.k[m]["Op"]||0)+(w.k[m]["Ur"]||0)+(w.k[m]["In"]||0);
         else s+=w.k[m][k]||0;
       }
     });
+    // + maj prognoza
+    if(w.k&&w.k["Maj"]){
+      if(k==="Poz") s+=(w.k["Maj"]["Op"]||0)+(w.k["Maj"]["Ur"]||0)+(w.k["Maj"]["In"]||0);
+      else s+=w.k["Maj"][k]||0;
+    }
     return s;
   }
-  function osSum(w){let s=0;M.forEach(m=>{if(w.d&&w.d[m])s+=w.d[m][0];});return s;}
+  // os-dni sty-maj łącznie
+  function osSum(w){
+    let s=0;
+    M.forEach(m=>{if(w.d&&w.d[m])s+=w.d[m][0];});
+    if(w.d&&w.d["Maj"]) s+=w.d["Maj"][0]||0;
+    return s;
+  }
   const KAT_DEF=[
     {k:"UW",   lbl:"Urlop wypoczynkowy", col:"3A7BD5"},
     {k:"CHZ",  lbl:"Choroba CHZ",        col:"6B3FA0"},
@@ -371,7 +476,7 @@ function render(){
           label:c=>{
             const w=bW[c.dataIndex];const os=osSum(w);
             const dni=os>0?Math.round(c.parsed.x/100*os):0;
-            return ` ${c.dataset.label}: ${c.parsed.x.toFixed(1)}% (${dni} dni)`;
+            return ` ${c.dataset.label}: ${c.parsed.x.toFixed(1)}% (${dni} dni) 🔮 sty–maj`;
           }
         }}
       },
