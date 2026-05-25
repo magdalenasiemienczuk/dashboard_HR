@@ -62,9 +62,9 @@
   <div class="header">
     <div>
       <h1>Absencja – Pion Produkcji</h1>
-      <div class="subtitle">Wskaźniki: <strong>Sty–Kwi 2026</strong> (zatwierdzone) · Barometr: T01–T22 (maj wstępny) · Pracownicy UoP · bez agencji/zleceń</div>
+      <div class="subtitle">Wskaźniki: <strong>Sty–Kwi 2026</strong> (zatwierdzone) · Barometr: T01–T22 · Maj 2026 = pełne dane · Pracownicy UoP · bez agencji/zleceń</div>
     </div>
-    <span class="badge">Dane 29.05.2026</span>
+    <span class="badge">Dane 25.05.2026</span>
   </div>
 
   <!-- NOTA -->
@@ -113,7 +113,7 @@
       <div class="legend">
         <span><span style="display:inline-block;width:14px;height:2px;background:#E24B4A;vertical-align:middle"></span>Absencja %</span>
         <span><span style="display:inline-block;width:14px;height:2px;background:#EF9F27;vertical-align:middle"></span>Choroba %</span>
-        <span><span class="dot" style="background:#D4B8F0"></span>Maj – wstępny</span>
+        <span><span class="dot" style="background:#D4B8F0"></span>Maj 2026</span><span><span class="dot" style="background:#B89EE8"></span>T22 – w toku</span>
       </div>
     </div>
   </div>
@@ -150,7 +150,7 @@
   <div class="panel" style="margin-top:12px">
     <div class="barometr-note">
       <div class="sec" style="margin:0">Barometr tygodniowy – absencja % · T01–T22</div>
-      <span class="maj-tag">T01 = skrócony (2 dni) · T18–T22 = maj wstępny ⚠️</span>
+      <span class="maj-tag">T01 = skrócony (2 dni) · T18–T21 = maj 2026 · T22 = tydzień w toku 🔮</span>
     </div>
     <div style="position:relative;height:145px"><canvas id="weekChart"></canvas></div>
     <div class="legend" style="margin-top:6px">
@@ -158,13 +158,13 @@
       <span><span class="dot" style="background:#EF9F27"></span>15–24%</span>
       <span><span class="dot" style="background:#FFD966"></span>10–14%</span>
       <span><span class="dot" style="background:#70AD47"></span>&lt;10%</span>
-      <span><span class="dot" style="background:#D4B8F0"></span>Maj – wstępny</span>
+      <span><span class="dot" style="background:#D4B8F0"></span>Maj 2026</span><span><span class="dot" style="background:#B89EE8"></span>T22 – w toku</span>
       <span><span class="dot" style="background:#CCCCCC"></span>T01 skrócony</span>
     </div>
   </div>
 
   <div class="footer">
-    Absencja Pion Produkcji · KPIs i koszty: sty–kwi 2026 (zatwierdzone) · Barometr: T01–T22 (maj wstępny) · Pracownicy UoP · bez agencji/zleceń · Wykluczone: REH, UM, USW · 45 zł/h × 8h
+    Absencja Pion Produkcji · KPIs i koszty: sty–kwi 2026 (zatwierdzone) · Barometr: T01–T22 · Maj 2026 = pełne dane · Pracownicy UoP · bez agencji/zleceń · Wykluczone: REH, UM, USW · 45 zł/h × 8h
   </div>
 
 </div><!-- /container -->
@@ -203,10 +203,10 @@ function barCol(p){return p>=20?"#E24B4A":p>=15?"#EF9F27":p>=10?"#FFD966":"#70AD
 new Chart(document.getElementById("trendChart"),{type:"line",
   data:{labels:["Styczeń","Luty","Marzec","Kwiecień","Maj*"],
     datasets:[
-      {label:"Absencja %",data:[23.4,12.9,12.2,15.1,null],borderColor:"#E24B4A",backgroundColor:"rgba(226,75,74,0.08)",borderWidth:2,fill:true,tension:0.35,pointRadius:5,pointBackgroundColor:"#E24B4A"},
-      {label:"Absencja % maj",data:[null,null,null,15.1,11.1],borderColor:"#D4B8F0",borderDash:[5,4],borderWidth:2,fill:false,tension:0,pointRadius:[0,0,0,0,6],pointBackgroundColor:"#9B7FCC",pointStyle:"triangle"},
+      {label:"Absencja %",data:[23.4,12.9,12.2,15.1,10.2],borderColor:"#E24B4A",backgroundColor:"rgba(226,75,74,0.08)",borderWidth:2,fill:true,tension:0.35,pointRadius:5,pointBackgroundColor:"#E24B4A"},
+      {label:"Absencja % maj",data:[null,null,null,15.1,10.2],borderColor:"#D4B8F0",borderDash:[5,4],borderWidth:2,fill:false,tension:0,pointRadius:[0,0,0,0,6],pointBackgroundColor:"#9B7FCC",pointStyle:"triangle"},
       {label:"Choroba %",data:[7.0,6.0,5.6,7.0,null],borderColor:"#EF9F27",borderDash:[5,3],borderWidth:1.5,fill:false,tension:0.35,pointRadius:4,pointBackgroundColor:"#EF9F27"},
-      {label:"Choroba % maj",data:[null,null,null,7.0,7.6],borderColor:"#D4B8F0",borderDash:[3,3],borderWidth:1,fill:false,tension:0,pointRadius:[0,0,0,0,4],pointBackgroundColor:"#9B7FCC"},
+      {label:"Choroba % maj",data:[null,null,null,7.0,6.8],borderColor:"#D4B8F0",borderDash:[3,3],borderWidth:1,fill:false,tension:0,pointRadius:[0,0,0,0,4],pointBackgroundColor:"#9B7FCC"},
     ]},
   options:{responsive:true,maintainAspectRatio:false,
     plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y!=null?` ${c.parsed.y.toFixed(1)}%`:""}}},
@@ -226,16 +226,16 @@ new Chart(document.getElementById("donut"),{type:"doughnut",
 
 // Barometr
 const wLabels=["T01","T02","T03","T04","T05","T06","T07","T08","T09","T10","T11","T12","T13","T14","T15","T16","T17","T18","T19","T20","T21","T22"];
-const wVals=  [49.2, 36.9, 11.4, 18.1, 17.1, 14.7, 11.8, 12.3, 12.6, 13.0, 11.7, 12.3, 12.1, 14.8, 13.5, 16.8, 13.4, 12.7, 13.7, 11.9,  9.4,  8.5];
-const wDaty=["1–2 sty (skrócony)","5–9 sty","12–16 sty","19–23 sty","26–30 sty","2–6 lut","9–13 lut","16–20 lut","23–27 lut","2–6 mar","9–13 mar","16–20 mar","23–27 mar","30 mar–3 kwi","6–10 kwi","13–17 kwi","20–24 kwi","27 kwi–1 maj","4–8 maj","11–15 maj","18–22 maj","25–29 maj"];
+const wVals=  [49.2, 36.9, 11.4, 18.1, 17.1, 14.7, 11.8, 12.3, 12.6, 13.0, 11.7, 12.3, 12.1, 14.8, 13.5, 16.8, 13.4, 12.7, 13.9, 12.1, 11.8,  9.3];
+const wDaty=["1–2 sty (skrócony)","5–9 sty","12–16 sty","19–23 sty","26–30 sty","2–6 lut","9–13 lut","16–20 lut","23–27 lut","2–6 mar","9–13 mar","16–20 mar","23–27 mar","30 mar–3 kwi","6–10 kwi","13–17 kwi","20–24 kwi","27 kwi–1 maj","4–8 maj","11–15 maj","18–22 maj","25–29 maj (tydzień w toku)"];
 new Chart(document.getElementById("weekChart"),{type:"bar",
   data:{labels:wLabels,datasets:[{label:"Absencja %",data:wVals,
-    backgroundColor:wVals.map((v,i)=>i===0?"#CCCCCC":i>=17?"#D4B8F0":barCol(v)),
+    backgroundColor:wVals.map((v,i)=>i===0?"#CCCCCC":i===21?"#B89EE8":i>=17?"#D4B8F0":barCol(v)),
     borderRadius:3,borderSkipped:false}]},
   options:{responsive:true,maintainAspectRatio:false,
     plugins:{legend:{display:false},tooltip:{callbacks:{
       title:c=>`${wLabels[c[0].dataIndex]} (${wDaty[c[0].dataIndex]})`,
-      label:c=>` Absencja: ${c.parsed.y.toFixed(1)}%${c.dataIndex===0?" — skrócony tydzień":c.dataIndex>=17?" ⚠️ dane wstępne":""}`
+      label:c=>` Absencja: ${c.parsed.y.toFixed(1)}%${c.dataIndex===0?" — skrócony tydzień":c.dataIndex===21?" 🔮 tydzień w toku (przewidywany)":c.dataIndex>=17?" maj 2026":""}`
     }}},
     scales:{x:{ticks:{font:{size:8.5},color:tc,maxRotation:0},grid:{display:false}},
       y:{min:0,max:55,ticks:{callback:v=>v+"%",font:{size:10},color:tc},grid:{color:gc}}}}
