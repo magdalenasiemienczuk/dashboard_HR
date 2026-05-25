@@ -238,7 +238,7 @@ const DZIALY = {
 let cur="Spawalnia", tChart=null, bChart=null;
 
 function pc(p){return p>=20?"#A32D2D":p>=15?"#854F0B":p>=10?"#7A6000":"#3B6D11";}
-function wPct(w){ let o=0,a=0; M.forEach(m=>{if(w.d[m]){o+=w.d[m][0];a+=w.d[m][1];}}); return o>0?a/o*100:0; }
+function wPct(w){ let o=0,a=0; M.forEach(m=>{if(w.d&&w.d[m]){o+=w.d[m][0];a+=w.d[m][1];}}); return o>0?a/o*100:0; }
 function dzialSum(d){ let o=0,a=0; M.forEach(m=>{o+=d.total[m][0];a+=d.total[m][1];}); return {os:o,ab:a,pct:a/o*100}; }
 
 function buildBtns(){
@@ -275,7 +275,7 @@ function render(){
 
   // TABELA — sortuj wg % absencji malejąco, ogólny na dół
   const wSorted = [...d.wydzialy]
-    .filter(w=>{ let o=0;M.forEach(m=>{o+=w.d[m]?w.d[m][0]:0;});return o>0;})
+    .filter(w=>{ if(!w.d) return false; let o=0;M.forEach(m=>{o+=w.d[m]?w.d[m][0]:0;});return o>0;})
     .sort((a,b)=>wPct(b)-wPct(a));
 
   const maxP=wSorted.length?Math.max(...wSorted.map(w=>{
@@ -286,7 +286,7 @@ function render(){
   })):1;
   let rows="";
   wSorted.forEach((w,i)=>{
-    let wo=0,wa=0; M.forEach(m=>{if(w.d[m]){wo+=w.d[m][0];wa+=w.d[m][1];}});
+    let wo=0,wa=0; M.forEach(m=>{if(w.d&&w.d[m]){wo+=w.d[m][0];wa+=w.d[m][1];}});
     const wp=wo>0?(wa/wo*100):0;
     const bw=Math.min((wp/Math.max(maxP,1)*100),100).toFixed(0);
     // Sumy kategorii
@@ -357,11 +357,11 @@ document.getElementById("mcards").innerHTML=M_CARDS.map(m=>{
   const datasets=[{label:`${cur} (dział)`,data:dzialLine,borderColor:d.color,backgroundColor:d.color+"18",borderWidth:3,fill:true,tension:0.35,pointRadius:5,pointBackgroundColor:d.color}];
   let tlegHtml=`<span><span class="dot" style="background:${d.color}"></span>${cur} łącznie</span>`;
 
-  const wForChart=d.wydzialy.filter(w=>{let o=0;M.forEach(m=>{o+=w.d[m]?w.d[m][0]:0;});return o>0;});
+  const wForChart=d.wydzialy.filter(w=>{if(!w.d) return false; let o=0;M.forEach(m=>{o+=w.d[m]?w.d[m][0]:0;});return o>0;});
   if(wForChart.length>1){
     wForChart.forEach((w,i)=>{
       const col=WC[i%WC.length];
-      const line=M.map(m=>{const v=w.d[m]||[0,0];return v[0]>0?+(v[1]/v[0]*100).toFixed(1):null;});
+      const line=M.map(m=>{if(!w.d) return null; const v=w.d[m]||[0,0];return v[0]>0?+(v[1]/v[0]*100).toFixed(1):null;});
       // Dodaj punkt maja (prognoza) dla wydziału
       const wMajPred = w.maj_pred!=null ? w.maj_pred : null;
       const lineKwi = line[3];
@@ -420,7 +420,7 @@ document.getElementById("mcards").innerHTML=M_CARDS.map(m=>{
 
   // BAR — stacked per kategoria absencji
   if(bChart){bChart.destroy();bChart=null;}
-  const bW=wSorted.filter(w=>w.k);  // tylko wydziały z danymi kategorii
+  const bW=wSorted.filter(w=>w.k&&w.d);  // tylko wydziały z danymi
   const bL=bW.map(w=>w.n);
   // Kategorie: UW, CHZ, ZUS, KW, Opieka, Urlop inne, Inne
   function osSum_maj(w){
