@@ -62,43 +62,43 @@
   <div class="header">
     <div>
       <h1>Absencja – Pion Produkcji</h1>
-      <div class="subtitle">Wskaźniki: <strong>Sty–Kwi 2026</strong> (zatwierdzone) · Barometr: T01–T22 · Maj 2026 = pełne dane · Pracownicy UoP · bez agencji/zleceń</div>
+      <div class="subtitle">Wskaźniki: <strong>Sty–22 maja 2026</strong> · T22 (25–29 maj) tydzień w toku · Tylko UoP · bez agencji/zleceń · bez agencji/zleceń</div>
     </div>
     <span class="badge">Dane 25.05.2026</span>
   </div>
 
   <!-- NOTA -->
   <div class="note">
-    ⚠️ <span>Maj 2026 = dane wstępne — wskaźniki i koszty bazują na pewnych danych <strong>sty–kwi</strong>. Barometr tygodniowy pokazuje maj informacyjnie — wartości będą rosły wraz z uzupełnianiem danych.</span>
+    📅 <span>Dane narastająco <strong>sty–22 maja 2026</strong>. T22 (25–29 maj) = tydzień w toku, nieuwzględniony. Barometr T01–T22 — T22 oznaczony jako w toku.</span>
   </div>
 
   <!-- KPI -->
   <div class="kpis">
-    <div class="kpi danger"><div class="kpi-label">Absencja łącznie</div><div class="kpi-val">16.0%</div><div class="kpi-sub">5 511 / 34 496 os. · sty–kwi</div></div>
-    <div class="kpi warn"><div class="kpi-label">Choroba łącznie</div><div class="kpi-val">6.4%</div><div class="kpi-sub">2 213 dni · sty–kwi</div></div>
-    <div class="kpi warn"><div class="kpi-label">CHZ – koszt pracodawcy</div><div class="kpi-val">1 414 dni</div><div class="kpi-sub">509 040 zł · sty–kwi</div></div>
-    <div class="kpi info"><div class="kpi-label">KW – stacja krwi</div><div class="kpi-val">371 dni</div><div class="kpi-sub">133 560 zł · sty–kwi</div></div>
-    <div class="kpi money"><div class="kpi-label">Koszt CHZ+KW łącznie</div><div class="kpi-val">642 600 zł</div><div class="kpi-sub">sty–kwi 2026</div></div>
+    <div class="kpi danger"><div class="kpi-label">Absencja łącznie</div><div class="kpi-val">15.9%</div><div class="kpi-sub">6 077 / 38 261 os. · sty–22.05</div></div>
+    <div class="kpi warn"><div class="kpi-label">Choroba łącznie</div><div class="kpi-val">6.6%</div><div class="kpi-sub">2 526 dni · sty–22.05</div></div>
+    <div class="kpi warn"><div class="kpi-label">CHZ – koszt pracodawcy</div><div class="kpi-val">1 566 dni</div><div class="kpi-sub">563 760 zł · sty–22.05</div></div>
+    <div class="kpi info"><div class="kpi-label">KW – stacja krwi</div><div class="kpi-val">374 dni</div><div class="kpi-sub">134 640 zł · sty–22.05</div></div>
+    <div class="kpi money"><div class="kpi-label">Koszt CHZ+KW łącznie</div><div class="kpi-val">698 400 zł</div><div class="kpi-sub">sty–22.05.2026</div></div>
   </div>
 
   <!-- ROCZNIE -->
   <div class="rocznie">
     <div class="rocznie-main">
-      <div class="rocznie-label">Szacowany koszt roczny CHZ + KW — baza: sty–kwi 2026 × 3</div>
-      <div class="rocznie-val">1 928 000 zł</div>
-      <div class="rocznie-sub">Bez maja (dane wstępne) · 45 zł/h brutto × 8h · Pracownicy UoP Pion Produkcji</div>
+      <div class="rocznie-label">Szacowany koszt roczny CHZ + KW — baza: sty–22.05.2026 (ekstrapolacja × 2,5)</div>
+      <div class="rocznie-val">1 744 000 zł</div>
+      <div class="rocznie-sub">Baza: sty–22.05.2026 (4,8 mies.) · 45 zł/h brutto × 8h · Pracownicy UoP Pion Produkcji</div>
     </div>
     <div class="rocznie-split">
-      <div class="rocznie-item"><div class="rocznie-item-val">1 527 000 zł</div><div class="rocznie-item-label">CHZ rocznie</div></div>
-      <div class="rocznie-item"><div class="rocznie-item-val">401 000 zł</div><div class="rocznie-item-label">KW rocznie</div></div>
-      <div class="rocznie-item"><div class="rocznie-item-val">~161 tys.</div><div class="rocznie-item-label">Koszt / miesiąc</div></div>
+      <div class="rocznie-item"><div class="rocznie-item-val">1 409 000 zł</div><div class="rocznie-item-label">CHZ rocznie</div></div>
+      <div class="rocznie-item"><div class="rocznie-item-val">335 000 zł</div><div class="rocznie-item-label">KW rocznie</div></div>
+      <div class="rocznie-item"><div class="rocznie-item-val">~145 tys.</div><div class="rocznie-item-label">Koszt / miesiąc</div></div>
     </div>
   </div>
 
   <!-- RZĄD 1 -->
   <div class="grid2">
     <div class="panel">
-      <div class="sec">Absencja wg działu (sty–kwi)</div>
+      <div class="sec">Absencja wg działu (sty–22 maja)</div>
       <div id="bary-dzial"></div>
       <div class="legend">
         <span><span class="dot" style="background:#E24B4A"></span>≥20%</span>
@@ -108,7 +108,7 @@
       </div>
     </div>
     <div class="panel">
-      <div class="sec">Trend miesięczny (sty–kwi pewne · maj wstępny)</div>
+      <div class="sec">Trend miesięczny (sty–22 maja)</div>
       <div style="position:relative;height:190px"><canvas id="trendChart"></canvas></div>
       <div class="legend">
         <span><span style="display:inline-block;width:14px;height:2px;background:#E24B4A;vertical-align:middle"></span>Absencja %</span>
@@ -121,7 +121,7 @@
   <!-- RZĄD 2 -->
   <div class="grid2">
     <div class="panel">
-      <div class="sec">Struktura absencji (sty–kwi)</div>
+      <div class="sec">Struktura absencji (sty–22 maja)</div>
       <div class="donut-row">
         <div style="position:relative;width:130px;height:130px"><canvas id="donut"></canvas></div>
         <div class="donut-legend">
@@ -134,13 +134,13 @@
       </div>
     </div>
     <div class="panel">
-      <div class="sec">Koszt CHZ + KW wg działu — sty–kwi (zł)</div>
+      <div class="sec">Koszt CHZ + KW wg działu — sty–22 maja (zł)</div>
       <div id="bary-koszt"></div>
       <div class="koszt-total">
-        <div class="koszt-total-row"><span style="color:#888">RAZEM Pion Produkcji · sty–kwi</span><strong style="color:#6B3FA0">642 600 zł</strong></div>
+        <div class="koszt-total-row"><span style="color:#888">RAZEM Pion Produkcji · sty–22.05</span><strong style="color:#6B3FA0">698 400 zł</strong></div>
         <div class="legend">
-          <span><span class="dot" style="background:#6B3FA0"></span>CHZ – 509 040 zł</span>
-          <span><span class="dot" style="background:#E8337C"></span>KW – 133 560 zł</span>
+          <span><span class="dot" style="background:#6B3FA0"></span>CHZ – 563 760 zł</span>
+          <span><span class="dot" style="background:#E8337C"></span>KW – 134 640 zł</span>
         </div>
       </div>
     </div>
@@ -164,7 +164,7 @@
   </div>
 
   <div class="footer">
-    Absencja Pion Produkcji · KPIs i koszty: sty–kwi 2026 (zatwierdzone) · Barometr: T01–T22 · Maj 2026 = pełne dane · Pracownicy UoP · bez agencji/zleceń · Wykluczone: REH, UM, USW · 45 zł/h × 8h
+    Absencja Pion Produkcji · KPIs i koszty: sty–22.05.2026 · Barometr: T01–T22 · Maj 2026 = pełne dane · Pracownicy UoP · bez agencji/zleceń · Wykluczone: REH, UM, USW · 45 zł/h × 8h
   </div>
 
 </div><!-- /container -->
@@ -174,8 +174,8 @@ const gc="rgba(0,0,0,0.06)", tc="#999";
 function barCol(p){return p>=20?"#E24B4A":p>=15?"#EF9F27":p>=10?"#FFD966":"#70AD47";}
 
 // Absencja wg działu
-[{name:"Spawalnia",pct:20.3},{name:"Roboty spawalnicze",pct:17.8},{name:"Logistyka",pct:17.7},
- {name:"OWP",pct:15.4},{name:"Obróbka skrawaniem",pct:14.2},{name:"Montaż",pct:12.8},{name:"Malarnia",pct:10.7}
+[{name:"Spawalnia",pct:20.2},{name:"Logistyka",pct:17.6},{name:"Roboty spawalnicze",pct:17.8},
+ {name:"OWP",pct:15.3},{name:"Obróbka skrawaniem",pct:14.2},{name:"Montaż",pct:12.5},{name:"Malarnia",pct:10.3}
 ].forEach(d=>{
   const w=(d.pct/22*100).toFixed(1);
   document.getElementById("bary-dzial").innerHTML+=`<div class="bar-row">
@@ -185,9 +185,9 @@ function barCol(p){return p>=20?"#E24B4A":p>=15?"#EF9F27":p>=10?"#FFD966":"#70AD
 });
 
 // Koszt stacked
-[{name:"Spawalnia",chz:151200,kw:33120},{name:"Logistyka",chz:118440,kw:32040},
- {name:"Montaż",chz:86760,kw:17280},{name:"Obróbka skrawaniem",chz:61920,kw:25200},
- {name:"OWP",chz:40320,kw:7920},{name:"Roboty spawalnicze",chz:29880,kw:5760},{name:"Malarnia",chz:20520,kw:12240}
+[{name:"Spawalnia",chz:169200,kw:33840},{name:"Logistyka",chz:124560,kw:32760},
+ {name:"Montaż",chz:90720,kw:19080},{name:"Obróbka skrawaniem",chz:64440,kw:21600},
+ {name:"OWP",chz:46440,kw:10800},{name:"Roboty spawalnicze",chz:36360,kw:5040},{name:"Malarnia",chz:28800,kw:10080}
 ].forEach(d=>{
   const maxK=184320,wC=(d.chz/maxK*100).toFixed(1),wK=(d.kw/maxK*100).toFixed(1);
   document.getElementById("bary-koszt").innerHTML+=`<div class="bar-row">
