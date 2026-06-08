@@ -114,6 +114,7 @@
         <span><span style="display:inline-block;width:14px;height:2px;background:#C0392B;vertical-align:middle"></span>Absencja %</span>
         <span><span style="display:inline-block;width:14px;height:2px;background:#E67E22;vertical-align:middle;border-top:2px dashed #E67E22"></span>Choroba %</span>
         <span style="font-size:10px;color:#555">🟢 punkt = cel osiągnięty · 🔴 punkt = powyżej celu</span>
+        <span><span style="display:inline-block;width:14px;height:2px;background:#9B7FCC;vertical-align:middle;border-top:2px dashed #9B7FCC"></span>Czerwiec* 🔮 prognoza (11.8%)</span>
         <span><span style="display:inline-block;width:14px;height:2px;background:#AAAAAA;vertical-align:middle"></span>Cel 12% / 6%</span>
         
       </div>
@@ -161,7 +162,7 @@
       <span><span class="dot" style="background:#FFD966"></span>10–14%</span>
       <span><span class="dot" style="background:#70AD47"></span>&lt;10%</span>
       
-      <span><span class="dot" style="background:#CCCCCC"></span>T01 skrócony</span>
+      <span><span class="dot" style="background:#CCCCCC"></span>T01/T18/T23 – tygodnie skrócone</span>
     </div>
   </div>
 
@@ -203,30 +204,38 @@ function barCol(p){return p>=25?"#E24B4A":p>=15?"#EF9F27":p>=12?"#FFD966":"#70AD
 
 // Trend
 new Chart(document.getElementById("trendChart"),{type:"line",
-  data:{labels:["Styczeń","Luty","Marzec","Kwiecień","Maj*"],
+  data:{labels:["Styczeń","Luty","Marzec","Kwiecień","Maj","Czerwiec*"],
     datasets:[
       {label:"Absencja %",
-       data:[23.4,12.9,12.2,15.1,12.6],
+       data:[23.4,12.9,12.2,15.1,12.6,null],
        borderColor:"#C0392B",borderWidth:2.5,
        backgroundColor:"rgba(192,57,43,0.07)",fill:true,tension:0.35,
        pointRadius:[7,7,7,7,7],
-       pointBackgroundColor:["#C0392B","#C0392B","#70AD47","#C0392B","#C0392B"],
+       pointBackgroundColor:["#C0392B","#C0392B","#70AD47","#C0392B","#C0392B",null],
        pointBorderColor:"#fff",pointBorderWidth:2,
        pointStyle:"circle",order:1},
       {label:"Choroba %",
-       data:[7.0,6.0,5.6,7.0,6.8],
+       data:[7.0,6.0,5.6,7.0,6.8,null],
        borderColor:"#E67E22",borderWidth:2,borderDash:[6,3],
        fill:false,tension:0.35,
        pointRadius:[6,6,6,6,6],
        pointBackgroundColor:["#C0392B","#70AD47","#70AD47","#C0392B","#C0392B"],
        pointBorderColor:"#fff",pointBorderWidth:2,
        pointStyle:"rectRot",order:2},
+      {label:"Absencja % cze 🔮",
+       data:[null,null,null,null,12.6,11.8],
+       borderColor:"#9B7FCC",borderDash:[5,4],borderWidth:2,
+       fill:false,tension:0,
+       pointRadius:[0,0,0,0,0,7],
+       pointBackgroundColor:"#9B7FCC",
+       pointBorderColor:"#fff",pointBorderWidth:2,
+       pointStyle:"triangle",order:1},
       {label:"Cel absencji 12%",
-       data:[12,12,12,12,12],
+       data:[12,12,12,12,12,12],
        borderColor:"rgba(70,162,71,0.7)",borderWidth:1.5,borderDash:[4,3],
        pointRadius:0,fill:false,tension:0,order:0},
       {label:"Cel choroby 6%",
-       data:[6,6,6,6,6],
+       data:[6,6,6,6,6,6],
        borderColor:"rgba(70,162,71,0.5)",borderWidth:1,borderDash:[3,3],
        pointRadius:0,fill:false,tension:0,order:0},
     ]},
@@ -247,16 +256,16 @@ new Chart(document.getElementById("donut"),{type:"doughnut",
 });
 
 // Barometr
-const wLabels=["T01","T02","T03","T04","T05","T06","T07","T08","T09","T10","T11","T12","T13","T14","T15","T16","T17","T18","T19","T20","T21","T22"];
-const wVals=  [49.2, 36.9, 11.4, 18.1, 17.1, 14.7, 11.8, 12.3, 12.6, 13.0, 11.7, 12.3, 12.1, 14.8, 13.5, 16.8, 13.4, 15.8, 14.3, 12.7, 13.1, 11.4];
-const wDaty=["1–2 sty (skrócony)","5–9 sty","12–16 sty","19–23 sty","26–30 sty","2–6 lut","9–13 lut","16–20 lut","23–27 lut","2–6 mar","9–13 mar","16–20 mar","23–27 mar","30 mar–3 kwi","6–10 kwi","13–17 kwi","20–24 kwi","27–30 kwi (4 dni, bez 1 maja)","4–8 maj","11–15 maj","18–22 maj","25–29 maj"];
+const wLabels=["T01","T02","T03","T04","T05","T06","T07","T08","T09","T10","T11","T12","T13","T14","T15","T16","T17","T18","T19","T20","T21","T22","T23"];
+const wVals=  [49.2, 36.9, 11.4, 18.1, 17.1, 14.7, 11.8, 12.3, 12.6, 13.0, 11.7, 12.3, 12.1, 14.8, 13.5, 16.8, 13.4, 15.8, 14.3, 12.7, 13.1, 11.4, 10.4];
+const wDaty=["1–2 sty (skrócony)","5–9 sty","12–16 sty","19–23 sty","26–30 sty","2–6 lut","9–13 lut","16–20 lut","23–27 lut","2–6 mar","9–13 mar","16–20 mar","23–27 mar","30 mar–3 kwi","6–10 kwi","13–17 kwi","20–24 kwi","27–30 kwi (4 dni, bez 1 maja)","4–8 maj","11–15 maj","18–22 maj","25–29 maj","1–3 cze (3 dni, Boże Ciało)"];
 new Chart(document.getElementById("weekChart"),{type:"bar",
   data:{labels:wLabels,datasets:[
     {type:"line",label:"Cel 12%",data:wLabels.map(()=>12),
      borderColor:"#185FA5",borderWidth:2,borderDash:[6,4],
      pointRadius:0,fill:false,tension:0,order:0},
     {label:"Absencja %",data:wVals,
-    backgroundColor:wVals.map((v,i)=>i===0?"#CCCCCC":barCol(v)),
+    backgroundColor:wVals.map((v,i)=>(i===0||i===17||i===22)?"#CCCCCC":barCol(v)),
     borderRadius:3,borderSkipped:false}]},
   options:{responsive:true,maintainAspectRatio:false,
     plugins:{legend:{display:false},tooltip:{callbacks:{
