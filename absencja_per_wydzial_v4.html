@@ -109,7 +109,7 @@ h1{font-size:17px;font-weight:600;margin-bottom:3px}
 
 <div class="grid2">
   <div class="panel">
-    <div class="sec">Barometr tygodniowy absencji — T01–T23</div>
+    <div class="sec">Barometr tygodniowy absencji — T01–T23 · dział łącznie</div>
     <div style="position:relative;height:160px;margin-bottom:6px">
       <canvas id="barometrC"></canvas>
     </div>
@@ -138,6 +138,64 @@ const WC = ["#E24B4A","#4472C4","#70AD47","#EF9F27","#7B68EE","#C97B1A","#E8337C
 
 // Wydziały oznaczone jako "ogólny" = pracownicy przypisani do MPK działu bez konkretnego wydziału
 // Nie są ukryte - pokazujemy transparentnie
+
+const TYG_DATA={
+  "OWP":[50.0,37.1,12.0,18.3,17.1,13.7,9.1,16.6,13.7,14.9,12.0,9.1,12.6,13.1,8.6,13.1,12.6,13.6,12.2,15.6,9.1,9.1,5.3],
+  "Obróbka skrawaniem":[49.0,37.2,10.4,12.9,14.1,10.6,9.8,5.1,8.2,8.2,7.5,15.3,11.4,13.3,11.4,13.7,8.2,13.7,20.4,12.7,18.1,15.3,9.4],
+  "Spawalnia":[48.9,38.4,16.3,19.6,27.1,18.5,16.3,15.9,15.9,21.7,14.9,15.3,15.7,19.8,15.6,20.2,17.5,14.7,18.1,13.3,16.2,17.8,13.0],
+  "Roboty spawalnicze":[50.0,49.4,12.9,20.0,16.5,20.0,10.6,10.6,12.9,18.8,15.3,20.0,8.9,5.6,16.7,8.9,15.6,18.1,26.0,20.0,16.2,11.3,15.2],
+  "Malarnia":[48.6,31.9,3.8,9.7,2.7,7.0,8.6,10.8,15.1,5.9,4.9,9.2,7.0,6.5,11.4,16.2,2.7,5.4,5.3,10.3,10.8,8.5,6.5],
+  "Montaż":[48.6,34.5,4.3,9.4,6.3,10.6,5.7,6.2,8.5,7.2,10.6,9.3,9.0,13.2,10.3,13.0,11.4,17.8,6.5,8.9,7.3,10.7,9.8],
+  "Logistyka":[50.0,36.7,13.3,20.3,14.2,15.6,12.5,15.0,11.1,9.4,11.1,10.0,10.6,13.6,16.9,19.4,14.2,19.1,14.5,12.3,13.2,10.2,11.4],
+};
+const TYG_LABELS=["T01","T02","T03","T04","T05","T06","T07","T08","T09","T10","T11","T12","T13","T14","T15","T16","T17","T18","T19","T20","T21","T22","T23"];
+const TYG_TIPS=["1–2 sty (skr.)","5–9 sty","12–16 sty","19–23 sty","26–30 sty","2–6 lut","9–13 lut","16–20 lut","23–27 lut","2–6 mar","9–13 mar","16–20 mar","23–27 mar","30 mar–3 kwi","6–10 kwi","13–17 kwi","20–24 kwi","27–30 kwi (skr.)","4–8 maj","11–15 maj","18–22 maj","25–29 maj","1–3 cze (skr.)"];
+const TYG_SKR=[true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,true];
+
+let tygChart=null;
+function renderBarometr(dzialName){
+  const vals=TYG_DATA[dzialName];
+  if(!vals) return;
+  function bCol(v){
+    if(v>=25) return "#E24B4A";
+    if(v>=15) return "#F4A020";
+    if(v>=12) return "#F9C74F";
+    return "#70AD47";
+  }
+  const bgC=vals.map((v,i)=>TYG_SKR[i]?"#CCCCCC":bCol(v));
+  const ctx=document.getElementById("barometrC");
+  if(!ctx) return;
+  if(tygChart){tygChart.destroy();tygChart=null;}
+  tygChart=new Chart(ctx,{
+    type:"bar",
+    data:{
+      labels:TYG_LABELS,
+      datasets:[
+        {type:"line",label:"Cel 12%",data:TYG_LABELS.map(()=>12),
+         borderColor:"#185FA5",borderWidth:2,borderDash:[6,4],
+         pointRadius:0,fill:false,tension:0,order:0},
+        {label:"Absencja %",data:vals,backgroundColor:bgC,
+         borderRadius:3,borderSkipped:false,order:1}
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{
+        legend:{display:false},
+        tooltip:{callbacks:{label:c=>{
+          const i=c.dataIndex;
+          return `${TYG_TIPS[i]}: ${c.parsed.y}%`;
+        }}}
+      },
+      scales:{
+        x:{ticks:{font:{size:8},maxRotation:0},grid:{display:false}},
+        y:{min:0,max:55,ticks:{callback:v=>v+"%",font:{size:9}},
+           grid:{color:"#f0f0f0"}}
+      }
+    }
+  });
+}
+
 const DZIALY = {
   "OWP": {
     color:"#5B9BD5",
@@ -326,13 +384,6 @@ function render(){
     </tr></thead>
     <tbody>${rows}</tbody>`;
 
-  // KARTY MIESIĘCZNE
-  // Karty miesięczne z majem jako predykcją
-const M_CARDS = ["Sty","Lut","Mar","Kwi","Maj","Cze"];
-document.getElementById("mcards").innerHTML=M_CARDS.map(m=>{
-    const[o,a]=d.total[m]; const p=(a/o*100).toFixed(1);
-    return `<div class="mcard"><div class="mcard-name">${MF[m]}</div><div class="mcard-pct" style="color:${pc(parseFloat(p))}">${p}%</div><div class="mcard-sub">${a} / ${o} dni</div></div>`;
-  }).join("");
 
   // TREND
   if(tChart){tChart.destroy();tChart=null;}
@@ -349,63 +400,6 @@ document.getElementById("mcards").innerHTML=M_CARDS.map(m=>{
       // Dodaj punkt maja (prognoza) dla wydziału
       datasets.push({label:w.n,data:line,borderColor:col,borderWidth:1.5,borderDash:[4,3],fill:false,tension:0.3,pointRadius:3,pointBackgroundColor:col});
       tlegHtml+=`<span><span class="dot" style="background:${col};
-
-const TYG_DATA={
-  "OWP":[50.0,37.1,12.0,18.3,17.1,13.7,9.1,16.6,13.7,14.9,12.0,9.1,12.6,13.1,8.6,13.1,12.6,13.6,12.2,15.6,9.1,9.1,5.3],
-  "Obróbka skrawaniem":[49.0,37.2,10.4,12.9,14.1,10.6,9.8,5.1,8.2,8.2,7.5,15.3,11.4,13.3,11.4,13.7,8.2,13.7,20.4,12.7,18.1,15.3,9.4],
-  "Spawalnia":[48.9,38.4,16.3,19.6,27.1,18.5,16.3,15.9,15.9,21.7,14.9,15.3,15.7,19.8,15.6,20.2,17.5,14.7,18.1,13.3,16.2,17.8,13.0],
-  "Roboty spawalnicze":[50.0,49.4,12.9,20.0,16.5,20.0,10.6,10.6,12.9,18.8,15.3,20.0,8.9,5.6,16.7,8.9,15.6,18.1,26.0,20.0,16.2,11.3,15.2],
-  "Malarnia":[48.6,31.9,3.8,9.7,2.7,7.0,8.6,10.8,15.1,5.9,4.9,9.2,7.0,6.5,11.4,16.2,2.7,5.4,5.3,10.3,10.8,8.5,6.5],
-  "Montaż":[48.6,34.5,4.3,9.4,6.3,10.6,5.7,6.2,8.5,7.2,10.6,9.3,9.0,13.2,10.3,13.0,11.4,17.8,6.5,8.9,7.3,10.7,9.8],
-  "Logistyka":[50.0,36.7,13.3,20.3,14.2,15.6,12.5,15.0,11.1,9.4,11.1,10.0,10.6,13.6,16.9,19.4,14.2,19.1,14.5,12.3,13.2,10.2,11.4],
-};
-const TYG_LABELS=["T01","T02","T03","T04","T05","T06","T07","T08","T09","T10","T11","T12","T13","T14","T15","T16","T17","T18","T19","T20","T21","T22","T23"];
-const TYG_TIPS=["1–2 sty (skr.)","5–9 sty","12–16 sty","19–23 sty","26–30 sty","2–6 lut","9–13 lut","16–20 lut","23–27 lut","2–6 mar","9–13 mar","16–20 mar","23–27 mar","30 mar–3 kwi","6–10 kwi","13–17 kwi","20–24 kwi","27–30 kwi (skr.)","4–8 maj","11–15 maj","18–22 maj","25–29 maj","1–3 cze (skr.)"];
-const TYG_SKR=[true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,true];
-
-let tygChart=null;
-function renderBarometr(dzialName){
-  const vals=TYG_DATA[dzialName];
-  if(!vals) return;
-  function bCol(v){
-    if(v>=25) return "#E24B4A";
-    if(v>=15) return "#F4A020";
-    if(v>=12) return "#F9C74F";
-    return "#70AD47";
-  }
-  const bgC=vals.map((v,i)=>TYG_SKR[i]?"#CCCCCC":bCol(v));
-  const ctx=document.getElementById("barometrC");
-  if(!ctx) return;
-  if(tygChart){tygChart.destroy();tygChart=null;}
-  tygChart=new Chart(ctx,{
-    type:"bar",
-    data:{
-      labels:TYG_LABELS,
-      datasets:[
-        {type:"line",label:"Cel 12%",data:TYG_LABELS.map(()=>12),
-         borderColor:"#185FA5",borderWidth:2,borderDash:[6,4],
-         pointRadius:0,fill:false,tension:0,order:0},
-        {label:"Absencja %",data:vals,backgroundColor:bgC,
-         borderRadius:3,borderSkipped:false,order:1}
-      ]
-    },
-    options:{
-      responsive:true,maintainAspectRatio:false,
-      plugins:{
-        legend:{display:false},
-        tooltip:{callbacks:{label:c=>{
-          const i=c.dataIndex;
-          return `${TYG_TIPS[i]}: ${c.parsed.y}%`;
-        }}}
-      },
-      scales:{
-        x:{ticks:{font:{size:8},maxRotation:0},grid:{display:false}},
-        y:{min:0,max:55,ticks:{callback:v=>v+"%",font:{size:9}},
-           grid:{color:"#f0f0f0"}}
-      }
-    }
-  });
-}
 opacity:.8"></span>${w.n}</span>`;
     });
   }
