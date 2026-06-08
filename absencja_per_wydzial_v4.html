@@ -64,7 +64,7 @@ h1{font-size:17px;font-weight:600;margin-bottom:3px}
 
 /* CHART */
 .ch210{position:relative;height:210px}
-.ch170{position:relative;height:170px}
+.ch170{position:relative;min-height:170px}
 .leg{display:flex;gap:10px;margin-top:8px;font-size:10px;color:#666;flex-wrap:wrap;align-items:center}
 .leg span{display:flex;align-items:center;gap:4px}
 .dot{display:inline-block;width:9px;height:9px;border-radius:2px}
@@ -123,7 +123,7 @@ h1{font-size:17px;font-weight:600;margin-bottom:3px}
   </div>
   <div class="panel">
     <div class="sec">Ranking wydziałów — % absencji sty–cze 2026 (T23)</div>
-    <div class="ch170"><canvas id="barC"></canvas></div>
+    <div id="barC-wrap" style="position:relative;min-height:170px"><canvas id="barC"></canvas></div>
   </div>
 </div>
 
@@ -481,9 +481,13 @@ opacity:.8"></span>${w.n}</span>`;
     borderSkipped: false,
   }));
 
+  // Dynamiczna wysokość — 28px per wydział + 60px na legendę
+  const barH = Math.max(180, bW.length * 28 + 60);
+  const barWrap = document.getElementById("barC-wrap");
+  if(barWrap) barWrap.style.height = barH + "px";
   bChart=new Chart(document.getElementById("barC"),{type:"bar",
     data:{labels:bL, datasets:katDatasets},
-    options:{responsive:true,maintainAspectRatio:false,indexAxis:"y",
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:"y",layout:{padding:{left:0}},
       plugins:{
         legend:{display:true,position:"bottom",labels:{font:{size:8},boxWidth:10,padding:6}},
         tooltip:{callbacks:{
@@ -496,7 +500,7 @@ opacity:.8"></span>${w.n}</span>`;
       },
       scales:{
         x:{stacked:true,min:0,suggestedMax:35,ticks:{callback:v=>v+"%",font:{size:9},color:tc},grid:{color:gc}},
-        y:{stacked:true,ticks:{font:{size:10},color:"#333"},grid:{display:false}}
+        y:{stacked:true,ticks:{font:{size:10},color:"#333",autoSkip:false,crossAlign:"far"},grid:{display:false}}
       }
     }
   });
