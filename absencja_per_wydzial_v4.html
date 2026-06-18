@@ -86,7 +86,7 @@ h1{font-size:17px;font-weight:600;margin-bottom:3px}
   </div>
 </div>
 
-<div class="al-warn">⚠️ <span>Dane <strong>sty–cze 2026 (T23)</strong> · Pełny maj (20 dni rob.) · Sty–kwi: stara struktura MPK · Maj: nowa struktura MPK (od 1.05.2026) — nowe wydziały w OWP, Obróbce skrawaniem, Malarni, Montażu.</span></div>
+<div class="al-warn">⚠️ <span>Dane <strong>sty–cze 2026 (T24)</strong> · Pełny maj (20 dni rob.) · Sty–kwi: stara struktura MPK · Maj: nowa struktura MPK (od 1.05.2026) — nowe wydziały w OWP, Obróbce skrawaniem, Malarni, Montażu.</span></div>
 
 <div class="selector">
   <div class="sel-lbl">Wybierz dział</div>
@@ -97,11 +97,11 @@ h1{font-size:17px;font-weight:600;margin-bottom:3px}
 
 <div class="grid2">
   <div class="panel">
-    <div class="sec">Wydziały — absencja narastająco sty–cze 2026 (T23)</div>
+    <div class="sec">Wydziały — absencja narastająco sty–cze 2026 (T24)</div>
     <table class="wt" id="wt"></table>
   </div>
   <div class="panel">
-    <div class="sec">Trend miesięczny absencji (sty–cze 2026 (T23))</div>
+    <div class="sec">Trend miesięczny absencji (sty–cze 2026 (T24))</div>
     <div class="ch210"><canvas id="trendC"></canvas></div>
     <div class="leg" id="tleg"></div>
   </div>
@@ -109,7 +109,7 @@ h1{font-size:17px;font-weight:600;margin-bottom:3px}
 
 <div class="grid2">
   <div class="panel">
-    <div class="sec">Barometr tygodniowy absencji — T01–T23 · dział łącznie</div>
+    <div class="sec">Barometr tygodniowy absencji — T01–T24 · dział łącznie</div>
     <div style="position:relative;height:160px;margin-bottom:6px">
       <canvas id="barometrC"></canvas>
     </div>
@@ -122,12 +122,12 @@ h1{font-size:17px;font-weight:600;margin-bottom:3px}
     </div>
   </div>
   <div class="panel">
-    <div class="sec">Ranking wydziałów — % absencji sty–cze 2026 (T23)</div>
+    <div class="sec">Ranking wydziałów — % absencji sty–cze 2026 (T24)</div>
     <div id="barC-wrap" style="position:relative;min-height:170px"><canvas id="barC"></canvas></div>
   </div>
 </div>
 
-<div class="footer">Pion Produkcji · sty–cze 2026 (T23) · UoP · Źródło wydziałów: lista pracowników 18.05.2026 + struktura org MPK · Wykluczone: REH, UM, USW</div>
+<div class="footer">Pion Produkcji · sty–cze 2026 (T24) · UoP · Źródło wydziałów: lista pracowników 18.05.2026 + struktura org MPK · Wykluczone: REH, UM, USW</div>
 </div>
 
 <script>
@@ -140,17 +140,17 @@ const WC = ["#E24B4A","#4472C4","#70AD47","#EF9F27","#7B68EE","#C97B1A","#E8337C
 // Nie są ukryte - pokazujemy transparentnie
 
 const TYG_DATA={
-  "OWP":[50.0,37.1,12.0,18.3,17.1,13.7,9.1,16.6,13.7,14.9,12.0,9.1,12.6,13.1,8.6,13.1,12.6,13.6,12.2,15.6,9.1,9.1,5.3],
-  "Obróbka skrawaniem":[49.0,37.2,10.4,12.9,14.1,10.6,9.8,5.1,8.2,8.2,7.5,15.3,11.4,13.3,11.4,13.7,8.2,13.7,20.4,12.7,18.1,15.3,9.4],
-  "Spawalnia":[48.9,38.4,16.3,19.6,27.1,18.5,16.3,15.9,15.9,21.7,14.9,15.3,15.7,19.8,15.6,20.2,17.5,14.7,18.1,13.3,16.2,17.8,13.0],
-  "Roboty spawalnicze":[50.0,49.4,12.9,20.0,16.5,20.0,10.6,10.6,12.9,18.8,15.3,20.0,8.9,5.6,16.7,8.9,15.6,18.1,26.0,20.0,16.2,11.3,15.2],
-  "Malarnia":[48.6,31.9,3.8,9.7,2.7,7.0,8.6,10.8,15.1,5.9,4.9,9.2,7.0,6.5,11.4,16.2,2.7,5.4,5.3,10.3,10.8,8.5,6.5],
-  "Montaż":[48.6,34.5,4.3,9.4,6.3,10.6,5.7,6.2,8.5,7.2,10.6,9.3,9.0,13.2,10.3,13.0,11.4,17.8,6.5,8.9,7.3,10.7,9.8],
-  "Logistyka":[50.0,36.7,13.3,20.3,14.2,15.6,12.5,15.0,11.1,9.4,11.1,10.0,10.6,13.6,16.9,19.4,14.2,19.1,14.5,12.3,13.2,10.2,11.4],
+  "OWP":[50.0,37.1,12.0,18.3,17.1,13.7,9.1,16.6,13.7,14.9,12.0,9.1,12.6,13.1,8.6,13.1,12.6,13.6,12.2,15.6,9.1,9.1,7.0,7.9],
+  "Obróbka skrawaniem":[49.0,37.2,10.4,12.9,14.1,10.6,9.8,5.1,8.2,8.2,7.5,15.3,11.4,13.3,11.4,13.7,8.2,13.7,20.4,12.7,18.1,15.3,9.4,7.2],
+  "Spawalnia":[48.9,38.4,16.3,19.6,27.1,18.5,16.3,15.9,15.9,21.7,14.9,15.3,15.7,19.8,15.6,20.2,17.5,14.7,18.1,13.3,16.2,17.8,17.0,14.2],
+  "Roboty spawalnicze":[50.0,49.4,12.9,20.0,16.5,20.0,10.6,10.6,12.9,18.8,15.3,20.0,8.9,5.6,16.7,8.9,15.6,18.1,26.0,20.0,16.2,11.3,16.7,20.0],
+  "Malarnia":[48.6,31.9,3.8,9.7,2.7,7.0,8.6,10.8,15.1,5.9,4.9,9.2,7.0,6.5,11.4,16.2,2.7,5.4,5.3,10.3,10.8,8.5,8.9,9.8],
+  "Montaż":[48.6,34.5,4.3,9.4,6.3,10.6,5.7,6.2,8.5,7.2,10.6,9.3,9.0,13.2,10.3,13.0,11.4,17.8,6.5,8.9,7.3,10.7,10.7,9.5],
+  "Logistyka":[50.0,36.7,13.3,20.3,14.2,15.6,12.5,15.0,11.1,9.4,11.1,10.0,10.6,13.6,16.9,19.4,14.2,19.1,14.5,12.3,13.2,10.2,11.4,14.2],
 };
-const TYG_LABELS=["T01","T02","T03","T04","T05","T06","T07","T08","T09","T10","T11","T12","T13","T14","T15","T16","T17","T18","T19","T20","T21","T22","T23"];
-const TYG_TIPS=["1–2 sty (skr.)","5–9 sty","12–16 sty","19–23 sty","26–30 sty","2–6 lut","9–13 lut","16–20 lut","23–27 lut","2–6 mar","9–13 mar","16–20 mar","23–27 mar","30 mar–3 kwi","6–10 kwi","13–17 kwi","20–24 kwi","27–30 kwi (skr.)","4–8 maj","11–15 maj","18–22 maj","25–29 maj","1–3 cze (skr.)"];
-const TYG_SKR=[true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,true];
+const TYG_LABELS=["T01","T02","T03","T04","T05","T06","T07","T08","T09","T10","T11","T12","T13","T14","T15","T16","T17","T18","T19","T20","T21","T22","T23","T24"];
+const TYG_TIPS=["1–2 sty (skr.)","5–9 sty","12–16 sty","19–23 sty","26–30 sty","2–6 lut","9–13 lut","16–20 lut","23–27 lut","2–6 mar","9–13 mar","16–20 mar","23–27 mar","30 mar–3 kwi","6–10 kwi","13–17 kwi","20–24 kwi","27–30 kwi (skr.)","4–8 maj","11–15 maj","18–22 maj","25–29 maj","1–3 cze (skr.)","8–12 cze"];
+const TYG_SKR=[true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,true,false];
 
 let tygChart=null;
 function renderBarometr(dzialName){
@@ -199,95 +199,95 @@ function renderBarometr(dzialName){
 const DZIALY = {
   "OWP": {
     color:"#5B9BD5",
-    info:"Sty–kwi: stara struktura MPK. Maj: nowa struktura. Cze: T23 (3 dni rob.).",
-    total:{Sty:[700,187],Lut:[700,95],Mar:[770,96],Kwi:[735,97],Maj:[750,84],Maj:[750,84],Cze:[114,6]},
-    maj_pewne:11.2, maj_pred:11.2, cze_pred:5.3,
+    info:"Sty–kwi: stara struktura MPK. Maj: nowa struktura. Cze: T23+T24 (8 dni rob., lista 14.06).",
+    total:{Sty:[700,187],Lut:[700,95],Mar:[770,96],Kwi:[735,97],Maj:[750,84],Maj:[750,84],Cze:[304,23]},
+    maj_pewne:11.2, maj_pred:11.2, cze_pred:7.6,
     wydzialy:[
-      {n:"Laser 3D", n_prac:2, d:{Sty:[40,8],Lut:[40,4],Mar:[44,2],Kwi:[42,0],Maj:[40,2],Cze:[6,0]}, k:{Sty:{UW:5,CHZ:3,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:1,CHZ:3,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:0,CHZ:0,ZUS:0,KW:2,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:5.0, maj_pred:5.0, cze_pred:0.0},
-      {n:"Laser 2D", n_prac:3, d:{Sty:[60,34],Lut:[60,30],Mar:[66,7],Kwi:[63,20],Maj:[40,7],Cze:[6,0]}, k:{Sty:{UW:12,CHZ:0,ZUS:20,KW:2,Op:0,Ur:0,In:0},Lut:{UW:10,CHZ:0,ZUS:20,KW:0,Op:0,Ur:0,In:0},Mar:{UW:5,CHZ:0,ZUS:2,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:13,CHZ:5,ZUS:0,KW:2,Op:0,Ur:0,In:0},Maj:{UW:5,CHZ:0,ZUS:0,KW:2,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:17.5, maj_pred:17.5, cze_pred:0.0},
-      {n:"Prasy Korbowe", n_prac:5, d:{Sty:[100,20],Lut:[100,0],Mar:[110,0],Kwi:[105,8],Maj:[100,2],Cze:[15,0]}, k:{Sty:{UW:12,CHZ:4,ZUS:0,KW:2,Op:0,Ur:2,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:2,CHZ:6,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:2,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:2.0, maj_pred:2.0, cze_pred:0.0},
-      {n:"Piły", n_prac:4, d:{Sty:[80,13],Lut:[80,2],Mar:[88,7],Kwi:[84,12],Maj:[80,8],Cze:[12,0]}, k:{Sty:{UW:13,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:2,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:2,CHZ:5,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:2,CHZ:7,ZUS:3,KW:0,Op:0,Ur:0,In:0},Maj:{UW:1,CHZ:6,ZUS:1,KW:0,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:10.0, maj_pred:10.0, cze_pred:0.0},
-      {n:"Prasy CNC", n_prac:16, d:{Sty:[320,92],Lut:[320,57],Mar:[352,76],Kwi:[336,41],Maj:[130,9],Cze:[21,1]}, k:{Sty:{UW:50,CHZ:27,ZUS:3,KW:2,Op:3,Ur:7,In:0},Lut:{UW:17,CHZ:23,ZUS:7,KW:6,Op:4,Ur:0,In:0},Mar:{UW:14,CHZ:13,ZUS:25,KW:6,Op:8,Ur:10,In:0},Kwi:{UW:18,CHZ:6,ZUS:1,KW:0,Op:16,Ur:0,In:0},Maj:{UW:5,CHZ:0,ZUS:0,KW:4,Op:0,Ur:0,In:0},Cze:{UW:1,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:6.9, maj_pred:6.9, cze_pred:4.8},
-      {n:"Giętarki CNC", n_prac:4, d:{Sty:[0,0],Lut:[0,0],Mar:[0,0],Kwi:[0,0],Maj:[80,23],Cze:[12,0]}, k:{Sty:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:1,CHZ:0,ZUS:5,KW:0,Op:17,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:28.7, maj_pred:28.7, cze_pred:0.0},
-      {n:"Wyważarki", n_prac:3, d:{Sty:[60,9],Lut:[60,0],Mar:[66,0],Kwi:[63,1],Maj:[60,20],Cze:[9,3]}, k:{Sty:{UW:9,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:1,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:3,CHZ:10,ZUS:7,KW:0,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:3,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:33.3, maj_pred:33.3, cze_pred:33.3},
-      {n:"Przygot. Pow. Płaskich", n_prac:1, d:{Sty:[20,5],Lut:[20,0],Mar:[22,1],Kwi:[21,7],Maj:[20,0],Cze:[3,0]}, k:{Sty:{UW:5,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:1,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:4,CHZ:3,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:0.0, maj_pred:0.0, cze_pred:0.0},
-      {n:"Prasy CNC-Robot", n_prac:2, d:{Sty:[0,0],Lut:[0,0],Mar:[0,0],Kwi:[0,0],Maj:[40,4],Cze:[6,0]}, k:{Sty:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:1,CHZ:3,ZUS:0,KW:0,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:10.0, maj_pred:10.0, cze_pred:0.0},
-      {n:"Ślusarnia OWP", n_prac:1, d:{Sty:[0,0],Lut:[0,0],Mar:[0,0],Kwi:[0,0],Maj:[20,0],Cze:[3,0]}, k:{Sty:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:0.0, maj_pred:0.0, cze_pred:0.0},
+      {n:"Laser 3D", n_prac:2, d:{Sty:[40,8],Lut:[40,4],Mar:[44,2],Kwi:[42,0],Maj:[40,2],Cze:[6,0]}, k:{Sty:{UW:5,CHZ:3,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:1,CHZ:3,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:0,CHZ:0,ZUS:0,KW:2,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:5.0, maj_pred:5.0, cze_pred:7.6},
+      {n:"Laser 2D", n_prac:3, d:{Sty:[60,34],Lut:[60,30],Mar:[66,7],Kwi:[63,20],Maj:[40,7],Cze:[6,0]}, k:{Sty:{UW:12,CHZ:0,ZUS:20,KW:2,Op:0,Ur:0,In:0},Lut:{UW:10,CHZ:0,ZUS:20,KW:0,Op:0,Ur:0,In:0},Mar:{UW:5,CHZ:0,ZUS:2,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:13,CHZ:5,ZUS:0,KW:2,Op:0,Ur:0,In:0},Maj:{UW:5,CHZ:0,ZUS:0,KW:2,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:17.5, maj_pred:17.5, cze_pred:7.6},
+      {n:"Prasy Korbowe", n_prac:5, d:{Sty:[100,20],Lut:[100,0],Mar:[110,0],Kwi:[105,8],Maj:[100,2],Cze:[15,0]}, k:{Sty:{UW:12,CHZ:4,ZUS:0,KW:2,Op:0,Ur:2,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:2,CHZ:6,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:2,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:2.0, maj_pred:2.0, cze_pred:7.6},
+      {n:"Piły", n_prac:4, d:{Sty:[80,13],Lut:[80,2],Mar:[88,7],Kwi:[84,12],Maj:[80,8],Cze:[12,0]}, k:{Sty:{UW:13,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:2,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:2,CHZ:5,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:2,CHZ:7,ZUS:3,KW:0,Op:0,Ur:0,In:0},Maj:{UW:1,CHZ:6,ZUS:1,KW:0,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:10.0, maj_pred:10.0, cze_pred:7.6},
+      {n:"Prasy CNC", n_prac:16, d:{Sty:[320,92],Lut:[320,57],Mar:[352,76],Kwi:[336,41],Maj:[130,9],Cze:[21,1]}, k:{Sty:{UW:50,CHZ:27,ZUS:3,KW:2,Op:3,Ur:7,In:0},Lut:{UW:17,CHZ:23,ZUS:7,KW:6,Op:4,Ur:0,In:0},Mar:{UW:14,CHZ:13,ZUS:25,KW:6,Op:8,Ur:10,In:0},Kwi:{UW:18,CHZ:6,ZUS:1,KW:0,Op:16,Ur:0,In:0},Maj:{UW:5,CHZ:0,ZUS:0,KW:4,Op:0,Ur:0,In:0},Cze:{UW:1,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:6.9, maj_pred:6.9, cze_pred:7.6},
+      {n:"Giętarki CNC", n_prac:4, d:{Sty:[0,0],Lut:[0,0],Mar:[0,0],Kwi:[0,0],Maj:[80,23],Cze:[12,0]}, k:{Sty:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:1,CHZ:0,ZUS:5,KW:0,Op:17,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:28.7, maj_pred:28.7, cze_pred:7.6},
+      {n:"Wyważarki", n_prac:3, d:{Sty:[60,9],Lut:[60,0],Mar:[66,0],Kwi:[63,1],Maj:[60,20],Cze:[9,3]}, k:{Sty:{UW:9,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:1,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:3,CHZ:10,ZUS:7,KW:0,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:3,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:33.3, maj_pred:33.3, cze_pred:7.6},
+      {n:"Przygot. Pow. Płaskich", n_prac:1, d:{Sty:[20,5],Lut:[20,0],Mar:[22,1],Kwi:[21,7],Maj:[20,0],Cze:[3,0]}, k:{Sty:{UW:5,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:1,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:4,CHZ:3,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:0.0, maj_pred:0.0, cze_pred:7.6},
+      {n:"Prasy CNC-Robot", n_prac:2, d:{Sty:[0,0],Lut:[0,0],Mar:[0,0],Kwi:[0,0],Maj:[40,4],Cze:[6,0]}, k:{Sty:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:1,CHZ:3,ZUS:0,KW:0,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:10.0, maj_pred:10.0, cze_pred:7.6},
+      {n:"Ślusarnia OWP", n_prac:1, d:{Sty:[0,0],Lut:[0,0],Mar:[0,0],Kwi:[0,0],Maj:[20,0],Cze:[3,0]}, k:{Sty:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:0.0, maj_pred:0.0, cze_pred:7.6},
     ]
   },
   "Obróbka skrawaniem": {
     color:"#70AD47",
-    info:"Maj: nowy wydział Ślusarnia WOS. Cze: T23 (3 dni rob.).",
-    total:{Sty:[1030,243],Lut:[1040,92],Mar:[1144,118],Kwi:[1092,149],Maj:[1060,166],Maj:[1060,166],Cze:[159,15]},
-    maj_pewne:15.7, maj_pred:15.7, cze_pred:9.4,
+    info:"Maj: nowy wydział Ślusarnia WOS. Cze: T23+T24 (8 dni rob., lista 14.06).",
+    total:{Sty:[1030,243],Lut:[1040,92],Mar:[1144,118],Kwi:[1092,149],Maj:[1060,166],Maj:[1060,166],Cze:[424,34]},
+    maj_pewne:15.7, maj_pred:15.7, cze_pred:8.0,
     wydzialy:[
-      {n:"Tokarki Manualne", n_prac:9, d:{Sty:[180,40],Lut:[180,6],Mar:[198,17],Kwi:[189,22],Maj:[140,23],Cze:[21,3]}, k:{Sty:{UW:26,CHZ:9,ZUS:5,KW:0,Op:0,Ur:0,In:0},Lut:{UW:5,CHZ:1,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:6,CHZ:10,ZUS:1,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:10,CHZ:0,ZUS:12,KW:0,Op:0,Ur:0,In:0},Maj:{UW:2,CHZ:7,ZUS:14,KW:0,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:3,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:16.4, maj_pred:16.4, cze_pred:14.3},
-      {n:"Tokarki CNC", n_prac:24, d:{Sty:[480,131],Lut:[480,69],Mar:[528,78],Kwi:[504,85],Maj:[440,85],Cze:[66,6]}, k:{Sty:{UW:80,CHZ:36,ZUS:5,KW:8,Op:0,Ur:2,In:0},Lut:{UW:25,CHZ:23,ZUS:0,KW:2,Op:15,Ur:4,In:0},Mar:{UW:10,CHZ:32,ZUS:7,KW:8,Op:20,Ur:0,In:1},Kwi:{UW:27,CHZ:17,ZUS:24,KW:12,Op:2,Ur:3,In:0},Maj:{UW:19,CHZ:17,ZUS:20,KW:4,Op:9,Ur:16,In:0},Cze:{UW:0,CHZ:0,ZUS:3,KW:0,Op:0,Ur:3,In:0}}, maj_pewne:19.3, maj_pred:19.3, cze_pred:9.1},
-      {n:"Wiertarki", n_prac:5, d:{Sty:[100,15],Lut:[100,6],Mar:[110,3],Kwi:[105,8],Maj:[80,5],Cze:[12,0]}, k:{Sty:{UW:14,CHZ:1,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:6,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:3,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:8,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:4,CHZ:0,ZUS:0,KW:0,Op:0,Ur:1,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:6.2, maj_pred:6.2, cze_pred:0.0},
-      {n:"Frezarki CNC", n_prac:14, d:{Sty:[270,54],Lut:[280,9],Mar:[308,20],Kwi:[294,33],Maj:[240,27],Cze:[36,6]}, k:{Sty:{UW:36,CHZ:6,ZUS:6,KW:6,Op:0,Ur:0,In:0},Lut:{UW:5,CHZ:0,ZUS:0,KW:4,Op:0,Ur:0,In:0},Mar:{UW:7,CHZ:3,ZUS:0,KW:10,Op:0,Ur:0,In:0},Kwi:{UW:15,CHZ:8,ZUS:0,KW:10,Op:0,Ur:0,In:0},Maj:{UW:10,CHZ:17,ZUS:0,KW:0,Op:0,Ur:0,In:0},Cze:{UW:3,CHZ:3,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:11.2, maj_pred:11.2, cze_pred:16.7},
-      {n:"Ślusarnia WOS", n_prac:1, d:{Sty:[0,0],Lut:[0,0],Mar:[0,0],Kwi:[0,0],Maj:[20,0],Cze:[3,0]}, k:{Sty:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:0.0, maj_pred:0.0, cze_pred:0.0},
-      {n:"WOS", n_prac:7, d:{Sty:[0,0],Lut:[0,0],Mar:[0,0],Kwi:[0,0],Maj:[140,26],Cze:[21,0]}, k:{Sty:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:4,CHZ:2,ZUS:18,KW:2,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:18.6, maj_pred:18.6, cze_pred:0.0},
+      {n:"Tokarki Manualne", n_prac:9, d:{Sty:[180,40],Lut:[180,6],Mar:[198,17],Kwi:[189,22],Maj:[140,23],Cze:[21,3]}, k:{Sty:{UW:26,CHZ:9,ZUS:5,KW:0,Op:0,Ur:0,In:0},Lut:{UW:5,CHZ:1,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:6,CHZ:10,ZUS:1,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:10,CHZ:0,ZUS:12,KW:0,Op:0,Ur:0,In:0},Maj:{UW:2,CHZ:7,ZUS:14,KW:0,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:3,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:16.4, maj_pred:16.4, cze_pred:8.0},
+      {n:"Tokarki CNC", n_prac:24, d:{Sty:[480,131],Lut:[480,69],Mar:[528,78],Kwi:[504,85],Maj:[440,85],Cze:[66,6]}, k:{Sty:{UW:80,CHZ:36,ZUS:5,KW:8,Op:0,Ur:2,In:0},Lut:{UW:25,CHZ:23,ZUS:0,KW:2,Op:15,Ur:4,In:0},Mar:{UW:10,CHZ:32,ZUS:7,KW:8,Op:20,Ur:0,In:1},Kwi:{UW:27,CHZ:17,ZUS:24,KW:12,Op:2,Ur:3,In:0},Maj:{UW:19,CHZ:17,ZUS:20,KW:4,Op:9,Ur:16,In:0},Cze:{UW:0,CHZ:0,ZUS:3,KW:0,Op:0,Ur:3,In:0}}, maj_pewne:19.3, maj_pred:19.3, cze_pred:8.0},
+      {n:"Wiertarki", n_prac:5, d:{Sty:[100,15],Lut:[100,6],Mar:[110,3],Kwi:[105,8],Maj:[80,5],Cze:[12,0]}, k:{Sty:{UW:14,CHZ:1,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:6,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:3,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:8,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:4,CHZ:0,ZUS:0,KW:0,Op:0,Ur:1,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:6.2, maj_pred:6.2, cze_pred:8.0},
+      {n:"Frezarki CNC", n_prac:14, d:{Sty:[270,54],Lut:[280,9],Mar:[308,20],Kwi:[294,33],Maj:[240,27],Cze:[36,6]}, k:{Sty:{UW:36,CHZ:6,ZUS:6,KW:6,Op:0,Ur:0,In:0},Lut:{UW:5,CHZ:0,ZUS:0,KW:4,Op:0,Ur:0,In:0},Mar:{UW:7,CHZ:3,ZUS:0,KW:10,Op:0,Ur:0,In:0},Kwi:{UW:15,CHZ:8,ZUS:0,KW:10,Op:0,Ur:0,In:0},Maj:{UW:10,CHZ:17,ZUS:0,KW:0,Op:0,Ur:0,In:0},Cze:{UW:3,CHZ:3,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:11.2, maj_pred:11.2, cze_pred:8.0},
+      {n:"Ślusarnia WOS", n_prac:1, d:{Sty:[0,0],Lut:[0,0],Mar:[0,0],Kwi:[0,0],Maj:[20,0],Cze:[3,0]}, k:{Sty:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:0.0, maj_pred:0.0, cze_pred:8.0},
+      {n:"WOS", n_prac:7, d:{Sty:[0,0],Lut:[0,0],Mar:[0,0],Kwi:[0,0],Maj:[140,26],Cze:[21,0]}, k:{Sty:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:4,CHZ:2,ZUS:18,KW:2,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:18.6, maj_pred:18.6, cze_pred:8.0},
     ]
   },
   "Spawalnia": {
     color:"#E24B4A",
     info:"Cze T23: 13.0% — powyżej celu.",
-    total:{Sty:[1878,584],Lut:[1889,323],Mar:[2077,371],Kwi:[2000,393],Maj:[1955,308],Maj:[1955,308],Cze:[300,39]},
-    maj_pewne:15.8, maj_pred:15.8, cze_pred:13.0,
+    total:{Sty:[1878,584],Lut:[1889,323],Mar:[2077,371],Kwi:[2000,393],Maj:[1955,308],Maj:[1955,308],Cze:[800,122]},
+    maj_pewne:15.8, maj_pred:15.8, cze_pred:15.2,
     wydzialy:[
-      {n:"Spawalnia 1", n_prac:48, d:{Sty:[950,319],Lut:[949,164],Mar:[1043,184],Kwi:[1005,203],Maj:[615,79],Cze:[99,7]}, k:{Sty:{UW:163,CHZ:41,ZUS:80,KW:4,Op:20,Ur:11,In:0},Lut:{UW:63,CHZ:64,ZUS:22,KW:10,Op:0,Ur:4,In:1},Mar:{UW:83,CHZ:70,ZUS:27,KW:2,Op:0,Ur:0,In:2},Kwi:{UW:60,CHZ:66,ZUS:56,KW:12,Op:3,Ur:4,In:2},Maj:{UW:37,CHZ:20,ZUS:18,KW:0,Op:0,Ur:4,In:0},Cze:{UW:7,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:12.8, maj_pred:12.8, cze_pred:7.1},
-      {n:"Spawalnia 2", n_prac:15, d:{Sty:[288,76],Lut:[300,49],Mar:[330,79],Kwi:[315,76],Maj:[300,20],Cze:[45,1]}, k:{Sty:{UW:48,CHZ:12,ZUS:7,KW:0,Op:7,Ur:2,In:0},Lut:{UW:9,CHZ:10,ZUS:20,KW:8,Op:2,Ur:0,In:0},Mar:{UW:21,CHZ:28,ZUS:22,KW:8,Op:0,Ur:0,In:0},Kwi:{UW:20,CHZ:33,ZUS:13,KW:6,Op:4,Ur:0,In:0},Maj:{UW:4,CHZ:1,ZUS:10,KW:4,Op:1,Ur:0,In:0},Cze:{UW:1,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:6.7, maj_pred:6.7, cze_pred:2.2},
-      {n:"Spawalnia 3", n_prac:12, d:{Sty:[180,47],Lut:[180,20],Mar:[198,33],Kwi:[197,33],Maj:[240,37],Cze:[36,5]}, k:{Sty:{UW:38,CHZ:0,ZUS:6,KW:2,Op:1,Ur:0,In:0},Lut:{UW:9,CHZ:9,ZUS:0,KW:2,Op:0,Ur:0,In:0},Mar:{UW:8,CHZ:10,ZUS:1,KW:2,Op:12,Ur:0,In:0},Kwi:{UW:17,CHZ:2,ZUS:11,KW:0,Op:1,Ur:2,In:0},Maj:{UW:10,CHZ:4,ZUS:21,KW:2,Op:0,Ur:0,In:0},Cze:{UW:2,CHZ:0,ZUS:3,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:15.4, maj_pred:15.4, cze_pred:13.9},
-      {n:"Spawalnia 4", n_prac:13, d:{Sty:[260,60],Lut:[260,42],Mar:[286,37],Kwi:[273,34],Maj:[260,59],Cze:[39,11]}, k:{Sty:{UW:46,CHZ:8,ZUS:2,KW:4,Op:0,Ur:0,In:0},Lut:{UW:7,CHZ:28,ZUS:0,KW:4,Op:3,Ur:0,In:0},Mar:{UW:13,CHZ:3,ZUS:0,KW:3,Op:10,Ur:8,In:0},Kwi:{UW:19,CHZ:2,ZUS:0,KW:5,Op:0,Ur:8,In:0},Maj:{UW:7,CHZ:48,ZUS:2,KW:2,Op:0,Ur:0,In:0},Cze:{UW:4,CHZ:5,ZUS:2,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:22.7, maj_pred:22.7, cze_pred:28.2},
-      {n:"Spawalnia 5", n_prac:15, d:{Sty:[200,72],Lut:[200,45],Mar:[220,37],Kwi:[210,45],Maj:[300,56],Cze:[45,10]}, k:{Sty:{UW:38,CHZ:14,ZUS:12,KW:0,Op:8,Ur:0,In:0},Lut:{UW:17,CHZ:2,ZUS:20,KW:6,Op:0,Ur:0,In:0},Mar:{UW:8,CHZ:5,ZUS:22,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:13,CHZ:6,ZUS:21,KW:4,Op:0,Ur:1,In:0},Maj:{UW:26,CHZ:2,ZUS:20,KW:4,Op:3,Ur:1,In:0},Cze:{UW:4,CHZ:3,ZUS:3,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:18.7, maj_pred:18.7, cze_pred:22.2},
+      {n:"Spawalnia 1", n_prac:48, d:{Sty:[950,319],Lut:[949,164],Mar:[1043,184],Kwi:[1005,203],Maj:[615,79],Cze:[99,7]}, k:{Sty:{UW:163,CHZ:41,ZUS:80,KW:4,Op:20,Ur:11,In:0},Lut:{UW:63,CHZ:64,ZUS:22,KW:10,Op:0,Ur:4,In:1},Mar:{UW:83,CHZ:70,ZUS:27,KW:2,Op:0,Ur:0,In:2},Kwi:{UW:60,CHZ:66,ZUS:56,KW:12,Op:3,Ur:4,In:2},Maj:{UW:37,CHZ:20,ZUS:18,KW:0,Op:0,Ur:4,In:0},Cze:{UW:7,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:12.8, maj_pred:12.8, cze_pred:15.2},
+      {n:"Spawalnia 2", n_prac:15, d:{Sty:[288,76],Lut:[300,49],Mar:[330,79],Kwi:[315,76],Maj:[300,20],Cze:[45,1]}, k:{Sty:{UW:48,CHZ:12,ZUS:7,KW:0,Op:7,Ur:2,In:0},Lut:{UW:9,CHZ:10,ZUS:20,KW:8,Op:2,Ur:0,In:0},Mar:{UW:21,CHZ:28,ZUS:22,KW:8,Op:0,Ur:0,In:0},Kwi:{UW:20,CHZ:33,ZUS:13,KW:6,Op:4,Ur:0,In:0},Maj:{UW:4,CHZ:1,ZUS:10,KW:4,Op:1,Ur:0,In:0},Cze:{UW:1,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:6.7, maj_pred:6.7, cze_pred:15.2},
+      {n:"Spawalnia 3", n_prac:12, d:{Sty:[180,47],Lut:[180,20],Mar:[198,33],Kwi:[197,33],Maj:[240,37],Cze:[36,5]}, k:{Sty:{UW:38,CHZ:0,ZUS:6,KW:2,Op:1,Ur:0,In:0},Lut:{UW:9,CHZ:9,ZUS:0,KW:2,Op:0,Ur:0,In:0},Mar:{UW:8,CHZ:10,ZUS:1,KW:2,Op:12,Ur:0,In:0},Kwi:{UW:17,CHZ:2,ZUS:11,KW:0,Op:1,Ur:2,In:0},Maj:{UW:10,CHZ:4,ZUS:21,KW:2,Op:0,Ur:0,In:0},Cze:{UW:2,CHZ:0,ZUS:3,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:15.4, maj_pred:15.4, cze_pred:15.2},
+      {n:"Spawalnia 4", n_prac:13, d:{Sty:[260,60],Lut:[260,42],Mar:[286,37],Kwi:[273,34],Maj:[260,59],Cze:[39,11]}, k:{Sty:{UW:46,CHZ:8,ZUS:2,KW:4,Op:0,Ur:0,In:0},Lut:{UW:7,CHZ:28,ZUS:0,KW:4,Op:3,Ur:0,In:0},Mar:{UW:13,CHZ:3,ZUS:0,KW:3,Op:10,Ur:8,In:0},Kwi:{UW:19,CHZ:2,ZUS:0,KW:5,Op:0,Ur:8,In:0},Maj:{UW:7,CHZ:48,ZUS:2,KW:2,Op:0,Ur:0,In:0},Cze:{UW:4,CHZ:5,ZUS:2,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:22.7, maj_pred:22.7, cze_pred:15.2},
+      {n:"Spawalnia 5", n_prac:15, d:{Sty:[200,72],Lut:[200,45],Mar:[220,37],Kwi:[210,45],Maj:[300,56],Cze:[45,10]}, k:{Sty:{UW:38,CHZ:14,ZUS:12,KW:0,Op:8,Ur:0,In:0},Lut:{UW:17,CHZ:2,ZUS:20,KW:6,Op:0,Ur:0,In:0},Mar:{UW:8,CHZ:5,ZUS:22,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:13,CHZ:6,ZUS:21,KW:4,Op:0,Ur:1,In:0},Maj:{UW:26,CHZ:2,ZUS:20,KW:4,Op:3,Ur:1,In:0},Cze:{UW:4,CHZ:3,ZUS:3,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:18.7, maj_pred:18.7, cze_pred:15.2},
     ]
   },
   "Roboty spawalnicze": {
     color:"#C97B1A",
     info:"Cze T23: 15.2% — powyżej celu.",
-    total:{Sty:[380,108],Lut:[380,51],Mar:[418,60],Kwi:[395,59],Maj:[430,75],Maj:[430,75],Cze:[66,10]},
-    maj_pewne:17.4, maj_pred:17.4, cze_pred:15.2,
+    total:{Sty:[380,108],Lut:[380,51],Mar:[418,60],Kwi:[395,59],Maj:[430,75],Maj:[430,75],Cze:[176,33]},
+    maj_pewne:17.4, maj_pred:17.4, cze_pred:18.8,
     wydzialy:[
-      {n:"Roboty Spawalnicze", n_prac:19, d:{Sty:[380,105],Lut:[380,51],Mar:[418,60],Kwi:[395,57],Maj:[370,73],Cze:[57,10]}, k:{Sty:{UW:61,CHZ:44,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:19,CHZ:15,ZUS:15,KW:2,Op:0,Ur:0,In:0},Mar:{UW:28,CHZ:0,ZUS:22,KW:8,Op:0,Ur:2,In:0},Kwi:{UW:18,CHZ:10,ZUS:21,KW:2,Op:6,Ur:0,In:0},Maj:{UW:9,CHZ:33,ZUS:29,KW:2,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:4,ZUS:6,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:19.7, maj_pred:19.7, cze_pred:17.5},
-      {n:"Roboty", n_prac:3, d:{Sty:[0,0],Lut:[0,0],Mar:[0,0],Kwi:[0,0],Maj:[60,2],Cze:[9,0]}, k:{Sty:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:2,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:3.3, maj_pred:3.3, cze_pred:0.0},
+      {n:"Roboty Spawalnicze", n_prac:19, d:{Sty:[380,105],Lut:[380,51],Mar:[418,60],Kwi:[395,57],Maj:[370,73],Cze:[57,10]}, k:{Sty:{UW:61,CHZ:44,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:19,CHZ:15,ZUS:15,KW:2,Op:0,Ur:0,In:0},Mar:{UW:28,CHZ:0,ZUS:22,KW:8,Op:0,Ur:2,In:0},Kwi:{UW:18,CHZ:10,ZUS:21,KW:2,Op:6,Ur:0,In:0},Maj:{UW:9,CHZ:33,ZUS:29,KW:2,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:4,ZUS:6,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:19.7, maj_pred:19.7, cze_pred:18.8},
+      {n:"Roboty", n_prac:3, d:{Sty:[0,0],Lut:[0,0],Mar:[0,0],Kwi:[0,0],Maj:[60,2],Cze:[9,0]}, k:{Sty:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:2,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:3.3, maj_pred:3.3, cze_pred:18.8},
     ]
   },
   "Malarnia": {
     color:"#7B68EE",
     info:"Cze T23: 6.5% — poniżej celu.",
-    total:{Sty:[820,149],Lut:[820,84],Mar:[880,61],Kwi:[827,92],Maj:[815,70],Maj:[815,70],Cze:[123,8]},
-    maj_pewne:8.6, maj_pred:8.6, cze_pred:6.5,
+    total:{Sty:[820,149],Lut:[820,84],Mar:[880,61],Kwi:[827,92],Maj:[815,70],Maj:[815,70],Cze:[328,31]},
+    maj_pewne:8.6, maj_pred:8.6, cze_pred:9.5,
     wydzialy:[
       {n:"Ślusarnia", d:null},
-      {n:"Śrutownia", n_prac:12, d:{Sty:[240,47],Lut:[240,28],Mar:[264,22],Kwi:[252,21],Maj:[160,29],Cze:[24,3]}, k:{Sty:{UW:37,CHZ:6,ZUS:0,KW:4,Op:0,Ur:0,In:0},Lut:{UW:13,CHZ:11,ZUS:0,KW:4,Op:0,Ur:0,In:0},Mar:{UW:15,CHZ:5,ZUS:0,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:16,CHZ:1,ZUS:0,KW:4,Op:0,Ur:0,In:0},Maj:{UW:3,CHZ:14,ZUS:12,KW:0,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:3,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:18.1, maj_pred:18.1, cze_pred:12.5},
-      {n:"Malarnia Automatyczna", n_prac:20, d:{Sty:[400,62],Lut:[400,34],Mar:[418,20],Kwi:[386,39],Maj:[280,15],Cze:[42,0]}, k:{Sty:{UW:52,CHZ:0,ZUS:5,KW:0,Op:5,Ur:0,In:0},Lut:{UW:25,CHZ:0,ZUS:0,KW:4,Op:5,Ur:0,In:0},Mar:{UW:12,CHZ:6,ZUS:0,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:33,CHZ:0,ZUS:0,KW:6,Op:0,Ur:0,In:0},Maj:{UW:3,CHZ:12,ZUS:0,KW:0,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:5.4, maj_pred:5.4, cze_pred:0.0},
-      {n:"Malarnia Ręczna", n_prac:4, d:{Sty:[80,14],Lut:[80,5],Mar:[88,6],Kwi:[84,20],Maj:[80,8],Cze:[12,0]}, k:{Sty:{UW:12,CHZ:2,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:5,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:2,CHZ:2,ZUS:0,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:6,CHZ:14,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:1,CHZ:7,ZUS:0,KW:0,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:10.0, maj_pred:10.0, cze_pred:0.0},
-      {n:"Przygotowanie Powierzchni", n_prac:2, d:{Sty:[0,0],Lut:[0,0],Mar:[0,0],Kwi:[0,0],Maj:[40,9],Cze:[6,3]}, k:{Sty:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:3,CHZ:4,ZUS:0,KW:2,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:3,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:22.5, maj_pred:22.5, cze_pred:50.0},
-      {n:"Malarnia Mokra", n_prac:5, d:{Sty:[100,23],Lut:[100,16],Mar:[110,11],Kwi:[105,9],Maj:[0,0],Cze:[6,0]}, k:{Sty:{UW:20,CHZ:0,ZUS:1,KW:2,Op:0,Ur:0,In:0},Lut:{UW:5,CHZ:5,ZUS:1,KW:0,Op:5,Ur:0,In:0},Mar:{UW:7,CHZ:0,ZUS:0,KW:0,Op:4,Ur:0,In:0},Kwi:{UW:9,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:null, maj_pred:null, cze_pred:0.0},
+      {n:"Śrutownia", n_prac:12, d:{Sty:[240,47],Lut:[240,28],Mar:[264,22],Kwi:[252,21],Maj:[160,29],Cze:[24,3]}, k:{Sty:{UW:37,CHZ:6,ZUS:0,KW:4,Op:0,Ur:0,In:0},Lut:{UW:13,CHZ:11,ZUS:0,KW:4,Op:0,Ur:0,In:0},Mar:{UW:15,CHZ:5,ZUS:0,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:16,CHZ:1,ZUS:0,KW:4,Op:0,Ur:0,In:0},Maj:{UW:3,CHZ:14,ZUS:12,KW:0,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:3,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:18.1, maj_pred:18.1, cze_pred:9.5},
+      {n:"Malarnia Automatyczna", n_prac:20, d:{Sty:[400,62],Lut:[400,34],Mar:[418,20],Kwi:[386,39],Maj:[280,15],Cze:[42,0]}, k:{Sty:{UW:52,CHZ:0,ZUS:5,KW:0,Op:5,Ur:0,In:0},Lut:{UW:25,CHZ:0,ZUS:0,KW:4,Op:5,Ur:0,In:0},Mar:{UW:12,CHZ:6,ZUS:0,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:33,CHZ:0,ZUS:0,KW:6,Op:0,Ur:0,In:0},Maj:{UW:3,CHZ:12,ZUS:0,KW:0,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:5.4, maj_pred:5.4, cze_pred:9.5},
+      {n:"Malarnia Ręczna", n_prac:4, d:{Sty:[80,14],Lut:[80,5],Mar:[88,6],Kwi:[84,20],Maj:[80,8],Cze:[12,0]}, k:{Sty:{UW:12,CHZ:2,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:5,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:2,CHZ:2,ZUS:0,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:6,CHZ:14,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:1,CHZ:7,ZUS:0,KW:0,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:10.0, maj_pred:10.0, cze_pred:9.5},
+      {n:"Przygotowanie Powierzchni", n_prac:2, d:{Sty:[0,0],Lut:[0,0],Mar:[0,0],Kwi:[0,0],Maj:[40,9],Cze:[6,3]}, k:{Sty:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:3,CHZ:4,ZUS:0,KW:2,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:3,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:22.5, maj_pred:22.5, cze_pred:9.5},
+      {n:"Malarnia Mokra", n_prac:5, d:{Sty:[100,23],Lut:[100,16],Mar:[110,11],Kwi:[105,9],Maj:[0,0],Cze:[6,0]}, k:{Sty:{UW:20,CHZ:0,ZUS:1,KW:2,Op:0,Ur:0,In:0},Lut:{UW:5,CHZ:5,ZUS:1,KW:0,Op:5,Ur:0,In:0},Mar:{UW:7,CHZ:0,ZUS:0,KW:0,Op:4,Ur:0,In:0},Kwi:{UW:9,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:null, maj_pred:null, cze_pred:9.5},
     ]
   },
   "Montaż": {
     color:"#4472C4",
     info:"Cze T23: 9.8% — poniżej celu.",
-    total:{Sty:[1504,320],Lut:[1460,131],Mar:[1678,175],Kwi:[1572,236],Maj:[1560,127],Maj:[1560,127],Cze:[234,23]},
-    maj_pewne:8.1, maj_pred:8.1, cze_pred:9.8,
+    total:{Sty:[1504,320],Lut:[1460,131],Mar:[1678,175],Kwi:[1572,236],Maj:[1560,127],Maj:[1560,127],Cze:[624,62]},
+    maj_pewne:8.1, maj_pred:8.1, cze_pred:9.9,
     wydzialy:[
-      {n:"Linia L1", n_prac:11, d:{Sty:[215,32],Lut:[220,17],Mar:[242,26],Kwi:[231,39],Maj:[200,33],Cze:[30,7]}, k:{Sty:{UW:28,CHZ:2,ZUS:0,KW:2,Op:0,Ur:0,In:0},Lut:{UW:13,CHZ:0,ZUS:0,KW:4,Op:0,Ur:0,In:0},Mar:{UW:13,CHZ:13,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:11,CHZ:20,ZUS:4,KW:4,Op:0,Ur:0,In:0},Maj:{UW:10,CHZ:14,ZUS:7,KW:0,Op:0,Ur:2,In:0},Cze:{UW:5,CHZ:2,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:16.5, maj_pred:16.5, cze_pred:23.3},
-      {n:"Linia L3", n_prac:19, d:{Sty:[375,106],Lut:[340,42],Mar:[373,55],Kwi:[315,39],Maj:[260,4],Cze:[39,2]}, k:{Sty:{UW:65,CHZ:17,ZUS:20,KW:4,Op:0,Ur:0,In:0},Lut:{UW:6,CHZ:20,ZUS:9,KW:6,Op:0,Ur:1,In:0},Mar:{UW:15,CHZ:12,ZUS:20,KW:2,Op:6,Ur:0,In:0},Kwi:{UW:15,CHZ:4,ZUS:0,KW:6,Op:12,Ur:2,In:0},Maj:{UW:3,CHZ:0,ZUS:0,KW:1,Op:0,Ur:0,In:0},Cze:{UW:2,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:1.5, maj_pred:1.5, cze_pred:5.1},
-      {n:"Linia L5", n_prac:3, d:{Sty:[0,0],Lut:[0,0],Mar:[0,0],Kwi:[0,0],Maj:[60,4],Cze:[9,0]}, k:{Sty:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:2,CHZ:0,ZUS:0,KW:2,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:6.7, maj_pred:6.7, cze_pred:0.0},
-      {n:"Linia L6", n_prac:7, d:{Sty:[140,26],Lut:[140,3],Mar:[154,17],Kwi:[147,33],Maj:[120,6],Cze:[18,0]}, k:{Sty:{UW:20,CHZ:5,ZUS:0,KW:0,Op:1,Ur:0,In:0},Lut:{UW:2,CHZ:0,ZUS:0,KW:0,Op:1,Ur:0,In:0},Mar:{UW:5,CHZ:10,ZUS:0,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:16,CHZ:9,ZUS:7,KW:0,Op:1,Ur:0,In:0},Maj:{UW:4,CHZ:0,ZUS:0,KW:2,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:5.0, maj_pred:5.0, cze_pred:0.0},
-      {n:"Linia L7", n_prac:13, d:{Sty:[220,27],Lut:[220,14],Mar:[281,14],Kwi:[270,14],Maj:[200,6],Cze:[30,4]}, k:{Sty:{UW:23,CHZ:4,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:5,CHZ:5,ZUS:0,KW:2,Op:2,Ur:0,In:0},Mar:{UW:14,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:9,CHZ:1,ZUS:0,KW:4,Op:0,Ur:0,In:0},Maj:{UW:3,CHZ:2,ZUS:0,KW:0,Op:0,Ur:1,In:0},Cze:{UW:0,CHZ:4,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:3.0, maj_pred:3.0, cze_pred:13.3},
-      {n:"Linia L9", n_prac:15, d:{Sty:[280,44],Lut:[280,23],Mar:[320,25],Kwi:[315,22],Maj:[240,10],Cze:[36,1]}, k:{Sty:{UW:40,CHZ:1,ZUS:0,KW:0,Op:0,Ur:3,In:0},Lut:{UW:4,CHZ:19,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:8,CHZ:15,ZUS:0,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:10,CHZ:12,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:3,CHZ:5,ZUS:0,KW:2,Op:0,Ur:0,In:0},Cze:{UW:1,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:4.2, maj_pred:4.2, cze_pred:2.8},
-      {n:"Linia L10", n_prac:14, d:{Sty:[274,75],Lut:[260,32],Mar:[308,36],Kwi:[294,71],Maj:[240,46],Cze:[36,8]}, k:{Sty:{UW:64,CHZ:7,ZUS:0,KW:4,Op:0,Ur:0,In:0},Lut:{UW:13,CHZ:17,ZUS:0,KW:2,Op:0,Ur:0,In:0},Mar:{UW:8,CHZ:15,ZUS:0,KW:0,Op:10,Ur:3,In:0},Kwi:{UW:24,CHZ:21,ZUS:12,KW:4,Op:0,Ur:10,In:0},Maj:{UW:14,CHZ:12,ZUS:20,KW:0,Op:0,Ur:0,In:0},Cze:{UW:2,CHZ:3,ZUS:3,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:19.2, maj_pred:19.2, cze_pred:22.2},
+      {n:"Linia L1", n_prac:11, d:{Sty:[215,32],Lut:[220,17],Mar:[242,26],Kwi:[231,39],Maj:[200,33],Cze:[30,7]}, k:{Sty:{UW:28,CHZ:2,ZUS:0,KW:2,Op:0,Ur:0,In:0},Lut:{UW:13,CHZ:0,ZUS:0,KW:4,Op:0,Ur:0,In:0},Mar:{UW:13,CHZ:13,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:11,CHZ:20,ZUS:4,KW:4,Op:0,Ur:0,In:0},Maj:{UW:10,CHZ:14,ZUS:7,KW:0,Op:0,Ur:2,In:0},Cze:{UW:5,CHZ:2,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:16.5, maj_pred:16.5, cze_pred:9.9},
+      {n:"Linia L3", n_prac:19, d:{Sty:[375,106],Lut:[340,42],Mar:[373,55],Kwi:[315,39],Maj:[260,4],Cze:[39,2]}, k:{Sty:{UW:65,CHZ:17,ZUS:20,KW:4,Op:0,Ur:0,In:0},Lut:{UW:6,CHZ:20,ZUS:9,KW:6,Op:0,Ur:1,In:0},Mar:{UW:15,CHZ:12,ZUS:20,KW:2,Op:6,Ur:0,In:0},Kwi:{UW:15,CHZ:4,ZUS:0,KW:6,Op:12,Ur:2,In:0},Maj:{UW:3,CHZ:0,ZUS:0,KW:1,Op:0,Ur:0,In:0},Cze:{UW:2,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:1.5, maj_pred:1.5, cze_pred:9.9},
+      {n:"Linia L5", n_prac:3, d:{Sty:[0,0],Lut:[0,0],Mar:[0,0],Kwi:[0,0],Maj:[60,4],Cze:[9,0]}, k:{Sty:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:2,CHZ:0,ZUS:0,KW:2,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:6.7, maj_pred:6.7, cze_pred:9.9},
+      {n:"Linia L6", n_prac:7, d:{Sty:[140,26],Lut:[140,3],Mar:[154,17],Kwi:[147,33],Maj:[120,6],Cze:[18,0]}, k:{Sty:{UW:20,CHZ:5,ZUS:0,KW:0,Op:1,Ur:0,In:0},Lut:{UW:2,CHZ:0,ZUS:0,KW:0,Op:1,Ur:0,In:0},Mar:{UW:5,CHZ:10,ZUS:0,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:16,CHZ:9,ZUS:7,KW:0,Op:1,Ur:0,In:0},Maj:{UW:4,CHZ:0,ZUS:0,KW:2,Op:0,Ur:0,In:0},Cze:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:5.0, maj_pred:5.0, cze_pred:9.9},
+      {n:"Linia L7", n_prac:13, d:{Sty:[220,27],Lut:[220,14],Mar:[281,14],Kwi:[270,14],Maj:[200,6],Cze:[30,4]}, k:{Sty:{UW:23,CHZ:4,ZUS:0,KW:0,Op:0,Ur:0,In:0},Lut:{UW:5,CHZ:5,ZUS:0,KW:2,Op:2,Ur:0,In:0},Mar:{UW:14,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:9,CHZ:1,ZUS:0,KW:4,Op:0,Ur:0,In:0},Maj:{UW:3,CHZ:2,ZUS:0,KW:0,Op:0,Ur:1,In:0},Cze:{UW:0,CHZ:4,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:3.0, maj_pred:3.0, cze_pred:9.9},
+      {n:"Linia L9", n_prac:15, d:{Sty:[280,44],Lut:[280,23],Mar:[320,25],Kwi:[315,22],Maj:[240,10],Cze:[36,1]}, k:{Sty:{UW:40,CHZ:1,ZUS:0,KW:0,Op:0,Ur:3,In:0},Lut:{UW:4,CHZ:19,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:8,CHZ:15,ZUS:0,KW:2,Op:0,Ur:0,In:0},Kwi:{UW:10,CHZ:12,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:3,CHZ:5,ZUS:0,KW:2,Op:0,Ur:0,In:0},Cze:{UW:1,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:4.2, maj_pred:4.2, cze_pred:9.9},
+      {n:"Linia L10", n_prac:14, d:{Sty:[274,75],Lut:[260,32],Mar:[308,36],Kwi:[294,71],Maj:[240,46],Cze:[36,8]}, k:{Sty:{UW:64,CHZ:7,ZUS:0,KW:4,Op:0,Ur:0,In:0},Lut:{UW:13,CHZ:17,ZUS:0,KW:2,Op:0,Ur:0,In:0},Mar:{UW:8,CHZ:15,ZUS:0,KW:0,Op:10,Ur:3,In:0},Kwi:{UW:24,CHZ:21,ZUS:12,KW:4,Op:0,Ur:10,In:0},Maj:{UW:14,CHZ:12,ZUS:20,KW:0,Op:0,Ur:0,In:0},Cze:{UW:2,CHZ:3,ZUS:3,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:19.2, maj_pred:19.2, cze_pred:9.9},
     ]
   },
   "Logistyka": {
     color:"#EF9F27",
     info:"Cze T23: 11.4% — w okolicach celu.",
-    total:{Sty:[1520,430],Lut:[1498,236],Mar:[1628,177],Kwi:[1554,312],Maj:[1465,179],Maj:[1465,179],Cze:[228,26]},
-    maj_pewne:12.2, maj_pred:12.2, cze_pred:11.4,
+    total:{Sty:[1520,430],Lut:[1498,236],Mar:[1628,177],Kwi:[1554,312],Maj:[1465,179],Maj:[1465,179],Cze:[608,80]},
+    maj_pewne:12.2, maj_pred:12.2, cze_pred:13.2,
     wydzialy:[
-      {n:"Logistyka Wewnętrzna", n_prac:75, d:{Sty:[1500,407],Lut:[1498,231],Mar:[1628,176],Kwi:[1554,311],Maj:[1245,164],Cze:[195,23]}, k:{Sty:{UW:238,CHZ:88,ZUS:27,KW:14,Op:10,Ur:30,In:0},Lut:{UW:76,CHZ:73,ZUS:21,KW:27,Op:23,Ur:11,In:0},Mar:{UW:57,CHZ:51,ZUS:26,KW:24,Op:9,Ur:8,In:1},Kwi:{UW:109,CHZ:106,ZUS:46,KW:22,Op:8,Ur:13,In:7},Maj:{UW:47,CHZ:39,ZUS:50,KW:12,Op:0,Ur:15,In:1},Cze:{UW:8,CHZ:9,ZUS:6,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:13.2, maj_pred:13.2, cze_pred:11.8},
+      {n:"Logistyka Wewnętrzna", n_prac:75, d:{Sty:[1500,407],Lut:[1498,231],Mar:[1628,176],Kwi:[1554,311],Maj:[1245,164],Cze:[195,23]}, k:{Sty:{UW:238,CHZ:88,ZUS:27,KW:14,Op:10,Ur:30,In:0},Lut:{UW:76,CHZ:73,ZUS:21,KW:27,Op:23,Ur:11,In:0},Mar:{UW:57,CHZ:51,ZUS:26,KW:24,Op:9,Ur:8,In:1},Kwi:{UW:109,CHZ:106,ZUS:46,KW:22,Op:8,Ur:13,In:7},Maj:{UW:47,CHZ:39,ZUS:50,KW:12,Op:0,Ur:15,In:1},Cze:{UW:8,CHZ:9,ZUS:6,KW:0,Op:0,Ur:0,In:0}}, maj_pewne:13.2, maj_pred:13.2, cze_pred:13.2},
       {n:"Wysyłka do Kooperantów", n_prac:1, d:{Sty:[20,20],Lut:[0,0],Mar:[0,0],Kwi:[0,0],Maj:[0,0],Cze:null}, k:{Sty:{UW:0,CHZ:0,ZUS:20,KW:0,Op:0,Ur:0,In:0},Lut:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Mar:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Kwi:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Maj:{UW:0,CHZ:0,ZUS:0,KW:0,Op:0,Ur:0,In:0},Cze:null}, maj_pewne:null, maj_pred:null, cze_pred:null},
     ]
   },
@@ -325,9 +325,9 @@ function render(){
   // KPI
   const n_wyd = d.wydzialy.length;
   document.getElementById("kpis").innerHTML=`
-    <div class="kpi"><div class="kpi-lbl">Absencja działu</div><div class="kpi-val" style="color:${pc(pct)}">${pct.toFixed(1)}%</div><div class="kpi-sub">sty–cze 2026 (T23)</div></div>
-    <div class="kpi"><div class="kpi-lbl">Dni absencyjne</div><div class="kpi-val" style="color:#854F0B">${ab.toLocaleString("pl-PL")}</div><div class="kpi-sub">łącznie sty–cze (T23)</div></div>
-    <div class="kpi"><div class="kpi-lbl">Osobodni</div><div class="kpi-val" style="color:#185FA5">${os.toLocaleString("pl-PL")}</div><div class="kpi-sub">sty–cze 2026 (T23)</div></div>
+    <div class="kpi"><div class="kpi-lbl">Absencja działu</div><div class="kpi-val" style="color:${pc(pct)}">${pct.toFixed(1)}%</div><div class="kpi-sub">sty–cze 2026 (T24)</div></div>
+    <div class="kpi"><div class="kpi-lbl">Dni absencyjne</div><div class="kpi-val" style="color:#854F0B">${ab.toLocaleString("pl-PL")}</div><div class="kpi-sub">łącznie sty–cze (T24)</div></div>
+    <div class="kpi"><div class="kpi-lbl">Osobodni</div><div class="kpi-val" style="color:#185FA5">${os.toLocaleString("pl-PL")}</div><div class="kpi-sub">sty–cze 2026 (T24)</div></div>
     <div class="kpi"><div class="kpi-lbl">Wydziały</div><div class="kpi-val" style="color:#6B3FA0">${n_wyd}</div><div class="kpi-sub">z listy pracowników</div></div>
   `;
 
@@ -374,13 +374,13 @@ function render(){
   document.getElementById("wt").innerHTML=`
     <thead><tr>
       <th style="text-align:left">Wydział</th>
-      <th>Os-dni<br><span style="font-size:8px;color:#185FA5">sty–cze (T23)</span></th>
-      <th>Abs.<br><span style="font-size:8px;color:#185FA5">sty–cze (T23)</span></th>
-      <th style="color:#185FA5">%<br><span style="font-size:8px;opacity:.8">sty–cze (T23)</span></th>
-      <th style="color:#3A7BD5">UW<br><span style="font-size:8px;opacity:.7">sty–cze (T23)</span></th>
-      <th style="color:#6B3FA0">CHZ<br><span style="font-size:8px;opacity:.7">sty–cze (T23)</span></th>
-      <th style="color:#C0392B">ZUS<br><span style="font-size:8px;opacity:.7">sty–cze (T23)</span></th>
-      <th style="color:#E67E22">KW<br><span style="font-size:8px;opacity:.7">sty–cze (T23)</span></th>
+      <th>Os-dni<br><span style="font-size:8px;color:#185FA5">sty–cze (T24)</span></th>
+      <th>Abs.<br><span style="font-size:8px;color:#185FA5">sty–cze (T24)</span></th>
+      <th style="color:#185FA5">%<br><span style="font-size:8px;opacity:.8">sty–cze (T24)</span></th>
+      <th style="color:#3A7BD5">UW<br><span style="font-size:8px;opacity:.7">sty–cze (T24)</span></th>
+      <th style="color:#6B3FA0">CHZ<br><span style="font-size:8px;opacity:.7">sty–cze (T24)</span></th>
+      <th style="color:#C0392B">ZUS<br><span style="font-size:8px;opacity:.7">sty–cze (T24)</span></th>
+      <th style="color:#E67E22">KW<br><span style="font-size:8px;opacity:.7">sty–cze (T24)</span></th>
     </tr></thead>
     <tbody>${rows}</tbody>`;
 
@@ -494,7 +494,7 @@ opacity:.8"></span>${w.n}</span>`;
           label:c=>{
             const w=bW[c.dataIndex];const os=osSum(w);
             const dni=os>0?Math.round(c.parsed.x/100*os):0;
-            return ` ${c.dataset.label}: ${c.parsed.x.toFixed(1)}% (${dni} dni) 🔮 sty–cze (T23)`;
+            return ` ${c.dataset.label}: ${c.parsed.x.toFixed(1)}% (${dni} dni) 🔮 sty–cze (T24)`;
           }
         }}
       },
