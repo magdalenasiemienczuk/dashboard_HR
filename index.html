@@ -109,7 +109,7 @@
   <!-- RZĄD 1 -->
   <div class="grid2">
     <div class="panel">
-      <div class="sec">Absencja wg działu — sty–cze 2026 (T24)</div>
+      <div class="sec">Absencja wg działu — sty–cze 2026 (T25)</div>
       <div id="bary-dzial"></div>
       <div class="legend">
         <span><span class="dot" style="background:#E24B4A"></span>≥20%</span>
@@ -206,7 +206,7 @@ function barCol(p){return p>=25?"#E24B4A":p>=15?"#EF9F27":p>=12?"#FFD966":"#70AD
 
 // Absencja wg działu
 [{name:"Spawalnia",pct:19.6},{name:"Roboty spawalnicze",pct:17.6},{name:"Logistyka",pct:16.9},
- {name:"OWP",pct:14.4},{name:"Obróbka skrawaniem",pct:13.7},{name:"Montaż",pct:12.4},{name:"Malarnia",pct:10.7}
+ {name:"OWP",pct:14.4},{name:"Obróbka skrawaniem",pct:13.7},{name:"Montaż",pct:12.6},{name:"Malarnia",pct:10.8}
 ].forEach(d=>{
   const w=(d.pct/22*100).toFixed(1);
   document.getElementById("bary-dzial").innerHTML+=`<div class="bar-row">
