@@ -82,11 +82,11 @@ h1{font-size:17px;font-weight:600;margin-bottom:3px}
   </div>
   <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
     <span class="badge-green">✓ Wydziały dopasowane</span>
-    <span class="badge">Dane 20.06.2026</span>
+    <span class="badge">Dane 28.06.2026</span>
   </div>
 </div>
 
-<div class="al-warn">⚠️ <span>Dane <strong>sty–cze 2026 (T25)</strong> · Pełny maj (20 dni rob.) · Sty–kwi: stara struktura MPK · Maj: nowa struktura MPK (od 1.05.2026) — nowe wydziały w OWP, Obróbce skrawaniem, Malarni, Montażu.</span></div>
+<div class="al-warn">⚠️ <span>Dane <strong>sty–cze 2026 (T26)</strong> · Pełny maj (20 dni rob.) · Sty–kwi: stara struktura MPK · Maj–cze: nowa struktura MPK (od 1.05.2026) · T26 = 22–26 cze.</span></div>
 
 <div class="selector">
   <div class="sel-lbl">Wybierz dział</div>
@@ -97,11 +97,11 @@ h1{font-size:17px;font-weight:600;margin-bottom:3px}
 
 <div class="grid2">
   <div class="panel">
-    <div class="sec">Wydziały — absencja narastająco sty–cze 2026 (T25)</div>
+    <div class="sec">Wydziały — absencja narastająco sty–cze 2026 (T26)</div>
     <table class="wt" id="wt"></table>
   </div>
   <div class="panel">
-    <div class="sec">Trend miesięczny absencji (sty–cze 2026 (T25))</div>
+    <div class="sec">Trend miesięczny absencji (sty–cze 2026 (T26))</div>
     <div class="ch210"><canvas id="trendC"></canvas></div>
     <div class="leg" id="tleg"></div>
   </div>
@@ -109,7 +109,7 @@ h1{font-size:17px;font-weight:600;margin-bottom:3px}
 
 <div class="grid2">
   <div class="panel">
-    <div class="sec">Barometr tygodniowy absencji — T01–T25 · dział łącznie</div>
+    <div class="sec">Barometr tygodniowy absencji — T01–T26 · dział łącznie</div>
     <div style="position:relative;height:160px;margin-bottom:6px">
       <canvas id="barometrC"></canvas>
     </div>
@@ -122,12 +122,12 @@ h1{font-size:17px;font-weight:600;margin-bottom:3px}
     </div>
   </div>
   <div class="panel">
-    <div class="sec">Ranking wydziałów — % absencji sty–cze 2026 (T25)</div>
+    <div class="sec">Ranking wydziałów — % absencji sty–cze 2026 (T26)</div>
     <div id="barC-wrap" style="position:relative;min-height:170px"><canvas id="barC"></canvas></div>
   </div>
 </div>
 
-<div class="footer">Pion Produkcji · sty–cze 2026 (T25) · UoP · Źródło wydziałów: lista pracowników 18.05.2026 + struktura org MPK · Wykluczone: REH, UM, USW</div>
+<div class="footer">Pion Produkcji · sty–cze 2026 (T26) · UoP · Źródło wydziałów: lista pracowników 28.06.2026 + struktura org MPK · Wykluczone: REH, UM, USW</div>
 </div>
 
 <script>
@@ -140,15 +140,15 @@ const WC = ["#E24B4A","#4472C4","#70AD47","#EF9F27","#7B68EE","#C97B1A","#E8337C
 // Nie są ukryte - pokazujemy transparentnie
 
 const TYG_DATA={
-  "OWP":[50.0,37.1,12.0,18.3,17.1,13.7,9.1,16.6,13.7,14.9,12.0,9.1,12.6,13.1,8.6,13.1,12.6,13.6,12.2,15.6,9.1,9.1,7.0,7.9,7.7],
-  "Obróbka skrawaniem":[49.0,37.2,10.4,12.9,14.1,10.6,9.8,5.1,8.2,8.2,7.5,15.3,11.4,13.3,11.4,13.7,8.2,13.7,20.4,12.7,18.1,15.3,9.4,7.2,10.9],
-  "Spawalnia":[48.9,38.4,16.3,19.6,27.1,18.5,16.3,15.9,15.9,21.7,14.9,15.3,15.7,19.8,15.6,20.2,17.5,14.7,18.1,13.3,16.2,17.8,17.0,14.2,14.3],
-  "Roboty spawalnicze":[50.0,49.4,12.9,20.0,16.5,20.0,10.6,10.6,12.9,18.8,15.3,20.0,8.9,5.6,16.7,8.9,15.6,18.1,26.0,20.0,16.2,11.3,16.7,20.0,16.4],
-  "Malarnia":[48.6,31.9,3.8,9.7,2.7,7.0,8.6,10.8,15.1,5.9,4.9,9.2,7.0,6.5,11.4,16.2,2.7,5.4,5.3,10.3,10.8,8.5,8.9,9.8,8.8],
-  "Montaż":[48.6,34.5,4.3,9.4,6.3,10.6,5.7,6.2,8.5,7.2,10.6,9.3,9.0,13.2,10.3,13.0,11.4,17.8,6.5,8.9,7.3,10.7,10.7,9.5,13.6],
-  "Logistyka":[50.0,36.7,13.3,20.3,14.2,15.6,12.5,15.0,11.1,9.4,11.1,10.0,10.6,13.6,16.9,19.4,14.2,19.1,14.5,12.3,13.2,10.2,11.4,14.2,11.7],
+  "OWP":[50.0,37.1,12.0,18.3,17.1,13.7,9.1,16.6,13.7,14.9,12.0,9.1,12.6,13.1,8.6,13.1,12.6,13.6,12.2,15.6,9.1,9.1,7.0,7.9,7.7,14.8],
+  "Obróbka skrawaniem":[49.0,37.2,10.4,12.9,14.1,10.6,9.8,5.1,8.2,8.2,7.5,15.3,11.4,13.3,11.4,13.7,8.2,13.7,20.4,12.7,18.1,15.3,9.4,7.2,10.9,12.2],
+  "Spawalnia":[48.9,38.4,16.3,19.6,27.1,18.5,16.3,15.9,15.9,21.7,14.9,15.3,15.7,19.8,15.6,20.2,17.5,14.7,18.1,13.3,16.2,17.8,17.0,14.2,14.3,16.6],
+  "Roboty spawalnicze":[50.0,49.4,12.9,20.0,16.5,20.0,10.6,10.6,12.9,18.8,15.3,20.0,8.9,5.6,16.7,8.9,15.6,18.1,26.0,20.0,16.2,11.3,16.7,20.0,16.4,13.6],
+  "Malarnia":[48.6,31.9,3.8,9.7,2.7,7.0,8.6,10.8,15.1,5.9,4.9,9.2,7.0,6.5,11.4,16.2,2.7,5.4,5.3,10.3,10.8,8.5,8.9,9.8,8.8,10.2],
+  "Montaż":[48.6,34.5,4.3,9.4,6.3,10.6,5.7,6.2,8.5,7.2,10.6,9.3,9.0,13.2,10.3,13.0,11.4,17.8,6.5,8.9,7.3,10.7,10.7,9.5,13.6,12.3],
+  "Logistyka":[50.0,36.7,13.3,20.3,14.2,15.6,12.5,15.0,11.1,9.4,11.1,10.0,10.6,13.6,16.9,19.4,14.2,19.1,14.5,12.3,13.2,10.2,11.4,14.2,11.7,15.1],
 };
-const TYG_LABELS=["T01","T02","T03","T04","T05","T06","T07","T08","T09","T10","T11","T12","T13","T14","T15","T16","T17","T18","T19","T20","T21","T22","T23","T24","T25"];
+const TYG_LABELS=["T01","T02","T03","T04","T05","T06","T07","T08","T09","T10","T11","T12","T13","T14","T15","T16","T17","T18","T19","T20","T21","T22","T23","T24","T25","T26"];
 const TYG_TIPS=["1–2 sty (skr.)","5–9 sty","12–16 sty","19–23 sty","26–30 sty","2–6 lut","9–13 lut","16–20 lut","23–27 lut","2–6 mar","9–13 mar","16–20 mar","23–27 mar","30 mar–3 kwi","6–10 kwi","13–17 kwi","20–24 kwi","27–30 kwi (skr.)","4–8 maj","11–15 maj","18–22 maj","25–29 maj","1–3 cze (skr.)","8–12 cze","15–19 cze"];
 const TYG_SKR=[true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,true,false,false];
 
@@ -199,7 +199,7 @@ function renderBarometr(dzialName){
 const DZIALY = {
   "OWP": {
     color:"#5B9BD5",
-    info:"Sty–kwi: stara struktura MPK. Maj: nowa struktura. Cze: T23+T24+T25 (13 dni rob., lista 20.06).",
+    info:"Sty–kwi: stara struktura MPK. Maj: nowa struktura. Cze: T23+T24+T25+T26 (18 dni rob., lista 28.06).",
     total:{Sty:[700,187],Lut:[700,95],Mar:[770,96],Kwi:[735,97],Maj:[750,84],Maj:[750,84],Cze:[459,35]},
     maj_pewne:11.2, maj_pred:11.2, cze_pred:7.6,
     wydzialy:[
@@ -217,7 +217,7 @@ const DZIALY = {
   },
   "Obróbka skrawaniem": {
     color:"#70AD47",
-    info:"Maj: nowy wydział Ślusarnia WOS. Cze: T23+T24+T25 (13 dni rob., lista 20.06).",
+    info:"Maj: nowy wydział Ślusarnia WOS. Cze: T23+T24+T25+T26 (18 dni rob., lista 28.06).",
     total:{Sty:[1030,243],Lut:[1040,92],Mar:[1144,118],Kwi:[1092,149],Maj:[1060,166],Maj:[1060,166],Cze:[654,59]},
     maj_pewne:15.7, maj_pred:15.7, cze_pred:8.0,
     wydzialy:[
@@ -325,9 +325,9 @@ function render(){
   // KPI
   const n_wyd = d.wydzialy.length;
   document.getElementById("kpis").innerHTML=`
-    <div class="kpi"><div class="kpi-lbl">Absencja działu</div><div class="kpi-val" style="color:${pc(pct)}">${pct.toFixed(1)}%</div><div class="kpi-sub">sty–cze 2026 (T25)</div></div>
-    <div class="kpi"><div class="kpi-lbl">Dni absencyjne</div><div class="kpi-val" style="color:#854F0B">${ab.toLocaleString("pl-PL")}</div><div class="kpi-sub">łącznie sty–cze (T25)</div></div>
-    <div class="kpi"><div class="kpi-lbl">Osobodni</div><div class="kpi-val" style="color:#185FA5">${os.toLocaleString("pl-PL")}</div><div class="kpi-sub">sty–cze 2026 (T25)</div></div>
+    <div class="kpi"><div class="kpi-lbl">Absencja działu</div><div class="kpi-val" style="color:${pc(pct)}">${pct.toFixed(1)}%</div><div class="kpi-sub">sty–cze 2026 (T26)</div></div>
+    <div class="kpi"><div class="kpi-lbl">Dni absencyjne</div><div class="kpi-val" style="color:#854F0B">${ab.toLocaleString("pl-PL")}</div><div class="kpi-sub">łącznie sty–cze (T26)</div></div>
+    <div class="kpi"><div class="kpi-lbl">Osobodni</div><div class="kpi-val" style="color:#185FA5">${os.toLocaleString("pl-PL")}</div><div class="kpi-sub">sty–cze 2026 (T26)</div></div>
     <div class="kpi"><div class="kpi-lbl">Wydziały</div><div class="kpi-val" style="color:#6B3FA0">${n_wyd}</div><div class="kpi-sub">z listy pracowników</div></div>
   `;
 
@@ -493,7 +493,7 @@ opacity:.8"></span>${w.n}</span>`;
           label:c=>{
             const w=bW[c.dataIndex];const os=osSum(w);
             const dni=os>0?Math.round(c.parsed.x/100*os):0;
-            return ` ${c.dataset.label}: ${c.parsed.x.toFixed(1)}% (${dni} dni) sty–cze (T25)`;
+            return ` ${c.dataset.label}: ${c.parsed.x.toFixed(1)}% (${dni} dni) sty–cze (T26)`;
           }
         }}
       },
